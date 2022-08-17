@@ -1,0 +1,17 @@
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Repository.deps.json
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Repository.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Repository.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Domain.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Infras.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Domain.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\bin\Debug\net6.0\FU.Infras.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.csproj.AssemblyReference.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.AssemblyInfoInputs.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.AssemblyInfo.cs
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.csproj.CoreCompileInputs.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.csproj.CopyComplete
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\refint\FU.Repository.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\FU.Repository.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Repository\obj\Debug\net6.0\ref\FU.Repository.dll

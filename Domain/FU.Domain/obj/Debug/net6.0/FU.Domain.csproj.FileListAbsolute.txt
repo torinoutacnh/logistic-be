@@ -1,0 +1,12 @@
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\bin\Debug\net6.0\FU.Domain.deps.json
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\bin\Debug\net6.0\FU.Domain.dll
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\bin\Debug\net6.0\FU.Domain.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.csproj.AssemblyReference.cache
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.AssemblyInfoInputs.cache
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.AssemblyInfo.cs
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.csproj.CoreCompileInputs.cache
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.dll
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\refint\FU.Domain.dll
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\FU.Domain.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Domain\FU.Domain\obj\Debug\net6.0\ref\FU.Domain.dll

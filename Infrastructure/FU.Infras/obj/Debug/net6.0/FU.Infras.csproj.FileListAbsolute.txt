@@ -1,0 +1,17 @@
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\bin\Debug\net6.0\FU.Infras.deps.json
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\bin\Debug\net6.0\FU.Infras.runtimeconfig.json
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\bin\Debug\net6.0\FU.Infras.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\bin\Debug\net6.0\FU.Infras.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\bin\Debug\net6.0\FU.Domain.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\bin\Debug\net6.0\FU.Domain.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.csproj.AssemblyReference.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.AssemblyInfoInputs.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.AssemblyInfo.cs
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.csproj.CoreCompileInputs.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.csproj.CopyComplete
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\refint\FU.Infras.dll
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.pdb
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\FU.Infras.genruntimeconfig.cache
+C:\Users\torin\OneDrive\Desktop\FU\Infrastructure\FU.Infras\obj\Debug\net6.0\ref\FU.Infras.dll
