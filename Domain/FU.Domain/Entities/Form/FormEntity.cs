@@ -1,4 +1,5 @@
 ﻿using FU.Domain.Base;
+using FU.Domain.Constant;
 using FU.Domain.Entities.FormAttribute;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace FU.Domain.Entities.Form
     {
         public FormInfo Info { get; private set; }
 
-        public virtual ICollection<FormAttributeEntity> Attributes { get; }
+        public virtual ICollection<FormAttributeEntity> Attributes { get; private set; }
 
         private FormEntity() { }
 
@@ -22,10 +23,20 @@ namespace FU.Domain.Entities.Form
             Attributes = new HashSet<FormAttributeEntity>();
         }
 
-        public FormEntity UpdateInfo(FormInfo info)
+        public FormEntity(FormInfo info, FormAttributeEntity[] attributes)
         {
-            this.Info = info ?? throw new ArgumentNullException(nameof(info));
-            return this;
+            Info = info ?? throw new ArgumentNullException(nameof(info));
+            Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
+        }
+
+        public void UpdateAttributes(params FormAttributeEntity[] attributes)
+        {
+            Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
+        }
+
+        public void UpdateInfo(FormInfo info)
+        {
+            Info = info ?? throw new ArgumentNullException(nameof(info));
         }
     }
 }

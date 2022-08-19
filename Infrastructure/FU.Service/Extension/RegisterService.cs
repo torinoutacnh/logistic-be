@@ -3,6 +3,7 @@ using FU.Repository.Extension;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -42,6 +43,18 @@ namespace FU.Service.Extension
                         continue;
                     }
                 }
+            }
+            return @this;
+        }
+
+        public static IServiceCollection AddDomainServices(this IServiceCollection @this)
+        {
+            var types = from type in typeof(Domain.Base.Service).Assembly.GetTypes()
+                        where type.IsSubclassOf(typeof(Domain.Base.Service))
+                        select type;
+            foreach (var type in types)
+            {
+                @this.AddScoped(type);
             }
             return @this;
         }

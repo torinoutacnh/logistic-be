@@ -70,3 +70,9 @@ C:\Users\torin\OneDrive\Desktop\FU\Api\API\obj\Debug\net6.0\refint\API.dll
 C:\Users\torin\OneDrive\Desktop\FU\Api\API\obj\Debug\net6.0\API.pdb
 C:\Users\torin\OneDrive\Desktop\FU\Api\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 C:\Users\torin\OneDrive\Desktop\FU\Api\API\obj\Debug\net6.0\ref\API.dll
+C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\Serilog.dll
+C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\Serilog.Sinks.File.dll
+C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\SignalRSwaggerGen.dll
+C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\Serilog.Sinks.Console.dll

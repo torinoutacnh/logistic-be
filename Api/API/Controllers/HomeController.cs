@@ -2,14 +2,17 @@
 using API.Models.Response;
 using API.Utils.Constant;
 using FU.Domain.Entities.Form;
+using FU.Domain.Models;
 using FU.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace API.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IReportService _reportService;
+
         public HomeController(IServiceProvider serviceProvider)
         {
             _reportService = serviceProvider.GetRequiredService<IReportService>();
@@ -26,7 +29,14 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponse(ex.Message));
+                if(ex is DomainException)
+                {
+                    return StatusCode((ex as DomainException).Code,new ErrorResponse(ex.Message));
+                }else if(ex is ArgumentException||ex is ArgumentNullException)
+                {
+                    return StatusCode(400, new ErrorResponse(ex.Message));
+                }
+                return StatusCode(500, new ErrorResponse(ex.Message));
             }
         }
 
@@ -44,7 +54,15 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponse(ex.Message));
+                if (ex is DomainException)
+                {
+                    return StatusCode((ex as DomainException).Code, new ErrorResponse(ex.Message));
+                }
+                else if (ex is ArgumentException || ex is ArgumentNullException)
+                {
+                    return StatusCode(400, new ErrorResponse(ex.Message));
+                }
+                return StatusCode(500, new ErrorResponse(ex.Message));
             }
         }
     }

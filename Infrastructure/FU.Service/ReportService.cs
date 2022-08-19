@@ -5,52 +5,73 @@ using FU.Infras.CustomAttribute;
 using FU.Infras.Utils;
 using FU.Service.Contract;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System.Linq;
 
 namespace FU.Service
 {
     [RegisterTransient]
-    public class ReportService: Domain.Base.Service, IReportService
+    public class ReportService: IReportService
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger _logger;
 
-        public ReportService(IServiceProvider serviceProvider):base(serviceProvider.GetRequiredService<IUnitOfWork>())
+        public ReportService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            _logger = serviceProvider.GetRequiredService<ILogger>();
         }
 
         /// <summary>
         /// Get form model from db
         /// </summary>
         /// <param name="code"></param>
-        /// <returns name="FormEntity"></returns>
+        /// <returns></returns>
         public Task<FormEntity?> GetForm(string code)
         {
-            var repo = _serviceProvider.GetRequiredService<IFormRepository>();
-            return repo.GetAsync(x=>x.Info.Code==code, false, x=>x.Attributes);
+            try
+            {
+                _logger.Information("Start get form");
+
+                return _serviceProvider
+                .GetRequiredService<IFormRepository>()
+                .GetAsync(x => x.Info.Code == code, false, x => x.Attributes);
+            }
+            catch(Exception ex)
+            {
+                _logger.Information($"Error get form : {ex.Message}");
+                throw ex;
+            }
+            finally
+            {
+                _logger.Information("Finish get form");
+            }
         }
 
         /// <summary>
-        /// Create form without attributes
+        /// Create form with default attributes
         /// </summary>
         /// <param name="info"></param>
+        /// <param name="labels"></param>
         /// <returns></returns>
         public Task CreateForm(FormInfo info, string[] labels)
         {
-            var formRepo = _serviceProvider.GetRequiredService<IFormRepository>();
-            var attrRepo = _serviceProvider.GetRequiredService<IFormAttributeRepository>();
-            var uof = _serviceProvider.GetRequiredService<IUnitOfWork>();
-
-            var form = new FormEntity(info);
-            var attrs = new List<FormAttributeEntity>();
-            foreach(var label in labels)
+            try
             {
-                var attr = new FormAttributeEntity(form.Id, label);
-                attrs.Add(attr);
+                _logger.Information("Start create form");
+
+                var formService = _serviceProvider.GetRequiredService<FormDomainService>();
+                return formService.Create(info, labels);
             }
-            formRepo.CreateAsync(form);
-            attrRepo.CreateRangeAsync(attrs.ToArray());
-            return uof.SaveChangeAsync();
+            catch (Exception ex)
+            {
+                _logger.Information($"Error get form : {ex.Message}");
+                throw ex;
+            }
+            finally
+            {
+                _logger.Information("Finish get form");
+            }
         }
 
         /// <summary>
@@ -61,14 +82,49 @@ namespace FU.Service
         /// <returns></returns>
         public async Task<bool> UpdateFormInfo(string id, FormInfo info)
         {
-            var repo = _serviceProvider.GetRequiredService<IFormRepository>();
+            try
+            {
+                _logger.Information("Start create form");
 
-            var form = await repo.GetAsync(x => x.Id == Guid.ParseExact(id, "N"));
-            if (form != null) {
-                await repo.UpdateAsync(form.UpdateInfo(info));
+                var formService = _serviceProvider.GetRequiredService<FormDomainService>();
+                await formService.UpdateInfo(id, info);
                 return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                _logger.Information($"Error get form : {ex.Message}");
+                throw ex;
+            }
+            finally
+            {
+                _logger.Information("Finish get form");
+            }
+        }
+
+        /// <summary>
+        /// Delete form by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isPhysical"></param>
+        /// <returns></returns>
+        public async Task DeleteForm(string id,bool isPhysical = false)
+        {
+            try
+            {
+                _logger.Information("Start create form");
+
+                var formService = _serviceProvider.GetRequiredService<FormDomainService>();
+                await formService.Delete(id, isPhysical);
+            }
+            catch (Exception ex)
+            {
+                _logger.Information($"Error get form : {ex.Message}");
+                throw ex;
+            }
+            finally
+            {
+                _logger.Information("Finish get form");
+            }
         }
     }
 }

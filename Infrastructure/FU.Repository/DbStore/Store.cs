@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Reflection;
 
 namespace FU.Repository.DbStore
@@ -16,16 +18,19 @@ namespace FU.Repository.DbStore
                     .AddFilter((category, level) =>
                         category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information)
                     .AddConsole();
+                builder.AddSerilog();
             });
         public readonly int CommandTimeoutInSecond = 20 * 60;
 
         public Store()
         {
+            Database.Migrate();
             Database.SetCommandTimeout(CommandTimeoutInSecond);
         }
 
         public Store(DbContextOptions<Store> options) : base(options)
         {
+            Database.Migrate();
             Database.SetCommandTimeout(CommandTimeoutInSecond);
         }
 
@@ -53,7 +58,6 @@ namespace FU.Repository.DbStore
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
                 optionsBuilder.UseLoggerFactory(LoggerFactory);
-
                 
                 if (isDevelopment)
                 {
