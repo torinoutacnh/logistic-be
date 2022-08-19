@@ -1,4 +1,5 @@
-﻿using FU.Repository.DbStore.Config;
+﻿using FU.Infras.Application;
+using FU.Repository.DbStore.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -15,10 +16,11 @@ namespace FU.Repository.DbStore
             builder =>
             {
                 builder
-                    .AddFilter((category, level) =>
-                        category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information)
+                    .SetMinimumLevel(SystemHelper.Setting.LogLevel)
+                    .AddSerilog()
                     .AddConsole();
-                builder.AddSerilog();
+                    .AddFilter((category, level) =>
+                        category == DbLoggerCategory.Database.Command.Name && level == SystemHelper.Setting.LogLevel)
             });
         public readonly int CommandTimeoutInSecond = 20 * 60;
 

@@ -3,6 +3,8 @@ using API.SignalR;
 using Autofac.Core;
 using FU.Domain.Base;
 using FU.Domain.Models;
+using FU.Infras.Application;
+using FU.Infras.Loging;
 using FU.Repository.Base;
 using FU.Repository.DbStore;
 using FU.Repository.Extension;
@@ -12,16 +14,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
-using ILogger = Serilog.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Config serilog
-Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File($"logs/Log.{DateTimeOffset.Now.Date.ToString("dd-MM-yy.HH-mm-ss")}.log", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-builder.Services.AddSingleton<ILogger>(Log.Logger);
+builder.Services.AddSystemSetting(builder.Configuration.GetSection("SystemHelper").Get<SystemHelperModel>());
+builder.Services.AddCustomLog(SystemHelper.Setting.SeriLogLevel, SystemHelper.Setting.SeriLogInterval);
 
 // Config signalr log
 if (builder.Environment.IsDevelopment())
@@ -72,6 +69,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSystemSetting();
 app.UseCors("MyPolicy");
 app.UseHttpsRedirection();
 app.UseRouting();
