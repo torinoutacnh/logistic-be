@@ -40,6 +40,7 @@ namespace FU.Infras.Application
         public static IServiceCollection AddSystemSetting(this IServiceCollection services, SystemHelperModel systemSettingModel)
         {
             SystemHelperModel.Instance = systemSettingModel ?? new SystemHelperModel();
+
             return services;
         }
 

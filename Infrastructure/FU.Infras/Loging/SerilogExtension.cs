@@ -17,7 +17,7 @@ namespace FU.Infras.Loging
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Is(loglevel)
                 .WriteTo
-                .File($"logs/Log.{DateTimeOffset.Now.Date.ToString("dd-MM-yy.HH-mm-ss")}.log", rollingInterval: rollingInterval)
+                .File($"logs/Log.log", rollingInterval: rollingInterval)
                 .CreateLogger();
             @this.AddSingleton<ILogger>(Log.Logger);
             return @this;

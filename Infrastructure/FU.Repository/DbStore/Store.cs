@@ -19,8 +19,6 @@ namespace FU.Repository.DbStore
                     .SetMinimumLevel(SystemHelper.Setting.LogLevel)
                     .AddSerilog()
                     .AddConsole();
-                    .AddFilter((category, level) =>
-                        category == DbLoggerCategory.Database.Command.Name && level == SystemHelper.Setting.LogLevel)
             });
         public readonly int CommandTimeoutInSecond = 20 * 60;
 
