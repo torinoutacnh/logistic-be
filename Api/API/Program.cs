@@ -20,6 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSystemSetting(builder.Configuration.GetSection("SystemHelper").Get<SystemHelperModel>());
 builder.Services.AddCustomLog(SystemHelper.Setting.SeriLogLevel, SystemHelper.Setting.SeriLogInterval);
 
+// add automapper
+builder.Services.AddAutoMapper(cfg =>
+{
+
+});
+
 // Config signalr log
 if (builder.Environment.IsDevelopment())
 {

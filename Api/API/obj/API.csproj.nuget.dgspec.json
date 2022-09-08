@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Api\\API\\API.csproj": {}
+    "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Api\\API\\API.csproj": {
+    "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Api\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Api\\API\\API.csproj",
+        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\API.csproj",
         "packagesPath": "C:\\Users\\torin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Api\\API\\obj\\",
+        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\torin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Service\\FU.Service.csproj": {
-                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Service\\FU.Service.csproj"
+              "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Service\\FU.Service.csproj": {
+                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Service\\FU.Service.csproj"
               }
             }
           }
@@ -78,14 +78,14 @@
         }
       }
     },
-    "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj": {
+    "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj",
         "projectName": "FU.Domain",
-        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj",
+        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj",
         "packagesPath": "C:\\Users\\torin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\obj\\",
+        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\torin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -133,14 +133,14 @@
         }
       }
     },
-    "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Infras\\FU.Infras.csproj": {
+    "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Infras\\FU.Infras.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Infras\\FU.Infras.csproj",
+        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Infras\\FU.Infras.csproj",
         "projectName": "FU.Infras",
-        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Infras\\FU.Infras.csproj",
+        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Infras\\FU.Infras.csproj",
         "packagesPath": "C:\\Users\\torin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Infras\\obj\\",
+        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Infras\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\torin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -157,8 +157,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj": {
-                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj"
+              "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj": {
+                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj"
               }
             }
           }
@@ -173,6 +173,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "Autofac.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -270,14 +274,14 @@
         }
       }
     },
-    "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Repository\\FU.Repository.csproj": {
+    "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Repository\\FU.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Repository\\FU.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Repository\\FU.Repository.csproj",
         "projectName": "FU.Repository",
-        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Repository\\FU.Repository.csproj",
+        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Repository\\FU.Repository.csproj",
         "packagesPath": "C:\\Users\\torin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Repository\\obj\\",
+        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\torin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -294,8 +298,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Infras\\FU.Infras.csproj": {
-                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Infras\\FU.Infras.csproj"
+              "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Infras\\FU.Infras.csproj": {
+                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Infras\\FU.Infras.csproj"
               }
             }
           }
@@ -339,14 +343,14 @@
         }
       }
     },
-    "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Service\\FU.Service.csproj": {
+    "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Service\\FU.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Service\\FU.Service.csproj",
+        "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Service\\FU.Service.csproj",
         "projectName": "FU.Service",
-        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Service\\FU.Service.csproj",
+        "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Service\\FU.Service.csproj",
         "packagesPath": "C:\\Users\\torin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Service\\obj\\",
+        "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\torin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -363,8 +367,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Repository\\FU.Repository.csproj": {
-                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Infrastructure\\FU.Repository\\FU.Repository.csproj"
+              "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Repository\\FU.Repository.csproj": {
+                "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Infrastructure\\FU.Repository\\FU.Repository.csproj"
               }
             }
           }

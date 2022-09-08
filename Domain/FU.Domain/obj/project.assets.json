@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj",
       "projectName": "FU.Domain",
-      "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj",
+      "projectPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj",
       "packagesPath": "C:\\Users\\torin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\obj\\",
+      "outputPath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\torin\\AppData\\Roaming\\NuGet\\NuGet.Config",

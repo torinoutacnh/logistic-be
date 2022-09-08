@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "p9QSKVyWvmbP2AKd1wZ7XDiITVHnz1gGROpyV1bGc3RHCxd5DWTYRTOtFmGSNIHHA+jVz77rQ8dAWYOnW+SSlw==",
+  "dgSpecHash": "4bxNTGI7beOfJLTr9a0M+zpl//8evbNcl2nBSgyrk3h+ftaCAg7ym8LBBhNOHx/S8h0yYO8wYunHy4SGaeyHnA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\torin\\OneDrive\\Desktop\\FU\\Domain\\FU.Domain\\FU.Domain.csproj",
+  "projectFilePath": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Domain\\FU.Domain\\FU.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

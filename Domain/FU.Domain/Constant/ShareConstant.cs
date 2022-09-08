@@ -9,5 +9,6 @@ namespace FU.Domain.Constant
     public class ShareConstant
     {
         public const string Existed = "Existed !";
+        public const string NotFound = "Not Found !";
     }
 }

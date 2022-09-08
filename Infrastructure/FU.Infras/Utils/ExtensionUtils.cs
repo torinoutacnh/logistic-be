@@ -12,6 +12,8 @@ namespace FU.Infras.Utils
     {
         public static TResult Map<T, TResult>(this T @this, Func<T, TResult> f) => f(@this);
 
+        public static IQueryable<T> QueryExt<T>(this IQueryable<T> @this, Func<IQueryable<T>, IQueryable<T>> func) => func(@this);
+
         public static Expression<Func<T, bool>> AndAlso<T>(
             this Expression<Func<T, bool>> expr1,
             Expression<Func<T, bool>> expr2)
