@@ -1,4 +1,5 @@
-﻿using FU.Domain.Entities.CarsManager;
+﻿using FU.Domain.Entities.Car;
+using FU.Domain.Entities.CarsManager;
 using FU.Domain.Entities.StopPoint;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,6 +17,8 @@ namespace FU.Repository.DbStore.Config
         {
             builder.ToTable("CarsManagers");
             builder.HasKey(o => o.Id);
+
+            builder.HasMany<CarEntity>(x => x.Cars);
         }
     }
 }

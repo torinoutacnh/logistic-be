@@ -57,7 +57,8 @@ namespace FU.Domain.Entities.Car
         /// <returns></returns>
         public async Task<List<CarEntity>> GetCars(Expression<Func<CarEntity, bool>> expression, bool isIncludeDeleted = false, params Expression<Func<CarEntity, object>>[] includeProperties)
         {
-            return await _carRepository.GetAllAsync(expression, isIncludeDeleted, includeProperties);
+            var cars = await _carRepository.GetAllAsync(expression, isIncludeDeleted, includeProperties);
+            return cars;
         }
 
         /// <summary>
@@ -75,6 +76,19 @@ namespace FU.Domain.Entities.Car
 
             return cars;
         }
+
+        /// <summary>
+        /// Get Car
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<CarEntity?> GetCar(Guid id)
+        {
+            return await _carRepository.GetAsync(id,false,
+                x=>x.Seats,
+                x => x.StopPoints,
+                x => x.Routes);
+        } 
 
         /// <summary>
         /// Create Car

@@ -52,6 +52,17 @@ namespace FU.Domain.Entities.CarsManager
         }
 
         /// <summary>
+        /// Get Cars Manager By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<CarsManagerEntity?> GetCarsManagerById (Guid id)
+        {
+            var manager = await _carsManagerRepository.GetAsync(id, false, x => x.Cars);
+            return manager;
+        }
+
+        /// <summary>
         /// Create Manager
         /// </summary>
         /// <param name="model"></param>

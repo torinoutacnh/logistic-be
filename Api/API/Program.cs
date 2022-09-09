@@ -8,6 +8,7 @@ using FU.Infras.Loging;
 using FU.Repository.Base;
 using FU.Repository.DbStore;
 using FU.Repository.Extension;
+using FU.Service.AutoMapperProfile;
 using FU.Service.Extension;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -21,10 +22,7 @@ builder.Services.AddSystemSetting(builder.Configuration.GetSection("SystemHelper
 builder.Services.AddCustomLog(SystemHelper.Setting.SeriLogLevel, SystemHelper.Setting.SeriLogInterval);
 
 // add automapper
-builder.Services.AddAutoMapper(cfg =>
-{
-
-});
+builder.Services.AddMapperProfileExt();
 
 // Config signalr log
 if (builder.Environment.IsDevelopment())
@@ -35,7 +33,7 @@ if (builder.Environment.IsDevelopment())
 
 // Add services to the container.
 builder.Services.AddControllers()
-    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve); ;
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddSignalR();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

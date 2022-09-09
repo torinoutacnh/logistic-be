@@ -1,16 +1,18 @@
-﻿using System;
+﻿using FU.Service.Models.Car;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Domain.Entities.CarsManager.SubModel
+namespace FU.Service.Models.CarsManager
 {
-    public class UpdateCarsManagerModel
+    public class CarsManagerMapModel
     {
-        public Guid Id { get;  set; }
         public string Name { get;  set; }
         public string? Description { get;  set; }
         public string? LogoPath { get;  set; }
+
+        public ICollection<CarInfoModel> Cars { get; set; }
     }
 }

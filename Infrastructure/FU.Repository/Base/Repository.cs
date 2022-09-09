@@ -54,20 +54,14 @@ namespace FU.Repository.Base
 
             includeProperties = includeProperties.Distinct().ToArray();
             var source = isIncludeDeleted ?
-                (expression != null ? 
+                (expression != null ?
                     _dbSet.Where(expression)
                     : _dbSet.AsQueryable())
-                : (notIncludeDeleteExpression != null ? 
-                    _dbSet.Where(notIncludeDeleteExpression) 
-                    : _dbSet.Where(x=>x.IsDeleted==false))
-                    .QueryExt(x =>
-                    {
-                        foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                        {
-                            x.Include(navigationPropertyPath);
-                        }
-                        return x;
-                    });
+                : (notIncludeDeleteExpression != null ?
+                    _dbSet.Where(notIncludeDeleteExpression)
+                    : _dbSet.Where(x => x.IsDeleted == false));
+            foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
+                source.Include(navigationPropertyPath);
 
             return source.ToListAsync();
         }
@@ -83,35 +77,26 @@ namespace FU.Repository.Base
                     : _dbSet.AsQueryable())
                 : (notIncludeDeleteExpression != null ?
                     _dbSet.Where(notIncludeDeleteExpression)
-                    : _dbSet.Where(x => x.IsDeleted == false))
-                    .QueryExt(x =>
-                    {
-                        foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                        {
-                            x.Include(navigationPropertyPath);
-                        }
-                        return x;
-                    });
+                    : _dbSet.Where(x => x.IsDeleted == false));
+            foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
+                source.Include(navigationPropertyPath);
 
             return source.Select(x=>f(x)).ToListAsync();
         }
 
         public Task<T?> GetAsync(Guid id, bool isIncludeDeleted = false, params Expression<Func<T, object>>[] includeProperties)
         {
-            includeProperties = includeProperties.Distinct().ToArray();
             var source = (isIncludeDeleted ?
                 _dbSet.Where(x => x.Id == id)
-                : _dbSet.Where(x => x.Id == id && x.IsDeleted == false))
-                .QueryExt(x =>
-                {
-                    foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                    {
-                        x.Include(navigationPropertyPath);
-                    }
-                    return x;
-                }).FirstOrDefaultAsync();
+                : _dbSet.Where(x => x.Id == id && x.IsDeleted == false));
 
-            return source;
+            includeProperties = includeProperties.Distinct().ToArray();
+            foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
+            {
+                source = source.Include(navigationPropertyPath);
+            }
+
+            return source.FirstOrDefaultAsync();
         }
 
         public Task<T?> GetAsync(Expression<Func<T, bool>>? expression, bool isIncludeDeleted = false, params Expression<Func<T, object>>[] includeProperties)
@@ -125,17 +110,12 @@ namespace FU.Repository.Base
                     : _dbSet.AsQueryable())
                 : (notIncludeDeleteExpression != null ?
                     _dbSet.Where(notIncludeDeleteExpression)
-                    : _dbSet.Where(x => x.IsDeleted == false)))
-                    .QueryExt(x =>
-                    {
-                        foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                        {
-                            x.Include(navigationPropertyPath);
-                        }
-                        return x;
-                    }).FirstOrDefaultAsync();
+                    : _dbSet.Where(x => x.IsDeleted == false)));
 
-            return source;
+            foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
+                source.Include(navigationPropertyPath);
+
+            return source.FirstOrDefaultAsync();
         }
 
         public Task UpdateAsync(T entity, CancellationToken token = default)

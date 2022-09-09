@@ -154,3 +154,5 @@ C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\refint\API.
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\API.pdb
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\ref\API.dll
+C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

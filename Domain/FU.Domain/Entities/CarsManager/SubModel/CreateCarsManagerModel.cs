@@ -8,8 +8,8 @@ namespace FU.Domain.Entities.CarsManager.SubModel
 {
     public class CreateCarsManagerModel
     {
-        public string Name { get; private set; }
-        public string? Description { get; private set; }
-        public string? LogoPath { get; private set; }
+        public string Name { get; set; }
+        public string? Description { get;  set; }
+        public string? LogoPath { get;  set; }
     }
 }
