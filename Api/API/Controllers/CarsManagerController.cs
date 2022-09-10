@@ -1,4 +1,5 @@
-﻿using API.Endpoints;
+﻿using API.Base;
+using API.Endpoints;
 using API.Models.Response;
 using API.Utils.Constant;
 using FU.Domain.Entities.CarsManager;
@@ -11,7 +12,7 @@ using ILogger = Serilog.ILogger;
 
 namespace API.Controllers
 {
-    public class CarsManagerController : Controller
+    public class CarsManagerController : BaseController
     {
         private readonly IManageCarService _manageCarService;
         private readonly ILogger _logger;

@@ -1,6 +1,7 @@
 ﻿using FU.Domain.Base;
 using FU.Domain.Entities.CarsManager;
 using FU.Domain.Entities.Route;
+using FU.Domain.Entities.Seat;
 using FU.Domain.Entities.StopPoint;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace FU.Domain.Entities.Car
 {
     public class CarEntity:Entity
     {
-        public decimal ShipPrice { get; set; }
-        public decimal TravelPrice { get; set; }
+        public decimal ShipPrice { get; private set; }
+        public decimal TravelPrice { get; private set; }
 
         public string CarModel { get;private set; }
         public string CarColor { get;private set; }
@@ -25,9 +26,9 @@ namespace FU.Domain.Entities.Car
         public Guid? CarsManagerId { get;private set; }
         public virtual CarsManagerEntity? CarsManager { get; }
 
-        public virtual ICollection<StopPointEntity>? StopPoints { get; }
-        public virtual ICollection<RouteEntity>? Routes { get; }
-        public virtual ICollection<SeatEntity>? Seats { get; }
+        public virtual ICollection<StopPointEntity> StopPoints { get; }
+        public virtual ICollection<RouteEntity> Routes { get; }
+        public virtual ICollection<SeatEntity> Seats { get; }
 
         private CarEntity() { }
 
@@ -42,6 +43,9 @@ namespace FU.Domain.Entities.Car
             CarNumber = carNumber ?? throw new ArgumentNullException(nameof(carNumber));
             ServiceType = carServiceType;
             CarsManagerId = carsManagerId;
+            Seats = new HashSet<SeatEntity>();
+            Routes = new HashSet<RouteEntity>();
+            StopPoints = new HashSet<StopPointEntity>();
         }
 
         public void UpdatePrice(decimal shipPrice, decimal travelPrice)

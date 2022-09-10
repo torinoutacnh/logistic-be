@@ -40,7 +40,11 @@ builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Some API v1", Version = "v1" });
+    options.SwaggerDoc(SystemHelper.Setting.ApiName, 
+        new OpenApiInfo { 
+            Title = $"{SystemHelper.Setting.ApiName} API", 
+            Version = SystemHelper.Setting.Version 
+        });
     // here some other configurations maybe...
     options.AddSignalRSwaggerGen();
 });
@@ -66,12 +70,49 @@ builder.Services.AddServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint($"../swagger/{SystemHelper.Setting.ApiName}/swagger.json", SystemHelper.Setting.ApiName);
+});
+
+// Exception middleware
+app.UseExceptionHandler((request) =>
+{
+    request.Run(async context =>
+    {
+        var exceptionHandlerPathFeature =
+                context.Features.Get<IExceptionHandlerPathFeature>();
+        if (exceptionHandlerPathFeature != null)
+        {
+            var err = exceptionHandlerPathFeature.Error;
+            if (err is ArgumentNullException
+            || err is ArgumentException)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsJsonAsync(new ErrorResponse(err.Message));
+                await context.Response.StartAsync();
+            }
+            else if (err is DomainException)
+            {
+                context.Response.StatusCode = (err as DomainException).Code;
+                await context.Response.WriteAsJsonAsync(new ErrorResponse(err.Message));
+                await context.Response.StartAsync();
+            }
+            else
+            {
+                await context.Response.WriteAsync(err.Message);
+            }
+        }
+
+    });
+});
 
 app.UseSystemSetting();
 app.UseCors("MyPolicy");
@@ -88,33 +129,6 @@ app.UseEndpoints(endpoints =>
     // Signalr endpoint
     endpoints.MapHub<NotifyHub>("/signalr", option =>
     {
-    });
-});
-
-
-// Exception middleware
-app.UseExceptionHandler((request) =>
-{
-    request.Run(async context =>
-    {
-        var exceptionHandlerPathFeature =
-                context.Features.Get<IExceptionHandlerPathFeature>();
-        if(exceptionHandlerPathFeature != null)
-        {
-            if (exceptionHandlerPathFeature.Error is ArgumentNullException
-            || exceptionHandlerPathFeature.Error is ArgumentException) {
-                context.Response.StatusCode = 400;
-                await context.Response.WriteAsJsonAsync(new ErrorResponse(exceptionHandlerPathFeature.Error.Message));
-                await context.Response.StartAsync();
-            }else if (exceptionHandlerPathFeature.Error is DomainException){
-                context.Response.StatusCode = (exceptionHandlerPathFeature.Error as DomainException).Code;
-                await context.Response.WriteAsJsonAsync(new ErrorResponse(exceptionHandlerPathFeature.Error.Message));
-                await context.Response.StartAsync();
-            }else{
-                await context.Response.WriteAsync(exceptionHandlerPathFeature.Error.Message);
-            }
-        }
-
     });
 });
 

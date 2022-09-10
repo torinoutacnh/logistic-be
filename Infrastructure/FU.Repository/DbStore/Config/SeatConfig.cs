@@ -1,4 +1,4 @@
-﻿using FU.Domain.Entities.Car;
+﻿using FU.Domain.Entities.Seat;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

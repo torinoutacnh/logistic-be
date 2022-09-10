@@ -1,16 +1,16 @@
-﻿using API.Endpoints;
+﻿using API.Base;
+using API.Endpoints;
 using API.Models.Response;
 using API.Utils.Constant;
 using FU.Domain.Entities.Car.SubModel;
 using FU.Service.Contract;
-using FU.Service.Models.Car;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
 namespace API.Controllers
 {
-    public class CarController : Controller
+    public class CarController : BaseController
     {
         private readonly IManageCarService _manageCarService;
         private readonly ILogger _logger;
@@ -21,12 +21,13 @@ namespace API.Controllers
             _logger = logger;
         }
 
+        #region Car
         [HttpGet]
         [Route(CarEndpoints.GetAll)]
         public async Task<IActionResult> GetCars()
         {
-            var cars = await _manageCarService.GetCarsAsync();
-            var res = new ResponseModel<List<CarInfoModel>>(cars);
+            var cars = await _manageCarService.GetCarListAsync();
+            var res = new ResponseModel<List<CarViewModel>>(cars);
             return Ok(res);
         }
 
@@ -34,8 +35,17 @@ namespace API.Controllers
         [Route(CarEndpoints.GetSingle)]
         public async Task<IActionResult> GetCar(Guid id)
         {
-            var car = await _manageCarService.GetCarAsync(id);
-            var res = new ResponseModel<CarMapModel>(car);
+            var car = await _manageCarService.GetCarDetailAsync(id);
+            var res = new ResponseModel<CarInfoModel>(car);
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route(CarEndpoints.GetByManager)]
+        public async Task<IActionResult> GetCarByManager(Guid id)
+        {
+            var car = await _manageCarService.GetCarByManagerAsync(id);
+            var res = new ResponseModel<List<CarViewModel>>(car);
             return Ok(res);
         }
 
@@ -74,5 +84,10 @@ namespace API.Controllers
             var res = new ResponseModel<string>(MessageConstant.Success);
             return Ok(res);
         }
+        #endregion
+
+        #region Car stop point
+        
+        #endregion
     }
 }

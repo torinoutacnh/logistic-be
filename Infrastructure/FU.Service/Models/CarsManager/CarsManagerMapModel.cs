@@ -1,4 +1,4 @@
-﻿using FU.Service.Models.Car;
+﻿using FU.Domain.Entities.Car.SubModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,6 @@ namespace FU.Service.Models.CarsManager
         public string? Description { get;  set; }
         public string? LogoPath { get;  set; }
 
-        public ICollection<CarInfoModel> Cars { get; set; }
+        public ICollection<CarViewModel> Cars { get; set; }
     }
 }

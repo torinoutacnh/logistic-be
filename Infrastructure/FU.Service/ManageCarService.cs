@@ -7,7 +7,6 @@ using FU.Domain.Entities.CarsManager.SubModel;
 using FU.Infras.CustomAttribute;
 using FU.Infras.Utils;
 using FU.Service.Contract;
-using FU.Service.Models.Car;
 using FU.Service.Models.CarsManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -164,21 +163,75 @@ namespace FU.Service
 
         #region Car
         /// <summary>
-        /// Get Car Async
+        /// Get Car List Async
+        /// </summary>
+        /// <param name="managerId"></param>
+        /// <returns></returns>
+        public async Task<List<CarViewModel>> GetCarListAsync()
+        {
+            try
+            {
+                _logger.Information("Start get car list");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var car = (await service.GetCars(x => true))
+                    .Select(x => new CarViewModel(x))
+                    .ToList();
+                return car;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error get car list");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get car list");
+            }
+        }
+
+        /// <summary>
+        /// Get Car By Manager Async
+        /// </summary>
+        /// <param name="managerId"></param>
+        /// <returns></returns>
+        public async Task<List<CarViewModel>> GetCarByManagerAsync(Guid managerId)
+        {
+            try
+            {
+                _logger.Information("Start get car by manager");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var car = (await service.GetCars(x => x.CarsManagerId == managerId))
+                    .Select(x=>new CarViewModel(x))
+                    .ToList();
+                return car;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error get car by manager");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get car by manager");
+            }
+        }
+
+        /// <summary>
+        /// Get Car Detail Async
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<CarMapModel> GetCarAsync(Guid id)
+        public async Task<CarInfoModel> GetCarDetailAsync(Guid id)
         {
             try
             {
                 _logger.Information("Start get car");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
-                var mapper = _serviceProvider.GetRequiredService<IMapper>();
 
-                var car = await service.GetCar(id);
-                var carMap = mapper.Map<CarMapModel>(car);
-                return carMap;
+                var car = await service.GetCarDetail(id);
+                return car;
             }
             catch (Exception)
             {
@@ -195,18 +248,15 @@ namespace FU.Service
         /// Get Cars Async
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CarInfoModel>> GetCarsAsync()
+        public async Task<List<CarInfoModel>> GetCarDetailsAsync()
         {
             try
             {
                 _logger.Information("Start get cars");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
-                var mapper = _serviceProvider.GetRequiredService<IMapper>();
 
-                var cars = await service.GetCars(x => true);
-                var carMap = mapper.ProjectTo<CarInfoModel>(cars.AsQueryable());
-                    //cars.Select(x => mapper.Map<CarInfoModel>(x));
-                return carMap.ToList();
+                var cars = await service.GetCarDetails();
+                return cars;
             }
             catch (Exception)
             {

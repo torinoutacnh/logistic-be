@@ -7,6 +7,7 @@ namespace API.Endpoints
         public const string Area = "";
         public const string Base = Area + "/car";
         public const string GetAll = Base;
+        public const string GetByManager = Base + "/manager/{id}";
         public const string GetSingle = Base + "/{id}";
         public const string CreateCar = Base + "/create-car";
         public const string UpdateCarDetail = Base + "/update-car-detail";

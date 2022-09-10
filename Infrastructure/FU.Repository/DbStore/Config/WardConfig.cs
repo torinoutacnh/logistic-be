@@ -16,10 +16,7 @@ namespace FU.Repository.DbStore.Config
             builder.ToTable("Wards");
             builder.HasKey(o => o.Id);
 
-            builder.HasIndex(x => x.Name).IsUnique();
             builder.HasIndex(x => x.Code).IsUnique();
-            builder.HasIndex(x => x.CodeName).IsUnique();
-            builder.HasIndex(x => x.PhoneCode).IsUnique();
 
             builder.HasOne(o => o.District)
                 .WithMany(o => o.Wards)

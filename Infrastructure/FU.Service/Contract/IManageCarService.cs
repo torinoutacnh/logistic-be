@@ -1,6 +1,5 @@
 ﻿using FU.Domain.Entities.Car.SubModel;
 using FU.Domain.Entities.CarsManager.SubModel;
-using FU.Service.Models.Car;
 using FU.Service.Models.CarsManager;
 using System;
 using System.Collections.Generic;
@@ -18,8 +17,10 @@ namespace FU.Service.Contract
         Task<Guid> UpdateManager(UpdateCarsManagerModel model);
         Task DeleteManager(Guid id);
 
-        Task<CarMapModel> GetCarAsync(Guid id);
-        Task<List<CarInfoModel>> GetCarsAsync();
+        Task<List<CarViewModel>> GetCarListAsync();
+        Task<List<CarViewModel>> GetCarByManagerAsync(Guid managerId);
+        Task<CarInfoModel> GetCarDetailAsync(Guid id);
+        Task<List<CarInfoModel>> GetCarDetailsAsync();
         Task<Guid> CreateCarAsync(CreateCarModel model);
         Task<Guid> UpdateCarDetailAsync(UpdateCarDetailModel model);
         Task<Guid> UpdateCarPriceAsync(UpdateCarPriceModel model);

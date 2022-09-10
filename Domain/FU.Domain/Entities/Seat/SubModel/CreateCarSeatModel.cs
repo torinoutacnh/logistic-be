@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Domain.Entities.Car.SubModel
+namespace FU.Domain.Entities.Seat.SubModel
 {
     public class CreateCarSeatModel
     {

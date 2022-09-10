@@ -85,48 +85,6 @@ namespace API.Migrations
                     b.ToTable("Cars", (string)null);
                 });
 
-            modelBuilder.Entity("FU.Domain.Entities.Car.SeatEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Col")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CreateBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Row")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UpdateBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("Seats", (string)null);
-                });
-
             modelBuilder.Entity("FU.Domain.Entities.CarsManager.CarsManagerEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -233,7 +191,7 @@ namespace API.Migrations
 
                     b.Property<string>("CodeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CreateBy")
                         .HasColumnType("uniqueidentifier");
@@ -250,10 +208,11 @@ namespace API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PhoneCode")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ShortCodeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UpdateBy")
                         .HasColumnType("uniqueidentifier");
@@ -266,15 +225,6 @@ namespace API.Migrations
                     b.HasIndex("CityId");
 
                     b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.HasIndex("CodeName")
-                        .IsUnique();
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.HasIndex("PhoneCode")
                         .IsUnique();
 
                     b.ToTable("Districts", (string)null);
@@ -291,7 +241,7 @@ namespace API.Migrations
 
                     b.Property<string>("CodeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CreateBy")
                         .HasColumnType("uniqueidentifier");
@@ -311,10 +261,11 @@ namespace API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PhoneCode")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ShortCodeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UpdateBy")
                         .HasColumnType("uniqueidentifier");
@@ -327,16 +278,7 @@ namespace API.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.HasIndex("CodeName")
-                        .IsUnique();
-
                     b.HasIndex("DistrictId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.HasIndex("PhoneCode")
-                        .IsUnique();
 
                     b.ToTable("Wards", (string)null);
                 });
@@ -392,6 +334,48 @@ namespace API.Migrations
                     b.HasIndex("ToId");
 
                     b.ToTable("Routes", (string)null);
+                });
+
+            modelBuilder.Entity("FU.Domain.Entities.Seat.SeatEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Col")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CreateBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Row")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UpdateBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("Seats", (string)null);
                 });
 
             modelBuilder.Entity("FU.Domain.Entities.StopPoint.StopPointEntity", b =>
@@ -473,17 +457,6 @@ namespace API.Migrations
                     b.Navigation("CarsManager");
                 });
 
-            modelBuilder.Entity("FU.Domain.Entities.Car.SeatEntity", b =>
-                {
-                    b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
-                        .WithMany("Seats")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-                });
-
             modelBuilder.Entity("FU.Domain.Entities.LocalLocation.DistrictEntity", b =>
                 {
                     b.HasOne("FU.Domain.Entities.LocalLocation.CityEntity", "City")
@@ -528,6 +501,17 @@ namespace API.Migrations
                     b.Navigation("FromPoint");
 
                     b.Navigation("ToPoint");
+                });
+
+            modelBuilder.Entity("FU.Domain.Entities.Seat.SeatEntity", b =>
+                {
+                    b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
+                        .WithMany("Seats")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("FU.Domain.Entities.StopPoint.StopPointEntity", b =>

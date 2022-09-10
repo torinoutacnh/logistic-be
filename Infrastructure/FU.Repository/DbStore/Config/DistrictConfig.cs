@@ -16,11 +16,8 @@ namespace FU.Repository.DbStore.Config
             builder.ToTable("Districts");
             builder.HasKey(o => o.Id);
 
-            builder.HasIndex(x => x.Name).IsUnique();
             builder.HasIndex(x => x.Code).IsUnique();
-            builder.HasIndex(x => x.CodeName).IsUnique();
 
-            builder.HasIndex(x => x.PhoneCode).IsUnique();
             builder.HasOne(o=>o.City)
                 .WithMany(o=>o.Districts)
                 .HasForeignKey(o=>o.CityId)

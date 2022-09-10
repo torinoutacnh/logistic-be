@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Domain.Entities.Car.SubModel
+namespace FU.Domain.Entities.Route.SubModel
 {
     public class CreateStopPointModel
     {
@@ -17,5 +17,16 @@ namespace FU.Domain.Entities.Car.SubModel
 
         public string? Longitude { get; private set; }
         public string? Latitude { get; private set; }
+
+        public CreateStopPointModel(Guid cityId, Guid districtId, Guid wardId, string? street, string? houseNumber, string? longitude, string? latitude)
+        {
+            CityId = cityId;
+            DistrictId = districtId;
+            WardId = wardId;
+            Street = street;
+            HouseNumber = houseNumber;
+            Longitude = longitude;
+            Latitude = latitude;
+        }
     }
 }

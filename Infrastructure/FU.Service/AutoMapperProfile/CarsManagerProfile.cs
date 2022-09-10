@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FU.Domain.Entities.Car;
+using FU.Domain.Entities.Car.SubModel;
 using FU.Domain.Entities.CarsManager;
 using FU.Service.Models.CarsManager;
 using System;
@@ -13,6 +15,7 @@ namespace FU.Service.AutoMapperProfile
     {
         public CarsManagerProfile()
         {
+            CreateMap<CarEntity, CarViewModel>();
             CreateMap<CarsManagerEntity, CarsManagerInfoModel>();
             CreateMap<CarsManagerEntity, CarsManagerMapModel>()
                 .ForMember(x=>x.Cars,o=>o.MapFrom(y=>y.Cars));

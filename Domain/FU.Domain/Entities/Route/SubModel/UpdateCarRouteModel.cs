@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Domain.Entities.Car.SubModel
+namespace FU.Domain.Entities.Route.SubModel
 {
-    public class CreateCarRouteModel
+    public class UpdateCarRouteModel
     {
         public Guid FromId { get; set; }
         public Guid ToId { get; set; }
@@ -15,8 +15,8 @@ namespace FU.Domain.Entities.Car.SubModel
         public decimal Day { get; private set; }
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
-        
-        public CreateCarRouteModel(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute)
+
+        public UpdateCarRouteModel(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute)
         {
             FromId = fromId;
             ToId = toId;

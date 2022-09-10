@@ -103,7 +103,5 @@ namespace FU.Domain.Entities.CarsManager
             await _unitOfWork.SaveChangeAsync();
         }
         #endregion
-
-
     }
 }

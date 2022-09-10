@@ -14,7 +14,6 @@ namespace FU.Service.AutoMapperProfile
             @this.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<CarsManagerProfile>();
-                cfg.AddProfile<CarProfile>();
             });
 
             return @this;

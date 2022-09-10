@@ -17,8 +17,6 @@ namespace FU.Repository.DbStore.Config
         {
             builder.ToTable("CarsManagers");
             builder.HasKey(o => o.Id);
-
-            builder.HasMany<CarEntity>(x => x.Cars);
         }
     }
 }

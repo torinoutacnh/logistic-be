@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Domain.Entities.Car.SubModel
+namespace FU.Domain.Entities.Seat.SubModel
 {
     public class UpdateCarSeatDetailModel
     {
@@ -13,7 +13,7 @@ namespace FU.Domain.Entities.Car.SubModel
         public string Row { get; private set; }
         public string Col { get; private set; }
 
-        public UpdateCarSeatDetailModel(Guid id,string row, string col)
+        public UpdateCarSeatDetailModel(Guid id, string row, string col)
         {
             Id = id;
             Row = row;
