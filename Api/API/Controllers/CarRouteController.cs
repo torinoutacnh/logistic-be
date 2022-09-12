@@ -23,33 +23,7 @@ namespace API.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        [Route(OtherEndpoints.GetCities)]
-        public async Task<IActionResult> GetCities()
-        {
-            var cities = await _manageRouteService.GetCitiesAsync();
-            var res = new ResponseModel<List<CityViewModel>>(cities);
-            return Ok(res);
-        }
-
-        [HttpGet]
-        [Route(OtherEndpoints.GetDistricts)]
-        public async Task<IActionResult> GetDistricts(Guid id)
-        {
-            var districts = await _manageRouteService.GetDistrictsByCityAsync(id);
-            var res = new ResponseModel<List<DistrictViewModel>>(districts);
-            return Ok(res);
-        }
-
-        [HttpGet]
-        [Route(OtherEndpoints.GetWards)]
-        public async Task<IActionResult> GetWards(Guid id)
-        {
-            var wards = await _manageRouteService.GetWardsByDistrictAsync(id);
-            var res = new ResponseModel<List<WardViewModel>>(wards);
-            return Ok(res);
-        }
-
+        #region stop point
         [HttpPost]
         [Route(StopPointEndpoints.CreateStopPoint)]
         public async Task<IActionResult> CreateStopPoint(Guid carid, [FromBody] CreateStopPointModel model)
@@ -94,5 +68,44 @@ namespace API.Controllers
             var res = new ResponseModel<string>(MessageConstant.Success);
             return Ok(res);
         }
+        #endregion
+
+        #region route
+        [HttpPost]
+        [Route(RouteEndpoints.CreateRoute)]
+        public async Task<IActionResult> CreateRoute(Guid id, [FromBody]CreateCarRouteModel model)
+        {
+            var route = await _manageRouteService.CreateRoute(id, model);
+            var res = new ResponseModel<Guid>(route);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(RouteEndpoints.CreateRoutes)]
+        public async Task<IActionResult> CreateRoutes(Guid id, [FromBody] CreateCarRouteModel[] models)
+        {
+            var routes = await _manageRouteService.CreateRoutes(id, models);
+            var res = new ResponseModel<List<Guid>>(routes);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(RouteEndpoints.UpdateRoute)]
+        public async Task<IActionResult> UpdateRoute(Guid id, [FromBody] UpdateCarRouteModel model)
+        {
+            var route = await _manageRouteService.UpdateRoute(id, model);
+            var res = new ResponseModel<Guid>(route);
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route(RouteEndpoints.DeleteRoute)]
+        public async Task<IActionResult> DeleteRoute(Guid id)
+        {
+            await _manageRouteService.DeleteRoute(id);
+            var res = new ResponseModel<string>(MessageConstant.Success);
+            return Ok(res);
+        }
+        #endregion
     }
 }

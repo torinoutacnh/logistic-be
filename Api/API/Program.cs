@@ -58,15 +58,11 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 builder.Services.AddHealthChecks();
 builder.Services.AddDataProtection();
 
-// Register db context, unit of work
+// Register db context, repositories, unit of work, services
 builder.Services.AddDbContext<Store>();
-
-// Register repositories
 builder.Services.AddRepositories();
-// Register services
 builder.Services.AddDomainServices();
 builder.Services.AddServices();
-
 
 var app = builder.Build();
 
