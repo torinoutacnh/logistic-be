@@ -61,7 +61,7 @@ namespace FU.Repository.Base
                     _dbSet.Where(notIncludeDeleteExpression)
                     : _dbSet.Where(x => x.IsDeleted == false));
             foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                source.Include(navigationPropertyPath);
+                source = source.Include(navigationPropertyPath);
 
             return source.ToListAsync();
         }
@@ -79,7 +79,7 @@ namespace FU.Repository.Base
                     _dbSet.Where(notIncludeDeleteExpression)
                     : _dbSet.Where(x => x.IsDeleted == false));
             foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                source.Include(navigationPropertyPath);
+                source = source.Include(navigationPropertyPath);
 
             return source.Select(x=>f(x)).ToListAsync();
         }
@@ -92,9 +92,7 @@ namespace FU.Repository.Base
 
             includeProperties = includeProperties.Distinct().ToArray();
             foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-            {
                 source = source.Include(navigationPropertyPath);
-            }
 
             return source.FirstOrDefaultAsync();
         }
@@ -113,7 +111,7 @@ namespace FU.Repository.Base
                     : _dbSet.Where(x => x.IsDeleted == false)));
 
             foreach (Expression<Func<T, object>> navigationPropertyPath in includeProperties)
-                source.Include(navigationPropertyPath);
+                source = source.Include(navigationPropertyPath);
 
             return source.FirstOrDefaultAsync();
         }

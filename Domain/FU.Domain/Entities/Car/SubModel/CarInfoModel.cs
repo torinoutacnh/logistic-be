@@ -1,4 +1,5 @@
-﻿using FU.Domain.Entities.Route.SubModel;
+﻿using FU.Domain.Entities.CarsManager.SubModel;
+using FU.Domain.Entities.Route.SubModel;
 using FU.Domain.Entities.Seat.SubModel;
 using FU.Domain.Entities.StopPoint.SubModel;
 using System;
@@ -21,7 +22,7 @@ namespace FU.Domain.Entities.Car.SubModel
         public string CarNumber { get; private set; }
         public CarServiceType ServiceType { get; private set; }
 
-        public Guid? CarsManagerId { get; private set; }
+        public CarsManagerViewModel? Manager { get; private set; }
 
         public IEnumerable<SeatModel> Seats { get; private set; }
         public IEnumerable<RouteModel> Routes { get; private set; }
@@ -37,7 +38,8 @@ namespace FU.Domain.Entities.Car.SubModel
             Tel = car.Tel;
             CarNumber = car.CarNumber;
             ServiceType = car.ServiceType;
-            CarsManagerId = car.CarsManagerId;
+            Manager = car.CarsManager != null ? 
+                new CarsManagerViewModel(car.CarsManager):null;
             Seats = seats;
             Routes = routes;
             StopPoints = stopPoints;

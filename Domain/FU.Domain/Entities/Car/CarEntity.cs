@@ -24,7 +24,7 @@ namespace FU.Domain.Entities.Car
         public CarServiceType ServiceType { get; private set; }
 
         public Guid? CarsManagerId { get;private set; }
-        public virtual CarsManagerEntity? CarsManager { get; }
+        public virtual CarsManagerEntity CarsManager { get; }
 
         public virtual ICollection<StopPointEntity> StopPoints { get; }
         public virtual ICollection<RouteEntity> Routes { get; }

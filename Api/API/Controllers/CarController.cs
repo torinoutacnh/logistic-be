@@ -3,6 +3,7 @@ using API.Endpoints;
 using API.Models.Response;
 using API.Utils.Constant;
 using FU.Domain.Entities.Car.SubModel;
+using FU.Domain.Entities.Seat.SubModel;
 using FU.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -13,11 +14,13 @@ namespace API.Controllers
     public class CarController : BaseController
     {
         private readonly IManageCarService _manageCarService;
+        private readonly IManageRouteService _manageRouteService;
         private readonly ILogger _logger;
 
-        public CarController(IManageCarService manageCarService, ILogger logger)
+        public CarController(IManageCarService manageCarService, IManageRouteService manageRouteService, ILogger logger)
         {
             _manageCarService = manageCarService;
+            _manageRouteService = manageRouteService;
             _logger = logger;
         }
 
@@ -86,8 +89,51 @@ namespace API.Controllers
         }
         #endregion
 
-        #region Car stop point
-        
+        #region Car seat
+        [HttpPost]
+        [Route(CarSeatEndpoints.CreateSeat)]
+        public async Task<IActionResult> CreateSeat(Guid id, [FromBody]CreateCarSeatModel model)
+        {
+            var seat = await _manageRouteService.CreateSeat(id, model);
+            var res = new ResponseModel<Guid>(seat);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(CarSeatEndpoints.CreateSeats)]
+        public async Task<IActionResult> CreateSeats(Guid id, [FromBody] CreateCarSeatModel[] models)
+        {
+            var seats = await _manageRouteService.CreateSeats(id, models);
+            var res = new ResponseModel<List<Guid>>(seats);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(CarSeatEndpoints.UpdateSeatInfo)]
+        public async Task<IActionResult> UpdateSeatInfo(Guid id, [FromBody] UpdateCarSeatDetailModel model)
+        {
+            var seat = await _manageRouteService.UpdateSeatDetail(id, model);
+            var res = new ResponseModel<Guid>(seat);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(CarSeatEndpoints.UpdateSeatStatus)]
+        public async Task<IActionResult> UpdateSeatStatus([FromBody] UpdateCarSeatStatusModel model)
+        {
+            var seat = await _manageRouteService.UpdateSeatStatus(model);
+            var res = new ResponseModel<Guid>(seat);
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route(CarSeatEndpoints.DeleteSeat)]
+        public async Task<IActionResult> DeleteSeat(Guid id)
+        {
+            await _manageRouteService.DeleteSeat(id);
+            var res = new ResponseModel<string>(MessageConstant.Success);
+            return Ok(res);
+        }
         #endregion
     }
 }

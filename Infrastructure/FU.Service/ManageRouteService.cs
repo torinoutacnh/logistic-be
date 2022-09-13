@@ -14,6 +14,7 @@ using FU.Domain.Entities.StopPoint;
 using FU.Service.Contract;
 using System.Drawing;
 using FU.Domain.Entities.LocalLocation.SubModel;
+using FU.Domain.Entities.Seat.SubModel;
 
 namespace FU.Service
 {
@@ -347,6 +348,140 @@ namespace FU.Service
             finally
             {
                 _logger.Information("Finish create stop point");
+            }
+        }
+        #endregion
+
+        #region seat
+        /// <summary>
+        /// Create Seat
+        /// </summary>
+        /// <param name="carid"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateSeat(Guid carid, CreateCarSeatModel model)
+        {
+            try
+            {
+                _logger.Information("Start create seat");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var seat = await service.CreateCarSeat(carid, model);
+                return seat;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error create seat");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish create seat");
+            }
+        }
+
+        /// <summary>
+        /// Create Seats
+        /// </summary>
+        /// <param name="carid"></param>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public async Task<List<Guid>> CreateSeats(Guid carid, CreateCarSeatModel[] models)
+        {
+            try
+            {
+                _logger.Information("Start create seats");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var seats = await service.CreateCarSeats(carid, models);
+                return seats;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error create seats");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish create seats");
+            }
+        }
+
+        /// <summary>
+        /// Update Seat Detail
+        /// </summary>
+        /// <param name="carid"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<Guid> UpdateSeatDetail(Guid carid, UpdateCarSeatDetailModel model)
+        {
+            try
+            {
+                _logger.Information("Start update seat detail");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var seat = await service.UpdateCarSeatDetail(carid, model);
+                return seat;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error update seat detail");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish update seat detail");
+            }
+        }
+
+        /// <summary>
+        /// Update Seat Status
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<Guid> UpdateSeatStatus(UpdateCarSeatStatusModel model)
+        {
+            try
+            {
+                _logger.Information("Start update seat status");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var seat = await service.UpdateCarSeatStatus(model);
+                return seat;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error update seat status");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish update seat status");
+            }
+        }
+
+        /// <summary>
+        /// Delete Seat
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task DeleteSeat(Guid id)
+        {
+            try
+            {
+                _logger.Information("Start delete seat");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                await service.DeleteCarSeat(id);
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error delete seat");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish delete seat");
             }
         }
         #endregion

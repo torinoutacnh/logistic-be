@@ -20,6 +20,7 @@ namespace FU.Domain.Entities.Car.SubModel
         public string ImagePath { get; private set; }
         public string Tel { get; private set; }
         public string CarNumber { get; private set; }
+        public string? CarsManagerName { get; private set; }
         public CarServiceType ServiceType { get; private set; }
 
         public CarViewModel(CarEntity car)
@@ -33,6 +34,7 @@ namespace FU.Domain.Entities.Car.SubModel
             Tel = car.Tel;
             CarNumber = car.CarNumber;
             ServiceType = car.ServiceType;
+            CarsManagerName = car.CarsManager?.Name;
         }
     }
 }

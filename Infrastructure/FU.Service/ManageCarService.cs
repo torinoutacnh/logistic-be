@@ -174,7 +174,7 @@ namespace FU.Service
                 _logger.Information("Start get car list");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
 
-                var car = (await service.GetCars(x => true))
+                var car = (await service.GetCars(x => true,false,x=>x.CarsManager))
                     .Select(x => new CarViewModel(x))
                     .ToList();
                 return car;
@@ -202,7 +202,7 @@ namespace FU.Service
                 _logger.Information("Start get car by manager");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
 
-                var car = (await service.GetCars(x => x.CarsManagerId == managerId))
+                var car = (await service.GetCars(x => x.CarsManagerId == managerId, false, x => x.CarsManager))
                     .Select(x=>new CarViewModel(x))
                     .ToList();
                 return car;

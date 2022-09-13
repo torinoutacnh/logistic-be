@@ -25,6 +25,8 @@ namespace FU.Repository.Repositories
         public Task<List<CarInfoModel>> GetCarInfos()
         {
             var query = from car in _store.Cars
+                        join manager in _store.CarsManagers
+                            on car.CarsManagerId equals manager.Id
                         select new CarInfoModel(car,
                         car.Seats.Select(x => new SeatModel(x)),
                         car.Routes.Select(x => new RouteModel(x)),
@@ -48,7 +50,7 @@ namespace FU.Repository.Repositories
 
         public Task<CarInfoModel> GetCarInfo(Guid id)
         {
-            var query = from car in _store.Cars
+            var query = from car in _store.Cars.Include(x=>x.CarsManager)
                         where car.Id == id
                         select new CarInfoModel(car,
                         car.Seats.Select(x=>new SeatModel(x)), 

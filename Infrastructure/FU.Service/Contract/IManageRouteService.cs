@@ -1,5 +1,6 @@
 ﻿using FU.Domain.Entities.LocalLocation.SubModel;
 using FU.Domain.Entities.Route.SubModel;
+using FU.Domain.Entities.Seat.SubModel;
 using FU.Domain.Entities.StopPoint;
 using System;
 using System.Collections.Generic;
@@ -25,5 +26,11 @@ namespace FU.Service.Contract
         Task<List<Guid>> CreateRoutes(Guid carid, params CreateCarRouteModel[] models);
         Task<Guid> UpdateRoute(Guid carid, UpdateCarRouteModel model);
         Task DeleteRoute(Guid id);
+
+        Task<Guid> CreateSeat(Guid carid, CreateCarSeatModel model);
+        Task<List<Guid>> CreateSeats(Guid carid, CreateCarSeatModel[] models);
+        Task<Guid> UpdateSeatDetail(Guid carid, UpdateCarSeatDetailModel model);
+        Task<Guid> UpdateSeatStatus(UpdateCarSeatStatusModel model);
+        Task DeleteSeat(Guid id);
     }
 }
