@@ -9,6 +9,7 @@ namespace FU.Domain.Entities.StopPoint.SubModel
 {
     public class StopPointModel
     {
+        public Guid Id { get; private set; }
         public string City { get; private set; }
         public string District { get; private set; }
         public string Ward { get; private set; }
@@ -19,8 +20,9 @@ namespace FU.Domain.Entities.StopPoint.SubModel
         public string? Longitude { get; private set; }
         public string? Latitude { get; private set; }
 
-        public StopPointModel(string city, string district, string ward, string? street, string? houseNumber, string? longitude, string? latitude)
+        public StopPointModel(Guid id, string city, string district, string ward, string? street, string? houseNumber, string? longitude, string? latitude)
         {
+            Id = id;
             City = city;
             District = district;
             Ward = ward;

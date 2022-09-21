@@ -39,9 +39,13 @@ namespace FU.Repository.DbStore
             if (!optionsBuilder.IsConfigured)
             {
                 var isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+                //var configuration = new ConfigurationBuilder()
+                //    .SetBasePath(Directory.GetCurrentDirectory())
+                //    .AddJsonFile(isDevelopment ? "appsettings.Development.json": "appsettings.json")
+                //    .Build();
                 var configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile(isDevelopment ? "appsettings.Development.json": "appsettings.json")
+                    .AddJsonFile("appsettings.json")
                     .Build();
 
                 var connectionString = configuration.GetConnectionString("DefaultConnection");

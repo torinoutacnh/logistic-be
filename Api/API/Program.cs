@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Configuration;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -88,6 +89,7 @@ app.UseExceptionHandler((request) =>
         if (exceptionHandlerPathFeature != null)
         {
             var err = exceptionHandlerPathFeature.Error;
+            app.Services.GetRequiredService<Serilog.ILogger>().Error(err.Message);
             if (err is ArgumentNullException
             || err is ArgumentException)
             {
@@ -103,7 +105,8 @@ app.UseExceptionHandler((request) =>
             }
             else
             {
-                await context.Response.WriteAsync(err.Message);
+                await context.Response.WriteAsJsonAsync(new ErrorResponse(err.Message));
+                await context.Response.StartAsync();
             }
         }
 

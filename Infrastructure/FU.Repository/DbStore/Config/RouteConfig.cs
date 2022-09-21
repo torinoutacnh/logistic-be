@@ -20,7 +20,7 @@ namespace FU.Repository.DbStore.Config
             builder.HasOne(o => o.Car)
                 .WithMany(o => o.Routes)
                 .HasForeignKey(o => o.CarId)
-                .IsRequired(false)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(o => o.FromPoint)

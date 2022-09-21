@@ -4,6 +4,7 @@ using FU.Repository.DbStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(Store))]
-    partial class StoreModelSnapshot : ModelSnapshot
+    [Migration("20220915143059_update10")]
+    partial class update10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -490,8 +492,7 @@ namespace API.Migrations
                     b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
                         .WithMany("Routes")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("FU.Domain.Entities.StopPoint.StopPointEntity", "FromPoint")
                         .WithMany("FromRoutes")
@@ -526,7 +527,7 @@ namespace API.Migrations
                     b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
                         .WithMany("StopPoints")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("FU.Domain.Entities.StopPoint.DetailLocation", "DetailLocation", b1 =>

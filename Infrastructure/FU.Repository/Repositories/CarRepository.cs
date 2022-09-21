@@ -31,6 +31,7 @@ namespace FU.Repository.Repositories
                         car.Seats.Select(x => new SeatModel(x)),
                         car.Routes.Select(x => new RouteModel(x)),
                         car.StopPoints.Select(x => new StopPointModel(
+                            x.Id,
                             (from city in _store.Cities
                              where city.Id == x.Location.CityId
                              select city.Name).FirstOrDefault(),
@@ -56,6 +57,7 @@ namespace FU.Repository.Repositories
                         car.Seats.Select(x=>new SeatModel(x)), 
                         car.Routes.Select(x => new RouteModel(x)), 
                         car.StopPoints.Select(x => new StopPointModel(
+                            x.Id,
                             (from city in _store.Cities
                              where city.Id == x.Location.CityId
                              select city.Name).FirstOrDefault(),

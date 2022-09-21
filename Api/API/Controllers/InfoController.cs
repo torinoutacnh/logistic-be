@@ -1,4 +1,5 @@
-﻿using API.Endpoints;
+﻿using API.Base;
+using API.Endpoints;
 using API.Models.Response;
 using FU.Domain.Entities.LocalLocation.SubModel;
 using FU.Service.Contract;
@@ -6,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class InfoController : Controller
+    public class InfoController : BaseController
     {
         private readonly IManageRouteService _manageRouteService;
-        private readonly ILogger _logger;
+        private readonly Serilog.ILogger _logger;
 
-        public InfoController(IManageRouteService manageRouteService, ILogger logger)
+        public InfoController(IManageRouteService manageRouteService, Serilog.ILogger logger)
         {
             _manageRouteService = manageRouteService;
             _logger = logger;

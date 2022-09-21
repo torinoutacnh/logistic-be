@@ -12,12 +12,14 @@ namespace FU.Domain.Entities.Seat.SubModel
         public Guid Id { get; set; }
         public string Row { get; private set; }
         public string Col { get; private set; }
+        public int Floor { get; private set; }
 
-        public UpdateCarSeatDetailModel(Guid id, string row, string col)
+        public UpdateCarSeatDetailModel(Guid id, string row, string col, int floor)
         {
             Id = id;
             Row = row;
             Col = col;
+            Floor = floor;
         }
     }
 

@@ -178,7 +178,7 @@ namespace FU.Domain.Entities.Car
             var check = await _carRepository.GetAsync(carid) ?? throw new DomainException(ShareConstant.NotFound, 404);
 
             var seats = models
-                .Select(x => new SeatEntity(x.Row, x.Col, carid))
+                .Select(x => new SeatEntity(x.Row, x.Col, x.Floor, carid))
                 .Distinct();
             await _seatRepository.CreateRangeAsync(seats.ToArray());
             await _unitOfWork.SaveChangeAsync();
@@ -200,7 +200,7 @@ namespace FU.Domain.Entities.Car
                 .Any() ?? false) 
                 throw new DomainException(ShareConstant.Existed, 400);
 
-            var seat = new SeatEntity(model.Row, model.Col, carid);
+            var seat = new SeatEntity(model.Row, model.Col, model.Floor, carid);
             await _seatRepository.CreateAsync(seat);
             await _unitOfWork.SaveChangeAsync();
             return seat.Id;
@@ -222,7 +222,7 @@ namespace FU.Domain.Entities.Car
                 .Any() ?? false)
                 throw new DomainException(SeatContant.SeatExisted, 400);
 
-            check.UpdateSeat(model.Row, model.Col);
+            check.UpdateSeat(model.Row, model.Col, model.Floor);
             await _seatRepository.UpdateAsync(check);
             await _unitOfWork.SaveChangeAsync();
             return check.Id;

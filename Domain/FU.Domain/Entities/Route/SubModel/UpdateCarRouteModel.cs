@@ -16,7 +16,9 @@ namespace FU.Domain.Entities.Route.SubModel
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
 
-        public UpdateCarRouteModel(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute)
+        public DateTimeOffset DailyStartTime { get; private set; }
+
+        public UpdateCarRouteModel(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
             FromId = fromId;
             ToId = toId;
@@ -24,6 +26,7 @@ namespace FU.Domain.Entities.Route.SubModel
             Day = day;
             Hour = hour;
             Minute = minute;
+            DailyStartTime = dailyStartTime;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace API.Controllers
         [Route(OtherEndpoints.Version)]
         public IActionResult Version()
         {
-            return Ok($"Api version : {SystemHelper.Setting.Version}. Latest deployed time : {SystemHelper.LastestDepoyTime.ToString("dd/MM/yyyy - HH:mm")}");
+            return Ok($"Api version : {SystemHelper.Setting.Version}. Latest deployed time : {SystemHelper.Setting.LastestDepoyTime.ToString("dd/MM/yyyy - HH:mm")}");
         }
     }
 }

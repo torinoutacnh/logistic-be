@@ -22,6 +22,7 @@ namespace FU.Infras.Application
         public LogEventLevel SeriLogLevel { get; set; } = LogEventLevel.Debug;
         public RollingInterval SeriLogInterval { get; set; } = RollingInterval.Day;
         public string ApiName { get; set; } = "Default";
+        public DateTimeOffset LastestDepoyTime = DateTimeOffset.Now;
     }
 
     public static class SystemHelper
@@ -34,7 +35,6 @@ namespace FU.Infras.Application
         public static string AppDb => SystemHelperModel.Configs.GetConnectionString("DefaultConnection");
 
         public static DateTimeOffset SystemTimeNow => DateTimeOffset.UtcNow;
-        public static DateTimeOffset LastestDepoyTime = DateTimeOffset.Now;
     }
 
     public static class SystemSetingExtension

@@ -227,7 +227,7 @@ namespace FU.Domain.Entities.Route
         {
             var check = await _carRepository.GetAsync(carid) ?? throw new DomainException(ShareConstant.NotFound, 404);
 
-            var routes = models.Select(x => new RouteEntity(carid, x.FromId, x.ToId, x.DistanceByKm, x.Day, x.Hour, x.Minute)).DistinctBy(x => new { from = x.FromId, to = x.ToId }).ToArray();
+            var routes = models.Select(x => new RouteEntity(carid, x.FromId, x.ToId, x.DistanceByKm, x.Day, x.Hour, x.Minute, x.DailyStartTime)).DistinctBy(x => new { from = x.FromId, to = x.ToId }).ToArray();
             await _routeRepository.CreateRangeAsync(routes);
             await _unitOfWork.SaveChangeAsync();
             return routes.Select(x => x.Id).ToList();
@@ -245,7 +245,7 @@ namespace FU.Domain.Entities.Route
             var check = await _carRepository.GetAsync(carid, false, x => x.Routes) ?? throw new DomainException(ShareConstant.NotFound, 404);
             if (check.Routes?.Where(x => x.FromId == model.FromId && x.ToId == model.ToId).Any() ?? false) throw new DomainException(CarConstant.RouteExisted, 400);
 
-            var route = new RouteEntity(carid, model.FromId, model.ToId, model.DistanceByKm, model.Day, model.Hour, model.Minute);
+            var route = new RouteEntity(carid, model.FromId, model.ToId, model.DistanceByKm, model.Day, model.Hour, model.Minute, model.DailyStartTime);
             await _routeRepository.CreateAsync(route);
             await _unitOfWork.SaveChangeAsync();
             return route.Id;
@@ -275,7 +275,7 @@ namespace FU.Domain.Entities.Route
             var car = await _carRepository.GetAsync(check.CarId, false, x => x.Routes);
             if (car.Routes?.Where(x => x.FromId == model.FromId && x.ToId == model.ToId && x.Id != id).Any() ?? false) throw new DomainException(CarConstant.RouteExisted, 400);
 
-            check.Update(model.FromId, model.ToId, model.DistanceByKm, model.Day, model.Hour, model.Minute);
+            check.Update(model.FromId, model.ToId, model.DistanceByKm, model.Day, model.Hour, model.Minute,model.DailyStartTime);
             await _routeRepository.UpdateAsync(check);
             await _unitOfWork.SaveChangeAsync();
             return check.Id;

@@ -13,6 +13,7 @@ namespace FU.Domain.Entities.Seat
     {
         public string Row { get; private set; }
         public string Col { get; private set; }
+        public int Floor { get; private set; }
         public SeatStatus Status { get; private set; }
 
         public Guid CarId { get; private set; }
@@ -20,18 +21,20 @@ namespace FU.Domain.Entities.Seat
 
         private SeatEntity() { }
 
-        public SeatEntity(string row, string col, Guid carId)
+        public SeatEntity(string row, string col, int floor, Guid carId)
         {
             Row = row;
             Col = col;
+            Floor = floor;
             CarId = carId;
             Status = SeatStatus.Available;
         }
 
-        public void UpdateSeat(string row, string col)
+        public void UpdateSeat(string row, string col, int floor)
         {
             Row = row;
             Col = col;
+            Floor = floor;
         }
 
         public void UpdateStatus(SeatStatus status)

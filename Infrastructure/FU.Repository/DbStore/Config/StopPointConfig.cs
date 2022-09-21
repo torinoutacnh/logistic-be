@@ -38,7 +38,7 @@ namespace FU.Repository.DbStore.Config
                 .WithMany(x=>x.StopPoints)
                 .HasForeignKey(x=>x.CarId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -20,13 +20,15 @@ namespace FU.Domain.Entities.Route
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
 
+        public DateTimeOffset DailyStartTime { get; private set; }
+
         public virtual CarEntity? Car { get; }
         public virtual StopPointEntity? FromPoint { get; }
         public virtual StopPointEntity? ToPoint { get; }
 
         private RouteEntity() { }
 
-        public RouteEntity(Guid carId, Guid fromId, Guid toId, decimal distanceByKm, decimal day,decimal hour, decimal minute)
+        public RouteEntity(Guid carId, Guid fromId, Guid toId, decimal distanceByKm, decimal day,decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
             CarId = carId;
             FromId = fromId;
@@ -35,9 +37,10 @@ namespace FU.Domain.Entities.Route
             Day = day;
             Hour = hour;
             Minute = minute;
+            DailyStartTime = dailyStartTime;
         }
 
-        public void Update(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute)
+        public void Update(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
             FromId = fromId;
             ToId = toId;
@@ -45,6 +48,7 @@ namespace FU.Domain.Entities.Route
             Day = day;
             Hour = hour;
             Minute = minute;
+            DailyStartTime= dailyStartTime;
         }
     }
 }

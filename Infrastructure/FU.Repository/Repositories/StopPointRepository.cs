@@ -33,7 +33,8 @@ namespace FU.Repository.Repositories
                             on stop.Location.WardId equals ward.Id
                         where stop.Id == pointId
                         select new StopPointModel(
-                            city.Name, 
+                            stop.Id,
+                            city.Name,
                             district.Name, 
                             ward.Name, 
                             stop.Location.Street, 
@@ -57,6 +58,7 @@ namespace FU.Repository.Repositories
                             on stop.Location.WardId equals ward.Id
                         where car.Id == carId
                         select new StopPointModel(
+                            stop.Id,
                             city.Name,
                             district.Name,
                             ward.Name,
