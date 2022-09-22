@@ -79,7 +79,7 @@ namespace FU.Repository.DbStore
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new CarsManagerConfig());
-            modelBuilder.ApplyConfiguration(new CarConfig());
+            modelBuilder.ApplyConfiguration(new CarRouteMappingConfig());
             modelBuilder.ApplyConfiguration(new CityConfig());
             modelBuilder.ApplyConfiguration(new DistrictConfig());
             modelBuilder.ApplyConfiguration(new WardConfig());

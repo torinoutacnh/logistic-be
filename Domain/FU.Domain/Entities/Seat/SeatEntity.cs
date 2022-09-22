@@ -1,6 +1,7 @@
 ﻿using FU.Domain.Base;
 using FU.Domain.Entities.Car;
 using FU.Domain.Entities.CarsManager;
+using FU.Domain.Entities.Ticket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace FU.Domain.Entities.Seat
 
         public Guid CarId { get; private set; }
         public virtual CarEntity Car { get; }
+        public virtual ICollection<TicketEntity> Tickets { get; }
 
         private SeatEntity() { }
 

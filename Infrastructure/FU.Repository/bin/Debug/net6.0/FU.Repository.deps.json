@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "FU.Repository/1.0.0": {
         "dependencies": {
+          "FU.Domain": "1.0.0",
           "FU.Infras": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.8",
           "Microsoft.Extensions.Configuration": "6.0.1"

@@ -15,9 +15,6 @@ namespace FU.Domain.Entities.StopPoint
         public Location Location { get; private set; }
         public DetailLocation? DetailLocation { get; private set; }
 
-        public Guid CarId { get; private set; }
-        public virtual CarEntity? Car { get; private set; }
-
         public virtual ICollection<RouteEntity>? FromRoutes { get; init; }
         public virtual ICollection<RouteEntity>? ToRoutes { get; init; }
 
@@ -25,7 +22,6 @@ namespace FU.Domain.Entities.StopPoint
 
         public StopPointEntity(Guid carid, Location location, DetailLocation? detailLocation = null)
         {
-            CarId = carid;
             Location = location ?? throw new ArgumentNullException(nameof(location));
             DetailLocation = detailLocation;
         }

@@ -1,5 +1,6 @@
 ﻿using FU.Domain.Base;
 using FU.Domain.Entities.CarsManager;
+using FU.Domain.Entities.Mapping;
 using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Seat;
 using FU.Domain.Entities.StopPoint;
@@ -26,10 +27,10 @@ namespace FU.Domain.Entities.Car
         public Guid? CarsManagerId { get;private set; }
         public virtual CarsManagerEntity CarsManager { get; }
 
-        public virtual ICollection<StopPointEntity> StopPoints { get; }
-        public virtual ICollection<RouteEntity> Routes { get; }
         public virtual ICollection<SeatEntity> Seats { get; }
 
+        public virtual ICollection<CarRouteMapping> CarRouteMappings { get; }
+        
         private CarEntity() { }
 
         public CarEntity(decimal shipPrice,decimal travelPrice,string carModel, string carColor, string imagePath, string tel,string carNumber, CarServiceType carServiceType, Guid? carsManagerId = null)
@@ -44,8 +45,6 @@ namespace FU.Domain.Entities.Car
             ServiceType = carServiceType;
             CarsManagerId = carsManagerId;
             Seats = new HashSet<SeatEntity>();
-            Routes = new HashSet<RouteEntity>();
-            StopPoints = new HashSet<StopPointEntity>();
         }
 
         public void UpdatePrice(decimal shipPrice, decimal travelPrice)

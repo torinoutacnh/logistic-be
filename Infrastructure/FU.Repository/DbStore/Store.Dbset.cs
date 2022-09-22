@@ -1,6 +1,7 @@
 ﻿using FU.Domain.Entities.Car;
 using FU.Domain.Entities.CarsManager;
 using FU.Domain.Entities.LocalLocation;
+using FU.Domain.Entities.Mapping;
 using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Seat;
 using FU.Domain.Entities.StopPoint;
@@ -25,5 +26,7 @@ namespace FU.Repository.DbStore
         public DbSet<RouteEntity> Routes { get; set; }
         public DbSet<StopPointEntity> StopPoints { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
+
+        public DbSet<CarRouteMapping> CarRouteMappings { get; set; }
     }
 }

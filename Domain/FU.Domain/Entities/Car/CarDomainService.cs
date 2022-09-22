@@ -93,10 +93,7 @@ namespace FU.Domain.Entities.Car
         /// <returns></returns>
         public async Task<CarEntity?> GetCar(Guid id)
         {
-            return await _carRepository.GetAsync(id,false,
-                x=>x.Seats,
-                x => x.StopPoints,
-                x => x.Routes);
+            return await _carRepository.GetAsync(id,false,x=>x.Seats);
         } 
 
         /// <summary>
