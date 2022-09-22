@@ -20,13 +20,11 @@ namespace FU.Domain.Entities.Route
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
 
-        public DateTimeOffset DailyStartTime { get; private set; }
-
         public virtual CarEntity? Car { get; }
         public virtual ICollection<CarRouteMappingEntity>? CarRouteMappings { get; }
         private RouteEntity() { }
 
-        public RouteEntity(Guid carId, Location from, Location to, decimal distanceByKm, decimal day,decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public RouteEntity(Guid carId, Location from, Location to, decimal distanceByKm, decimal day,decimal hour, decimal minute)
         {
             CarId = carId;
             From = from ?? throw new ArgumentNullException(nameof(from));
@@ -35,10 +33,9 @@ namespace FU.Domain.Entities.Route
             Day = day;
             Hour = hour;
             Minute = minute;
-            DailyStartTime = dailyStartTime;
         }
 
-        public void Update(Location from, Location to, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public void Update(Location from, Location to, decimal distanceByKm, decimal day, decimal hour, decimal minute)
         {
             From = from;
             To = to;
@@ -46,7 +43,6 @@ namespace FU.Domain.Entities.Route
             Day = day;
             Hour = hour;
             Minute = minute;
-            DailyStartTime= dailyStartTime;
         }
     }
 }

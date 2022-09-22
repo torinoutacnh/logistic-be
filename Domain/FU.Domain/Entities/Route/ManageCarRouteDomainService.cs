@@ -92,7 +92,7 @@ namespace FU.Domain.Entities.Route
                 .ToArray()))
                 throw new DomainException(CarConstant.InvalidLocation, 400);
 
-            var routes = models.Select(x => new RouteEntity(carid, x.From, x.To, x.DistanceByKm, x.Day, x.Hour, x.Minute, x.DailyStartTime)).DistinctBy(x => new { from = x.From, to = x.To }).ToArray();
+            var routes = models.Select(x => new RouteEntity(carid, x.From, x.To, x.DistanceByKm, x.Day, x.Hour, x.Minute)).DistinctBy(x => new { from = x.From, to = x.To }).ToArray();
             await _routeRepository.CreateRangeAsync(routes);
             await _unitOfWork.SaveChangeAsync();
             return routes.Select(x => x.Id).ToList();
@@ -111,7 +111,7 @@ namespace FU.Domain.Entities.Route
             if(!_routeRepository.ValidateLocations(model.From, model.To)) 
                 throw new DomainException(CarConstant.InvalidLocation, 400);
 
-            var route = new RouteEntity(carid, model.From, model.To, model.DistanceByKm, model.Day, model.Hour, model.Minute, model.DailyStartTime);
+            var route = new RouteEntity(carid, model.From, model.To, model.DistanceByKm, model.Day, model.Hour, model.Minute);
             await _routeRepository.CreateAsync(route);
             await _unitOfWork.SaveChangeAsync();
             return route.Id;
@@ -141,7 +141,7 @@ namespace FU.Domain.Entities.Route
             if (!_routeRepository.ValidateLocations(model.From, model.To))
                 throw new DomainException(CarConstant.InvalidLocation, 400);
 
-            check.Update(model.From, model.To, model.DistanceByKm, model.Day, model.Hour, model.Minute,model.DailyStartTime);
+            check.Update(model.From, model.To, model.DistanceByKm, model.Day, model.Hour, model.Minute);
             await _routeRepository.UpdateAsync(check);
             await _unitOfWork.SaveChangeAsync();
             return check.Id;

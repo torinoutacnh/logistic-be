@@ -16,9 +16,7 @@ namespace FU.Domain.Entities.Route.SubModel
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
 
-        public DateTimeOffset DailyStartTime { get; private set; }
-
-        public CreateCarRouteModel(Location from, Location to, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public CreateCarRouteModel(Location from, Location to, decimal distanceByKm, decimal day, decimal hour, decimal minute)
         {
             From = from;
             To = to;
@@ -26,7 +24,6 @@ namespace FU.Domain.Entities.Route.SubModel
             Day = day;
             Hour = hour;
             Minute = minute;
-            DailyStartTime = dailyStartTime;
         }
     }
 }

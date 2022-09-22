@@ -24,11 +24,10 @@ namespace FU.Domain.Entities.Car
         public CarServiceType ServiceType { get; private set; }
 
         public Guid? CarsManagerId { get;private set; }
-        public virtual CarsManagerEntity CarsManager { get; }
 
-        public virtual ICollection<SeatEntity> Seats { get; }
-
-        public virtual ICollection<CarRouteMappingEntity> CarRouteMappings { get; }
+        public virtual CarsManagerEntity? CarsManager { get; }
+        public virtual ICollection<SeatEntity>? Seats { get; }
+        public virtual ICollection<CarRouteMappingEntity>? CarRouteMappings { get; }
         
         private CarEntity() { }
 
@@ -56,7 +55,7 @@ namespace FU.Domain.Entities.Car
         {
             CarModel = carModel ?? throw new ArgumentNullException(nameof(carModel));
             CarColor = carColor ?? throw new ArgumentNullException(nameof(carColor));
-            ImagePath = String.IsNullOrEmpty(imagePath) ? ImagePath : imagePath;
+            ImagePath = string.IsNullOrEmpty(imagePath) ? ImagePath : imagePath;
             Tel = tel ?? throw new ArgumentNullException(nameof(tel));
             CarNumber = carNumber ?? throw new ArgumentNullException(nameof(carNumber));
             ServiceType = carServiceType;

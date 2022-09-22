@@ -38,10 +38,7 @@ namespace API.Migrations
 
                     b.Property<string>("CarNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("CarsManagerEntityId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("CarsManagerId")
                         .HasColumnType("uniqueidentifier");
@@ -80,9 +77,12 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarsManagerEntityId");
+                    b.HasIndex("CarNumber")
+                        .IsUnique();
 
-                    b.ToTable("Cars");
+                    b.HasIndex("CarsManagerId");
+
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("FU.Domain.Entities.CarsManager.CarsManagerEntity", b =>
@@ -283,7 +283,7 @@ namespace API.Migrations
                     b.ToTable("Wards", (string)null);
                 });
 
-            modelBuilder.Entity("FU.Domain.Entities.Mapping.CarRouteMapping", b =>
+            modelBuilder.Entity("FU.Domain.Entities.Mapping.CarRouteMappingEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -304,13 +304,13 @@ namespace API.Migrations
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTimeOffset>("Starttime")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<Guid>("UpdateBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset>("starttime")
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
@@ -337,17 +337,11 @@ namespace API.Migrations
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset>("DailyStartTime")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<decimal>("Day")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DistanceByKm")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("FromId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Hour")
                         .HasColumnType("decimal(18,2)");
@@ -357,9 +351,6 @@ namespace API.Migrations
 
                     b.Property<decimal>("Minute")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("ToId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UpdateBy")
                         .HasColumnType("uniqueidentifier");
@@ -417,32 +408,6 @@ namespace API.Migrations
                     b.ToTable("Seats", (string)null);
                 });
 
-            modelBuilder.Entity("FU.Domain.Entities.StopPoint.StopPointEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CreateBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("UpdateBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StopPoints", (string)null);
-                });
-
             modelBuilder.Entity("FU.Domain.Entities.Ticket.TicketEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -488,9 +453,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("FU.Domain.Entities.Car.CarEntity", b =>
                 {
-                    b.HasOne("FU.Domain.Entities.CarsManager.CarsManagerEntity", null)
+                    b.HasOne("FU.Domain.Entities.CarsManager.CarsManagerEntity", "CarsManager")
                         .WithMany("Cars")
-                        .HasForeignKey("CarsManagerEntityId");
+                        .HasForeignKey("CarsManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("CarsManager");
                 });
 
             modelBuilder.Entity("FU.Domain.Entities.LocalLocation.DistrictEntity", b =>
@@ -515,7 +483,7 @@ namespace API.Migrations
                     b.Navigation("District");
                 });
 
-            modelBuilder.Entity("FU.Domain.Entities.Mapping.CarRouteMapping", b =>
+            modelBuilder.Entity("FU.Domain.Entities.Mapping.CarRouteMappingEntity", b =>
                 {
                     b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
                         .WithMany("CarRouteMappings")
@@ -534,6 +502,71 @@ namespace API.Migrations
                     b.Navigation("Route");
                 });
 
+            modelBuilder.Entity("FU.Domain.Entities.Route.RouteEntity", b =>
+                {
+                    b.OwnsOne("FU.Domain.Entities.Route.Location", "From", b1 =>
+                        {
+                            b1.Property<Guid>("RouteEntityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("CityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("DistrictId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("HouseNumber")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<Guid>("WardId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("RouteEntityId");
+
+                            b1.ToTable("Routes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RouteEntityId");
+                        });
+
+                    b.OwnsOne("FU.Domain.Entities.Route.Location", "To", b1 =>
+                        {
+                            b1.Property<Guid>("RouteEntityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("CityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("DistrictId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("HouseNumber")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<Guid>("WardId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("RouteEntityId");
+
+                            b1.ToTable("Routes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RouteEntityId");
+                        });
+
+                    b.Navigation("From")
+                        .IsRequired();
+
+                    b.Navigation("To")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FU.Domain.Entities.Seat.SeatEntity", b =>
                 {
                     b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
@@ -543,70 +576,6 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Car");
-                });
-
-            modelBuilder.Entity("FU.Domain.Entities.StopPoint.StopPointEntity", b =>
-                {
-                    b.OwnsOne("FU.Domain.Entities.StopPoint.DetailLocation", "DetailLocation", b1 =>
-                        {
-                            b1.Property<Guid>("StopPointEntityId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Latitude")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Latitude");
-
-                            b1.Property<string>("Longitude")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Longitude");
-
-                            b1.HasKey("StopPointEntityId");
-
-                            b1.ToTable("StopPoints");
-
-                            b1.WithOwner()
-                                .HasForeignKey("StopPointEntityId");
-                        });
-
-                    b.OwnsOne("FU.Domain.Entities.StopPoint.Location", "Location", b1 =>
-                        {
-                            b1.Property<Guid>("StopPointEntityId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("CityId")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("CityId");
-
-                            b1.Property<Guid>("DistrictId")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("DistrictId");
-
-                            b1.Property<string>("HouseNumber")
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("HouseNumber");
-
-                            b1.Property<string>("Street")
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Street");
-
-                            b1.Property<Guid>("WardId")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("WardId");
-
-                            b1.HasKey("StopPointEntityId");
-
-                            b1.ToTable("StopPoints");
-
-                            b1.WithOwner()
-                                .HasForeignKey("StopPointEntityId");
-                        });
-
-                    b.Navigation("DetailLocation");
-
-                    b.Navigation("Location")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("FU.Domain.Entities.Ticket.TicketEntity", b =>

@@ -19,9 +19,7 @@ namespace FU.Domain.Entities.Route.SubModel
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
 
-        public DateTimeOffset DailyStartTime { get; private set; }
-
-        public RouteModel(Guid id, Guid carId, LocationInfo from, LocationInfo to, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public RouteModel(Guid id, Guid carId, LocationInfo from, LocationInfo to, decimal distanceByKm, decimal day, decimal hour, decimal minute)
         {
             Id = id;
             CarId = carId;
@@ -31,7 +29,6 @@ namespace FU.Domain.Entities.Route.SubModel
             Day = day;
             Hour = hour;
             Minute = minute;
-            DailyStartTime = dailyStartTime;
         }
     }
 }

@@ -50,20 +50,25 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
+                name: "Routes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Deep = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Height = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Width = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    WeightInKg = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Receiver = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TicketService = table.Column<int>(type: "int", nullable: false),
+                    From_CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    From_DistrictId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    From_WardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    From_Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    From_HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    To_CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    To_DistrictId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    To_WardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    To_Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    To_HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DistanceByKm = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Day = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Hour = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Minute = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -72,7 +77,7 @@ namespace API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.PrimaryKey("PK_Routes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,6 +140,37 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CarRouteMapping",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Starttime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarRouteMapping", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarRouteMapping_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarRouteMapping_Routes_RouteId",
+                        column: x => x.RouteId,
+                        principalTable: "Routes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Seats",
                 columns: table => new
                 {
@@ -155,36 +191,6 @@ namespace API.Migrations
                     table.PrimaryKey("PK_Seats", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Seats_Cars_CarId",
-                        column: x => x.CarId,
-                        principalTable: "Cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StopPoints",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DistrictId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StopPoints", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StopPoints_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "Id",
@@ -220,18 +226,21 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Routes",
+                name: "Tickets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FromId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ToId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DistanceByKm = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Day = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Hour = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Minute = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DailyStartTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Deep = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Height = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Width = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    WeightInKg = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Receiver = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TicketService = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -240,24 +249,24 @@ namespace API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Routes", x => x.Id);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Routes_Cars_CarId",
-                        column: x => x.CarId,
-                        principalTable: "Cars",
+                        name: "FK_Tickets_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Routes_StopPoints_FromId",
-                        column: x => x.FromId,
-                        principalTable: "StopPoints",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Routes_StopPoints_ToId",
-                        column: x => x.ToId,
-                        principalTable: "StopPoints",
-                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarRouteMapping_CarId",
+                table: "CarRouteMapping",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarRouteMapping_RouteId",
+                table: "CarRouteMapping",
+                column: "RouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarNumber",
@@ -306,29 +315,14 @@ namespace API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_CarId",
-                table: "Routes",
-                column: "CarId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Routes_FromId",
-                table: "Routes",
-                column: "FromId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Routes_ToId",
-                table: "Routes",
-                column: "ToId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Seats_CarId",
                 table: "Seats",
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StopPoints_CarId",
-                table: "StopPoints",
-                column: "CarId");
+                name: "IX_Tickets_SeatId",
+                table: "Tickets",
+                column: "SeatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wards_Code",
@@ -345,10 +339,7 @@ namespace API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Routes");
-
-            migrationBuilder.DropTable(
-                name: "Seats");
+                name: "CarRouteMapping");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
@@ -357,7 +348,10 @@ namespace API.Migrations
                 name: "Wards");
 
             migrationBuilder.DropTable(
-                name: "StopPoints");
+                name: "Routes");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
 
             migrationBuilder.DropTable(
                 name: "Districts");

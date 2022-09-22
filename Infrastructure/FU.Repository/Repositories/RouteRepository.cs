@@ -43,8 +43,7 @@ namespace FU.Repository.Repositories
                          route.DistanceByKm,
                          route.Day,
                          route.Hour,
-                         route.Minute,
-                         route.DailyStartTime);
+                         route.Minute);
 
             return query.FirstOrDefaultAsync();
         }

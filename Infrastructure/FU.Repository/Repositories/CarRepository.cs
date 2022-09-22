@@ -55,8 +55,7 @@ namespace FU.Repository.Repositories
                          route.DistanceByKm,
                          route.Day,
                          route.Hour,
-                         route.Minute,
-                         route.DailyStartTime));
+                         route.Minute));
 
             return query.ToListAsync();
         }
@@ -90,8 +89,7 @@ namespace FU.Repository.Repositories
                             route.DistanceByKm,
                             route.Day,
                             route.Hour,
-                            route.Minute,
-                            route.DailyStartTime))).FirstOrDefaultAsync();
+                            route.Minute))).FirstOrDefaultAsync();
             return query;
         }
     }
