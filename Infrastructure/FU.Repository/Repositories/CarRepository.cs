@@ -30,24 +30,7 @@ namespace FU.Repository.Repositories
                             on car.CarsManagerId equals manager.Id
                         where manager.IsDeleted == false
                         select new CarInfoModel(car,
-                        car.Seats.Select(x => new SeatModel(x)),
-                        car.Routes.Select(x => new RouteModel(x)),
-                        car.StopPoints.Select(x => new StopPointModel(
-                            x.Id,
-                            (from city in _store.Cities
-                             where city.Id == x.Location.CityId
-                             select city.Name).FirstOrDefault(),
-                            (from district in _store.Districts
-                             where district.Id == x.Location.DistrictId
-                             select district.Name).FirstOrDefault(),
-                            (from ward in _store.Wards
-                             where ward.Id == x.Location.WardId
-                             select ward.Name).FirstOrDefault(),
-                            x.Location.Street,
-                            x.Location.HouseNumber,
-                            x.DetailLocation.Longitude,
-                            x.DetailLocation.Latitude))
-                        );
+                        car.Seats.Select(x => new SeatModel(x)));
             return query.ToListAsync();
         }
 
@@ -56,24 +39,7 @@ namespace FU.Repository.Repositories
             var query = from car in _store.Cars.Include(x=>x.CarsManager)
                         where car.Id == id && car.IsDeleted == false
                         select new CarInfoModel(car,
-                        car.Seats.Where(x=>x.IsDeleted==false).Select(x=>new SeatModel(x)), 
-                        car.Routes.Where(x => x.IsDeleted == false).Select(x => new RouteModel(x)), 
-                        car.StopPoints.Where(x => x.IsDeleted == false).Select(x => new StopPointModel(
-                            x.Id,
-                            (from city in _store.Cities
-                             where city.Id == x.Location.CityId
-                             select city.Name).FirstOrDefault(),
-                            (from district in _store.Districts
-                             where district.Id == x.Location.DistrictId
-                             select district.Name).FirstOrDefault(),
-                            (from ward in _store.Wards
-                             where ward.Id == x.Location.WardId
-                             select ward.Name).FirstOrDefault(),
-                            x.Location.Street,
-                            x.Location.HouseNumber,
-                            x.DetailLocation.Longitude,
-                            x.DetailLocation.Latitude))
-                        );
+                        car.Seats.Where(x=>x.IsDeleted==false).Select(x=>new SeatModel(x)));
             return query.FirstOrDefaultAsync();
         }
     }

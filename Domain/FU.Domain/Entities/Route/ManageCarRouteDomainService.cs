@@ -139,7 +139,7 @@ namespace FU.Domain.Entities.Route
         /// <exception cref="DomainException"></exception>
         public async Task<Guid> CreateStopPoint(Guid carid, CreateStopPointModel model)
         {
-            var check = await _carRepository.GetAsync(carid, false, x => x.StopPoints) ?? throw new DomainException(ShareConstant.NotFound, 404);
+            var check = await _carRepository.GetAsync(carid) ?? throw new DomainException(ShareConstant.NotFound, 404);
 
             var location = new Location(model.CityId, model.DistrictId, model.WardId, model.Street, model.HouseNumber);
             if(!_stopPointRepository.ValidateLocation(location)) 
@@ -148,8 +148,6 @@ namespace FU.Domain.Entities.Route
             var isDetail = string.IsNullOrEmpty(model.Longitude) || string.IsNullOrEmpty(model.Latitude);
             var detaiLocation = isDetail ? null : new DetailLocation(model.Longitude, model.Latitude);
             var point = new StopPointEntity(carid, location, detaiLocation);
-
-            if (check.StopPoints?.Contains(point) ?? false) throw new DomainException(ShareConstant.Existed, 400);
 
             await _stopPointRepository.CreateAsync(point);
             await _unitOfWork.SaveChangeAsync();
@@ -171,7 +169,7 @@ namespace FU.Domain.Entities.Route
                 ?? throw new DomainException(ShareConstant.NotFound, 400);
 
             var isNotValid = (await _stopPointRepository
-                .GetAllAsync(x => x.CarId == check.CarId && x.Id != id && x.Location == model))
+                .GetAllAsync(x => x.Id != id && x.Location == model))
                 .Any();
             if (isNotValid) new DomainException(StoppointConstant.StoppointExisted, 400);
 
@@ -193,7 +191,7 @@ namespace FU.Domain.Entities.Route
             var check = await _stopPointRepository.GetAsync(x => x.Id == id) ?? throw new DomainException(ShareConstant.NotFound, 400);
 
             var isNotValid = (await _stopPointRepository
-                .GetAllAsync(x => x.CarId == check.CarId && x.Id != id && x.DetailLocation == model))
+                .GetAllAsync(x => x.Id != id && x.DetailLocation == model))
                 .Any();
             if (isNotValid) new DomainException(StoppointConstant.StoppointExisted, 400);
 
@@ -242,8 +240,7 @@ namespace FU.Domain.Entities.Route
         /// <exception cref="DomainException"></exception>
         public async Task<Guid> CreateCarRoute(Guid carid, CreateCarRouteModel model)
         {
-            var check = await _carRepository.GetAsync(carid, false, x => x.Routes) ?? throw new DomainException(ShareConstant.NotFound, 404);
-            if (check.Routes?.Where(x => x.FromId == model.FromId && x.ToId == model.ToId).Any() ?? false) throw new DomainException(CarConstant.RouteExisted, 400);
+            var check = await _carRepository.GetAsync(carid) ?? throw new DomainException(ShareConstant.NotFound, 404);
 
             var route = new RouteEntity(carid, model.FromId, model.ToId, model.DistanceByKm, model.Day, model.Hour, model.Minute, model.DailyStartTime);
             await _routeRepository.CreateAsync(route);
@@ -272,8 +269,7 @@ namespace FU.Domain.Entities.Route
         public async Task<Guid> UpdateCarRoute(Guid id, UpdateCarRouteModel model)
         {
             var check = await _routeRepository.GetAsync(id) ?? throw new DomainException(ShareConstant.NotFound, 404);
-            var car = await _carRepository.GetAsync(check.CarId, false, x => x.Routes);
-            if (car.Routes?.Where(x => x.FromId == model.FromId && x.ToId == model.ToId && x.Id != id).Any() ?? false) throw new DomainException(CarConstant.RouteExisted, 400);
+            var car = await _carRepository.GetAsync(check.CarId);
 
             check.Update(model.FromId, model.ToId, model.DistanceByKm, model.Day, model.Hour, model.Minute,model.DailyStartTime);
             await _routeRepository.UpdateAsync(check);

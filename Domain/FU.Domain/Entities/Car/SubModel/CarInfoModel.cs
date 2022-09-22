@@ -28,7 +28,7 @@ namespace FU.Domain.Entities.Car.SubModel
         public IEnumerable<RouteModel> Routes { get; private set; }
         public IEnumerable<StopPointModel> StopPoints { get; private set; }
 
-        public CarInfoModel(CarEntity car, IEnumerable<SeatModel> seats, IEnumerable<RouteModel> routes, IEnumerable<StopPointModel> stopPoints)
+        public CarInfoModel(CarEntity car, IEnumerable<SeatModel> seats)
         {
             ShipPrice = car.ShipPrice;
             TravelPrice = car.TravelPrice;
@@ -41,8 +41,6 @@ namespace FU.Domain.Entities.Car.SubModel
             Manager = car.CarsManager != null ? 
                 new CarsManagerViewModel(car.CarsManager):null;
             Seats = seats;
-            Routes = routes;
-            StopPoints = stopPoints;
         }
     }
 }

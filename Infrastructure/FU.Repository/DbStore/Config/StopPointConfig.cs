@@ -34,11 +34,6 @@ namespace FU.Repository.DbStore.Config
             builder.OwnsOne(o => o.DetailLocation)
                .Property(x => x.Latitude).HasColumnName("Latitude");
 
-            builder.HasOne(x=>x.Car)
-                .WithMany(x=>x.StopPoints)
-                .HasForeignKey(x=>x.CarId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

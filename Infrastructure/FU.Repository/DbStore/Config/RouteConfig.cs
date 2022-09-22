@@ -17,12 +17,6 @@ namespace FU.Repository.DbStore.Config
             builder.ToTable("Routes");
             builder.HasKey(o => o.Id);
 
-            builder.HasOne(o => o.Car)
-                .WithMany(o => o.Routes)
-                .HasForeignKey(o => o.CarId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.HasOne(o => o.FromPoint)
                .WithMany(o => o.FromRoutes)
                .HasForeignKey(o => o.FromId)

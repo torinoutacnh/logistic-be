@@ -1,5 +1,6 @@
 ﻿using FU.Domain.Base;
 using FU.Domain.Entities.Car;
+using FU.Domain.Entities.Mapping;
 using FU.Domain.Entities.StopPoint;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace FU.Domain.Entities.Route
         public virtual CarEntity? Car { get; }
         public virtual StopPointEntity? FromPoint { get; }
         public virtual StopPointEntity? ToPoint { get; }
-
+        public virtual ICollection<CarRouteMapping> CarRouteMappings { get; }
         private RouteEntity() { }
 
         public RouteEntity(Guid carId, Guid fromId, Guid toId, decimal distanceByKm, decimal day,decimal hour, decimal minute, DateTimeOffset dailyStartTime)

@@ -29,6 +29,13 @@ namespace FU.Repository.DbStore.Config
                 .Property(x => x.Note).HasColumnName("Note");
             builder.OwnsOne(x => x.ItemDetail)
                 .Property(x => x.WeightInKg).HasColumnName("WeightInKg");
+            
+            builder.HasOne(x => x.Seat)
+                            .WithMany(x => x.Tickets)
+                            .HasForeignKey(x => x.SeatId)
+                            .IsRequired()
+                            .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
