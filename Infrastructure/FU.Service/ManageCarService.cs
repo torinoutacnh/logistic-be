@@ -74,9 +74,10 @@ namespace FU.Service
                 using (FileStream stream = new FileStream(Path.Combine(path, filepath), FileMode.Create))
                 {
                     file?.CopyTo(stream);
+                    return Task.FromResult($"/{FileConstant.Base}/{FileConstant.CarManager}/{filepath}");
                 }
 
-            return Task.FromResult($"/{FileConstant.Base}/{FileConstant.CarManager}/{filepath}");
+            return Task.FromResult("");
         }
         private Task<string> SaveCarFileAsync(IFormFile? file)
         {
@@ -98,9 +99,10 @@ namespace FU.Service
                 using (FileStream stream = new FileStream(Path.Combine(path, filepath), FileMode.Create))
                 {
                     file?.CopyTo(stream);
+                    return Task.FromResult($"/{FileConstant.Base}/{FileConstant.Car}/{filepath}");
                 }
 
-            return Task.FromResult($"/{FileConstant.Base}/{FileConstant.Car}/{filepath}");
+            return Task.FromResult("");
         }
         #endregion
 

@@ -58,7 +58,7 @@ namespace FU.Domain.Entities.Car
         {
             CarModel = carModel ?? throw new ArgumentNullException(nameof(carModel));
             CarColor = carColor ?? throw new ArgumentNullException(nameof(carColor));
-            ImagePath = imagePath ?? throw new ArgumentNullException(nameof(imagePath));
+            ImagePath = String.IsNullOrEmpty(imagePath) ? ImagePath : imagePath;
             Tel = tel ?? throw new ArgumentNullException(nameof(tel));
             CarNumber = carNumber ?? throw new ArgumentNullException(nameof(carNumber));
             ServiceType = carServiceType;

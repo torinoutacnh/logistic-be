@@ -29,7 +29,7 @@ namespace FU.Domain.Entities.CarsManager
         {
             Name = name;
             Description = description;
-            LogoPath = logoPath;
+            LogoPath = String.IsNullOrEmpty(logoPath) ? LogoPath : logoPath;
         }
     }
 }

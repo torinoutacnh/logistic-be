@@ -9,5 +9,6 @@ namespace FU.Domain.Constant
     public class CarConstant
     {
         public const string RouteExisted = "Route Existed!";
+        public const string NumberExisted = "Number Existed!";
     }
 }

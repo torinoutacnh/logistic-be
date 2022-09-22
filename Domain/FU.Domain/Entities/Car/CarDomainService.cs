@@ -111,6 +111,8 @@ namespace FU.Domain.Entities.Car
                 await _carsManagerRepository.GetAsync(model.CarsManagerId.Value) != null
                 : true;
             if (!check) throw new DomainException(ShareConstant.NotFound, 404);
+            var isCar = await _carRepository.GetAsync(x=>x.CarNumber == model.CarNumber);
+            if(isCar!=null) throw new DomainException(CarConstant.NumberExisted, 400);
 
             var car = new CarEntity(model.ShipPrice, model.TravelPrice, model.CarModel, model.CarColor, model.ImagePath, model.Tel, model.CarNumber, model.ServiceType,model.CarsManagerId);
             await _carRepository.CreateAsync(car);
