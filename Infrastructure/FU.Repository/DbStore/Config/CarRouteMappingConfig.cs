@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace FU.Repository.DbStore.Config
 {
-    public class CarRouteMappingConfig : IEntityTypeConfiguration<CarRouteMapping>
+    public class CarRouteMappingConfig : IEntityTypeConfiguration<CarRouteMappingEntity>
     {
-        public void Configure(EntityTypeBuilder<CarRouteMapping> builder)
+        public void Configure(EntityTypeBuilder<CarRouteMappingEntity> builder)
         {
             builder.ToTable("CarRouteMapping");
             builder.HasKey(x => x.Id);

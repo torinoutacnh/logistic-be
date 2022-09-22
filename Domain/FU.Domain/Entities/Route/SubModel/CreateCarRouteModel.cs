@@ -8,8 +8,8 @@ namespace FU.Domain.Entities.Route.SubModel
 {
     public class CreateCarRouteModel
     {
-        public Guid FromId { get; set; }
-        public Guid ToId { get; set; }
+        public Location From { get; set; }
+        public Location To { get; set; }
 
         public decimal DistanceByKm { get; private set; }
         public decimal Day { get; private set; }
@@ -18,10 +18,10 @@ namespace FU.Domain.Entities.Route.SubModel
 
         public DateTimeOffset DailyStartTime { get; private set; }
 
-        public CreateCarRouteModel(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public CreateCarRouteModel(Location from, Location to, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
-            FromId = fromId;
-            ToId = toId;
+            From = from;
+            To = to;
             DistanceByKm = distanceByKm;
             Day = day;
             Hour = hour;

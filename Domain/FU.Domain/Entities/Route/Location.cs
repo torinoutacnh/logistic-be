@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Domain.Entities.StopPoint
+namespace FU.Domain.Entities.Route
 {
     public class Location : ValueObject
     {
@@ -18,7 +18,7 @@ namespace FU.Domain.Entities.StopPoint
 
         private Location() { }
 
-        public Location(Guid cityId, Guid districtId, Guid wardId, string? street = null,string? houseNumber = null)
+        public Location(Guid cityId, Guid districtId, Guid wardId, string? street = null, string? houseNumber = null)
         {
             CityId = cityId;
             DistrictId = districtId;

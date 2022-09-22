@@ -1,6 +1,5 @@
 ﻿using FU.Domain.Entities.Car;
 using FU.Domain.Entities.CarsManager;
-using FU.Domain.Entities.StopPoint;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

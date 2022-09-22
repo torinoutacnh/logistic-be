@@ -1,7 +1,6 @@
 ﻿using FU.Domain.Entities.CarsManager.SubModel;
 using FU.Domain.Entities.Route.SubModel;
 using FU.Domain.Entities.Seat.SubModel;
-using FU.Domain.Entities.StopPoint.SubModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +25,8 @@ namespace FU.Domain.Entities.Car.SubModel
 
         public IEnumerable<SeatModel> Seats { get; private set; }
         public IEnumerable<RouteModel> Routes { get; private set; }
-        public IEnumerable<StopPointModel> StopPoints { get; private set; }
 
-        public CarInfoModel(CarEntity car, IEnumerable<SeatModel> seats)
+        public CarInfoModel(CarEntity car, IEnumerable<SeatModel> seats, IEnumerable<RouteModel> routes)
         {
             ShipPrice = car.ShipPrice;
             TravelPrice = car.TravelPrice;
@@ -41,6 +39,7 @@ namespace FU.Domain.Entities.Car.SubModel
             Manager = car.CarsManager != null ? 
                 new CarsManagerViewModel(car.CarsManager):null;
             Seats = seats;
+            Routes = routes;
         }
     }
 }

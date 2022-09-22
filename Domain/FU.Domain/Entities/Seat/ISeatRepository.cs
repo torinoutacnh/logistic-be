@@ -1,5 +1,4 @@
 ﻿using FU.Domain.Base;
-using FU.Domain.Entities.StopPoint;
 using System;
 using System.Collections.Generic;
 using System.Linq;

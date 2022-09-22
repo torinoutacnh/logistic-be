@@ -1,6 +1,5 @@
 ﻿using FU.Domain.Entities.Route.SubModel;
 using FU.Domain.Entities.Seat.SubModel;
-using FU.Domain.Entities.StopPoint.SubModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

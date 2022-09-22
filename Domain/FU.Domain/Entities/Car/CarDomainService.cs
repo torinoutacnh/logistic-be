@@ -7,7 +7,6 @@ using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Route.SubModel;
 using FU.Domain.Entities.Seat;
 using FU.Domain.Entities.Seat.SubModel;
-using FU.Domain.Entities.StopPoint;
 using FU.Domain.Models;
 using System;
 using System.Collections.Generic;

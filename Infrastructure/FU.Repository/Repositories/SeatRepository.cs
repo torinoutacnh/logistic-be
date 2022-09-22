@@ -1,7 +1,6 @@
 ﻿using FU.Domain.Base;
 using FU.Domain.Entities.LocalLocation;
 using FU.Domain.Entities.Seat;
-using FU.Domain.Entities.StopPoint;
 using FU.Infras.CustomAttribute;
 using FU.Repository.Base;
 using FU.Repository.DbStore;

@@ -17,17 +17,8 @@ namespace FU.Repository.DbStore.Config
             builder.ToTable("Routes");
             builder.HasKey(o => o.Id);
 
-            builder.HasOne(o => o.FromPoint)
-               .WithMany(o => o.FromRoutes)
-               .HasForeignKey(o => o.FromId)
-               .IsRequired()
-               .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(o => o.ToPoint)
-               .WithMany(o => o.ToRoutes)
-               .HasForeignKey(o => o.ToId)
-               .IsRequired()
-               .OnDelete(DeleteBehavior.NoAction);
+            builder.OwnsOne(x => x.From);
+            builder.OwnsOne(x => x.To);
         }
     }
 }

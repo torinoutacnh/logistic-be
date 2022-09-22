@@ -83,7 +83,6 @@ namespace FU.Repository.DbStore
             modelBuilder.ApplyConfiguration(new CityConfig());
             modelBuilder.ApplyConfiguration(new DistrictConfig());
             modelBuilder.ApplyConfiguration(new WardConfig());
-            modelBuilder.ApplyConfiguration(new StopPointConfig());
             modelBuilder.ApplyConfiguration(new RouteConfig());
             modelBuilder.ApplyConfiguration(new SeatConfig());
             modelBuilder.ApplyConfiguration(new TicketConfig());

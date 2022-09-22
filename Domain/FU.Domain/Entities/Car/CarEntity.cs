@@ -3,7 +3,6 @@ using FU.Domain.Entities.CarsManager;
 using FU.Domain.Entities.Mapping;
 using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Seat;
-using FU.Domain.Entities.StopPoint;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +28,7 @@ namespace FU.Domain.Entities.Car
 
         public virtual ICollection<SeatEntity> Seats { get; }
 
-        public virtual ICollection<CarRouteMapping> CarRouteMappings { get; }
+        public virtual ICollection<CarRouteMappingEntity> CarRouteMappings { get; }
         
         private CarEntity() { }
 

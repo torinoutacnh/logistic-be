@@ -4,7 +4,6 @@ using FU.Domain.Entities.LocalLocation;
 using FU.Domain.Entities.Mapping;
 using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Seat;
-using FU.Domain.Entities.StopPoint;
 using FU.Domain.Entities.Ticket;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,9 +23,7 @@ namespace FU.Repository.DbStore
         public DbSet<DistrictEntity> Districts { get; set; }
         public DbSet<WardEntity> Wards { get; set; }
         public DbSet<RouteEntity> Routes { get; set; }
-        public DbSet<StopPointEntity> StopPoints { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
-
-        public DbSet<CarRouteMapping> CarRouteMappings { get; set; }
+        public DbSet<CarRouteMappingEntity> CarRouteMappings { get; set; }
     }
 }

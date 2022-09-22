@@ -1,7 +1,6 @@
 ﻿using FU.Domain.Base;
 using FU.Domain.Entities.Car;
 using FU.Domain.Entities.Mapping;
-using FU.Domain.Entities.StopPoint;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +12,8 @@ namespace FU.Domain.Entities.Route
     public class RouteEntity:Entity
     {
         public Guid CarId { get; private set; }
-        public Guid FromId { get; private set; }
-        public Guid ToId { get; private set; }
+        public Location From { get; private set; }
+        public Location To { get; private set; }
 
         public decimal DistanceByKm { get; private set; }
         public decimal Day { get; private set; }
@@ -24,16 +23,14 @@ namespace FU.Domain.Entities.Route
         public DateTimeOffset DailyStartTime { get; private set; }
 
         public virtual CarEntity? Car { get; }
-        public virtual StopPointEntity? FromPoint { get; }
-        public virtual StopPointEntity? ToPoint { get; }
-        public virtual ICollection<CarRouteMapping> CarRouteMappings { get; }
+        public virtual ICollection<CarRouteMappingEntity>? CarRouteMappings { get; }
         private RouteEntity() { }
 
-        public RouteEntity(Guid carId, Guid fromId, Guid toId, decimal distanceByKm, decimal day,decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public RouteEntity(Guid carId, Location from, Location to, decimal distanceByKm, decimal day,decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
             CarId = carId;
-            FromId = fromId;
-            ToId = toId;
+            From = from ?? throw new ArgumentNullException(nameof(from));
+            To = to ?? throw new ArgumentNullException(nameof(to));
             DistanceByKm = distanceByKm;
             Day = day;
             Hour = hour;
@@ -41,10 +38,10 @@ namespace FU.Domain.Entities.Route
             DailyStartTime = dailyStartTime;
         }
 
-        public void Update(Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public void Update(Location from, Location to, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
-            FromId = fromId;
-            ToId = toId;
+            From = from;
+            To = to;
             DistanceByKm = distanceByKm;
             Day = day;
             Hour = hour;

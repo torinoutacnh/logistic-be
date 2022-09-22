@@ -11,8 +11,8 @@ namespace FU.Domain.Entities.Route.SubModel
     {
         public Guid Id { get; private set; }
         public Guid CarId { get; private set; }
-        public Guid FromId { get; private set; }
-        public Guid ToId { get; private set; }
+        public LocationInfo From { get; private set; }
+        public LocationInfo To { get; private set; }
 
         public decimal DistanceByKm { get; private set; }
         public decimal Day { get; private set; }
@@ -21,30 +21,17 @@ namespace FU.Domain.Entities.Route.SubModel
 
         public DateTimeOffset DailyStartTime { get; private set; }
 
-        public RouteModel(Guid id, Guid carId, Guid fromId, Guid toId, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
+        public RouteModel(Guid id, Guid carId, LocationInfo from, LocationInfo to, decimal distanceByKm, decimal day, decimal hour, decimal minute, DateTimeOffset dailyStartTime)
         {
             Id = id;
             CarId = carId;
-            FromId = fromId;
-            ToId = toId;
+            From = from;
+            To = to;
             DistanceByKm = distanceByKm;
             Day = day;
             Hour = hour;
             Minute = minute;
             DailyStartTime = dailyStartTime;
-        }
-
-        public RouteModel(RouteEntity entity)
-        {
-            Id = entity.Id;
-            CarId = entity.CarId;
-            FromId = entity.FromId;
-            ToId = entity.ToId;
-            DistanceByKm = entity.DistanceByKm;
-            Day = entity.Day;
-            Hour = entity.Hour;
-            Minute = entity.Minute;
-            DailyStartTime = entity.DailyStartTime;
         }
     }
 }

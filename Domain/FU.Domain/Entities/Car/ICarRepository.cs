@@ -10,7 +10,7 @@ namespace FU.Domain.Entities.Car
 {
     public interface ICarRepository:IRepository<CarEntity>
     {
-        Task<CarInfoModel> GetCarInfo(Guid id);
+        Task<CarInfoModel?> GetCarInfo(Guid id);
         Task<List<CarInfoModel>> GetCarInfos();
     }
 }

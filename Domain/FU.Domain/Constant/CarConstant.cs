@@ -10,5 +10,6 @@ namespace FU.Domain.Constant
     {
         public const string RouteExisted = "Route Existed!";
         public const string NumberExisted = "Number Existed!";
+        public const string InvalidLocation = "Invalid Location!";
     }
 }
