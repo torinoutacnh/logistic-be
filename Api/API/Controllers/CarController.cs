@@ -5,6 +5,7 @@ using API.Utils.Constant;
 using FU.Domain.Entities.Car.SubModel;
 using FU.Domain.Entities.Seat.SubModel;
 using FU.Service.Contract;
+using FU.Service.Models;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ILogger = Serilog.ILogger;
@@ -54,7 +55,7 @@ namespace API.Controllers
 
         [HttpPost]
         [Route(CarEndpoints.CreateCar)]
-        public async Task<IActionResult> CreateCar([FromBody]CreateCarModel model)
+        public async Task<IActionResult> CreateCar([FromForm]CreateCarWithFileModel model)
         {
             var car = await _manageCarService.CreateCarAsync(model);
             var res = new ResponseModel<Guid>(car);
@@ -63,7 +64,7 @@ namespace API.Controllers
 
         [HttpPost]
         [Route(CarEndpoints.UpdateCarDetail)]
-        public async Task<IActionResult> UpdateCarDetail([FromBody] UpdateCarDetailModel model)
+        public async Task<IActionResult> UpdateCarDetail([FromBody] UpdateCarDetailWithFileModel model)
         {
             var car = await _manageCarService.UpdateCarDetailAsync(model);
             var res = new ResponseModel<Guid>(car);

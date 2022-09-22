@@ -5,7 +5,7 @@ using API.Utils.Constant;
 using FU.Domain.Entities.CarsManager;
 using FU.Domain.Entities.CarsManager.SubModel;
 using FU.Service.Contract;
-using FU.Service.Models.CarsManager;
+using FU.Service.Models;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ILogger = Serilog.ILogger;
@@ -28,7 +28,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllCarsManager()
         {
             var data = await _manageCarService.GetManagersAsync();
-            var res = new ResponseModel<List<CarsManagerInfoModel>>(data);
+            var res = new ResponseModel<List<CarsManagerViewModel>>(data);
             return Ok(res);
         }
 
@@ -37,13 +37,13 @@ namespace API.Controllers
         public async Task<IActionResult> GetCarsManager(Guid id)
         {
             var data = await _manageCarService.GetManagerAsync(id);
-            var res = new ResponseModel<CarsManagerMapModel>(data);
+            var res = new ResponseModel<CarsManagerInfoModel>(data);
             return Ok(res);
         }
 
         [HttpPost]
         [Route(CarsManagerEndpoint.CreateManager)]
-        public async Task<IActionResult> CreateCarsManager([FromBody] CreateCarsManagerModel model)
+        public async Task<IActionResult> CreateCarsManager([FromForm] CreateManagerModel model)
         {
             var data = await _manageCarService.CreateManager(model);
             var res = new ResponseModel<Guid>(data);
@@ -52,7 +52,7 @@ namespace API.Controllers
 
         [HttpPost]
         [Route(CarsManagerEndpoint.UpdateManager)]
-        public async Task<IActionResult> UpdateCarsManager([FromBody]UpdateCarsManagerModel model)
+        public async Task<IActionResult> UpdateCarsManager([FromForm] UpdateManagerModel model)
         {
             var data = await _manageCarService.UpdateManager(model);
             var res = new ResponseModel<Guid>(data);

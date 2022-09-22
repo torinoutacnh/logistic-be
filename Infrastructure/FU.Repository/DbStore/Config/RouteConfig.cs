@@ -26,13 +26,13 @@ namespace FU.Repository.DbStore.Config
             builder.HasOne(o => o.FromPoint)
                .WithMany(o => o.FromRoutes)
                .HasForeignKey(o => o.FromId)
-               .IsRequired(false)
+               .IsRequired()
                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(o => o.ToPoint)
                .WithMany(o => o.ToRoutes)
                .HasForeignKey(o => o.ToId)
-               .IsRequired(false)
+               .IsRequired()
                .OnDelete(DeleteBehavior.NoAction);
         }
     }

@@ -160,7 +160,7 @@ namespace FU.Domain.Entities.Car
         /// <returns></returns>
         public async Task DeleteCar(Guid id)
         {
-            await _carRepository.DeleteAsync(id, true);
+            await _carRepository.DeleteAsync(id);
             await _unitOfWork.SaveChangeAsync();
         }
         #endregion Cars
@@ -254,7 +254,7 @@ namespace FU.Domain.Entities.Car
         /// <returns></returns>
         public async Task DeleteCarSeat(Guid id)
         {
-            await _seatRepository.DeleteAsync(id,true);
+            await _seatRepository.DeleteAsync(id);
             await _unitOfWork.SaveChangeAsync();
         }
         #endregion

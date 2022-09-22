@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FU.Domain.Base;
+using FU.Domain.Constant;
 using FU.Domain.Entities.Car;
 using FU.Domain.Entities.Car.SubModel;
 using FU.Domain.Entities.CarsManager;
@@ -7,7 +8,9 @@ using FU.Domain.Entities.CarsManager.SubModel;
 using FU.Infras.CustomAttribute;
 using FU.Infras.Utils;
 using FU.Service.Contract;
-using FU.Service.Models.CarsManager;
+using FU.Service.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -27,23 +30,95 @@ namespace FU.Service
             _logger = serviceProvider.GetRequiredService<ILogger>();
         }
 
+        #region private
+        private string? CheckFile(IFormFile? file)
+        {
+            if (file == null) return null;
+            if (file.FileName.HasImageExtension())
+            {
+                var ext = file.FileName.Split(".").LastOrDefault();
+                var newName = Guid.NewGuid().ToString("N");
+                return $"{newName}.{ext}";
+            }
+            return null;
+        }
+        private void ClearDir(string path)
+        {
+            DirectoryInfo di = new DirectoryInfo(path);
+            foreach (FileInfo file in di.EnumerateFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.EnumerateDirectories())
+            {
+                dir.Delete(true);
+            }
+        }
+        private Task<string> SaveFileAsync(IFormFile? file)
+        {
+            var enviroment = _serviceProvider.GetRequiredService<IWebHostEnvironment>();
+            string wwwPath = enviroment.WebRootPath;
+            //string contentPath = enviroment.ContentRootPath;
+
+            string path = Path.Combine(wwwPath,
+                FileConstant.Base,
+                FileConstant.CarManager);
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var filepath = CheckFile(file);
+            if (filepath != null)
+                using (FileStream stream = new FileStream(Path.Combine(path, filepath), FileMode.Create))
+                {
+                    file?.CopyTo(stream);
+                }
+
+            return Task.FromResult($"/{FileConstant.Base}/{FileConstant.CarManager}/{filepath}");
+        }
+        private Task<string> SaveCarFileAsync(IFormFile? file)
+        {
+            var enviroment = _serviceProvider.GetRequiredService<IWebHostEnvironment>();
+            string wwwPath = enviroment.WebRootPath;
+            //string contentPath = enviroment.ContentRootPath;
+
+            string path = Path.Combine(wwwPath,
+                FileConstant.Base,
+                FileConstant.Car);
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var filepath = CheckFile(file);
+            if (filepath != null)
+                using (FileStream stream = new FileStream(Path.Combine(path, filepath), FileMode.Create))
+                {
+                    file?.CopyTo(stream);
+                }
+
+            return Task.FromResult($"/{FileConstant.Base}/{FileConstant.Car}/{filepath}");
+        }
+        #endregion
+
         #region Car manager
         /// <summary>
         /// Get Manager Async
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<CarsManagerMapModel?> GetManagerAsync(Guid id)
+        public async Task<CarsManagerInfoModel?> GetManagerAsync(Guid id)
         {
             try
             {
                 _logger.Information("Start get manager");
                 var service = _serviceProvider.GetRequiredService<CarsManagerDomainService>();
-                var mapper = _serviceProvider.GetRequiredService<IMapper>();
 
                 var manager = await service.GetCarsManagerById(id);
-                var info = mapper.Map<CarsManagerMapModel>(manager);
-                return info;
+                return manager;
             }
             catch (Exception ex)
             {
@@ -60,7 +135,7 @@ namespace FU.Service
         /// Get Managers Async
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CarsManagerInfoModel>?> GetManagersAsync()
+        public async Task<List<CarsManagerViewModel>?> GetManagersAsync()
         {
             try
             {
@@ -68,9 +143,8 @@ namespace FU.Service
                 var service = _serviceProvider.GetRequiredService<CarsManagerDomainService>();
                 var mapper = _serviceProvider.GetRequiredService<IMapper>();
 
-                var managers = await service.GetCarsManagers(x => true) ?? new List<CarsManagerEntity>();
-                var info = mapper.ProjectTo<CarsManagerInfoModel>(managers.AsQueryable());
-                return info.ToList();
+                var managers = await service.GetCarsManagers(x => true);
+                return managers.ToList();
             }
             catch (Exception ex)
             {
@@ -88,14 +162,19 @@ namespace FU.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Guid> CreateManager(CreateCarsManagerModel model)
+        public async Task<Guid> CreateManager(CreateManagerModel model)
         {
             try
             {
                 _logger.Information("Start create manager");
                 var service = _serviceProvider.GetRequiredService<CarsManagerDomainService>();
-
-                var id = await service.CreateManager(model);
+                var filepath = await SaveFileAsync(model.LogoPath);
+                var cre = new CreateCarsManagerModel() { 
+                    LogoPath = filepath,
+                    Name = model.Name,
+                    Description = model.Description,
+                };
+                var id = await service.CreateManager(cre);
                 return id;
             }
             catch (Exception ex)
@@ -114,14 +193,22 @@ namespace FU.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Guid> UpdateManager(UpdateCarsManagerModel model)
+        public async Task<Guid> UpdateManager(UpdateManagerModel model)
         {
             try
             {
                 _logger.Information("Start update manager");
                 var service = _serviceProvider.GetRequiredService<CarsManagerDomainService>();
+                var newFilePath = await SaveFileAsync(model.LogoPath);
+                var update = new UpdateCarsManagerModel()
+                {
+                    Id = model.Id,
+                    LogoPath = newFilePath,
+                    Description = model.Description,
+                    Name = model.Name
+                };
 
-                var id = await service.UpdateManager(model);
+                var id = await service.UpdateManager(update);
                 return id;
             }
             catch (Exception ex)
@@ -274,14 +361,22 @@ namespace FU.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Guid> CreateCarAsync(CreateCarModel model)
+        public async Task<Guid> CreateCarAsync(CreateCarWithFileModel model)
         {
             try
             {
                 _logger.Information("Start create car");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
-
-                var car = await service.CreateCar(model);
+                var filepath = await SaveCarFileAsync(model.ImagePath);
+                var cre = new CreateCarModel(model.ShipPrice, 
+                    model.TravelPrice, 
+                    model.CarColor, 
+                    model.Tel, filepath, 
+                    model.Tel, 
+                    model.CarNumber, 
+                    model.ServiceType, 
+                    model.CarsManagerId);
+                var car = await service.CreateCar(cre);
                 return car;
             }
             catch (Exception)
@@ -300,14 +395,21 @@ namespace FU.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Guid> UpdateCarDetailAsync(UpdateCarDetailModel model)
+        public async Task<Guid> UpdateCarDetailAsync(UpdateCarDetailWithFileModel model)
         {
             try
             {
                 _logger.Information("Start update car detail");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
-
-                var car = await service.UpdateCarDetail(model);
+                var filepath = await SaveCarFileAsync(model.ImagePath);
+                var update = new UpdateCarDetailModel(model.Id,
+                    model.CarModel,
+                    model.CarColor,
+                    filepath,
+                    model.Tel,
+                    model.CarNumber,
+                    model.ServiceType);
+                var car = await service.UpdateCarDetail(update);
                 return car;
             }
             catch (Exception)

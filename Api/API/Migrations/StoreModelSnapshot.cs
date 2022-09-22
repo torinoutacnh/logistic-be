@@ -496,12 +496,14 @@ namespace API.Migrations
                     b.HasOne("FU.Domain.Entities.StopPoint.StopPointEntity", "FromPoint")
                         .WithMany("FromRoutes")
                         .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("FU.Domain.Entities.StopPoint.StopPointEntity", "ToPoint")
                         .WithMany("ToRoutes")
                         .HasForeignKey("ToId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Car");
 
@@ -526,7 +528,7 @@ namespace API.Migrations
                     b.HasOne("FU.Domain.Entities.Car.CarEntity", "Car")
                         .WithMany("StopPoints")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("FU.Domain.Entities.StopPoint.DetailLocation", "DetailLocation", b1 =>

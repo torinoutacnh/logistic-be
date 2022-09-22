@@ -1,11 +1,54 @@
 {
   "Version": 1,
-  "Hash": "bUm1vPqwZHJejLhtNIB7WgmMI8ngxypkYrDApg4MvgQ=",
+  "Hash": "Rs1Wmoi0XEMr0TCXtDOv/b9uOJnYPFmhwQbF5z3Px4Y=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "API\\wwwroot",
+      "Source": "API",
+      "ContentRoot": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\wwwroot\\Uploads\\Manager\\75224044177a419486522cb597228bc4.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Uploads/Manager/75224044177a419486522cb597228bc4.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Manager\\75224044177a419486522cb597228bc4.png"
+    },
+    {
+      "Identity": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\wwwroot\\Uploads\\Manager\\aa8f17ea201d45589d80cc733f3baa7b.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\torin\\OneDrive\\Desktop\\logistic-be\\Api\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "Uploads/Manager/aa8f17ea201d45589d80cc733f3baa7b.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Manager\\aa8f17ea201d45589d80cc733f3baa7b.png"
+    }
+  ]
 }

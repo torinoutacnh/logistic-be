@@ -25,8 +25,10 @@ namespace FU.Repository.Repositories
         public Task<List<CarInfoModel>> GetCarInfos()
         {
             var query = from car in _store.Cars
+                        where car.IsDeleted == false
                         join manager in _store.CarsManagers
                             on car.CarsManagerId equals manager.Id
+                        where manager.IsDeleted == false
                         select new CarInfoModel(car,
                         car.Seats.Select(x => new SeatModel(x)),
                         car.Routes.Select(x => new RouteModel(x)),
@@ -52,11 +54,11 @@ namespace FU.Repository.Repositories
         public Task<CarInfoModel> GetCarInfo(Guid id)
         {
             var query = from car in _store.Cars.Include(x=>x.CarsManager)
-                        where car.Id == id
+                        where car.Id == id && car.IsDeleted == false
                         select new CarInfoModel(car,
-                        car.Seats.Select(x=>new SeatModel(x)), 
-                        car.Routes.Select(x => new RouteModel(x)), 
-                        car.StopPoints.Select(x => new StopPointModel(
+                        car.Seats.Where(x=>x.IsDeleted==false).Select(x=>new SeatModel(x)), 
+                        car.Routes.Where(x => x.IsDeleted == false).Select(x => new RouteModel(x)), 
+                        car.StopPoints.Where(x => x.IsDeleted == false).Select(x => new StopPointModel(
                             x.Id,
                             (from city in _store.Cities
                              where city.Id == x.Location.CityId

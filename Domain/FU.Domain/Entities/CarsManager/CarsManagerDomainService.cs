@@ -30,9 +30,11 @@ namespace FU.Domain.Entities.CarsManager
         /// <param name="isIncludeDeleted"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        public async Task<List<CarsManagerEntity>> GetCarsManagers(Expression<Func<CarsManagerEntity, bool>> expression, bool isIncludeDeleted = false, params Expression<Func<CarsManagerEntity, object>>[] includeProperties)
+        public async Task<List<CarsManagerViewModel>> GetCarsManagers(Expression<Func<CarsManagerEntity, bool>> expression, bool isIncludeDeleted = false, params Expression<Func<CarsManagerEntity, object>>[] includeProperties)
         {
-            return await _carsManagerRepository.GetAllAsync(expression, isIncludeDeleted, includeProperties);
+            return (await _carsManagerRepository.GetAllAsync(expression, isIncludeDeleted, includeProperties))
+                .Select(x=>new CarsManagerViewModel(x))
+                .ToList();
         }
 
         /// <summary>
@@ -56,10 +58,11 @@ namespace FU.Domain.Entities.CarsManager
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<CarsManagerEntity?> GetCarsManagerById (Guid id)
+        public async Task<CarsManagerInfoModel?> GetCarsManagerById (Guid id)
         {
             var manager = await _carsManagerRepository.GetAsync(id, false, x => x.Cars);
-            return manager;
+            if (manager == null) throw new DomainException(ShareConstant.NotFound, 404);
+            return new CarsManagerInfoModel(manager);
         }
 
         /// <summary>

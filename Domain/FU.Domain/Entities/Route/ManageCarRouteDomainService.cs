@@ -210,7 +210,7 @@ namespace FU.Domain.Entities.Route
         /// <returns></returns>
         public async Task DeleteStopPoint(Guid id)
         {
-            await _stopPointRepository.DeleteAsync(id, true);
+            await _stopPointRepository.DeleteAsync(id);
             await _unitOfWork.SaveChangeAsync();
         }
         #endregion

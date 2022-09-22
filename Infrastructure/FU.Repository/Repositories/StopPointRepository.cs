@@ -25,13 +25,13 @@ namespace FU.Repository.Repositories
         public Task<StopPointModel?> GetStopPointDetail(Guid pointId)
         {
             var query = from stop in _store.Set<StopPointEntity>()
+                        where stop.Id == pointId && stop.IsDeleted == false
                         join city in _store.Set<CityEntity>()
                             on stop.Location.CityId equals city.Id
                         join district in _store.Set<DistrictEntity>()
                             on stop.Location.DistrictId equals district.Id
                         join ward in _store.Set<WardEntity>()
                             on stop.Location.WardId equals ward.Id
-                        where stop.Id == pointId
                         select new StopPointModel(
                             stop.Id,
                             city.Name,
@@ -48,6 +48,7 @@ namespace FU.Repository.Repositories
         public Task<List<StopPointModel>> GetStopPointDetails(Guid carId)
         {
             var query = from car in _store.Set<CarEntity>()
+                        where car.IsDeleted == false && car.Id == carId
                         join stop in _store.Set<StopPointEntity>()
                             on car.Id equals stop.CarId
                         join city in _store.Set<CityEntity>()
@@ -56,7 +57,6 @@ namespace FU.Repository.Repositories
                             on stop.Location.DistrictId equals district.Id
                         join ward in _store.Set<WardEntity>()
                             on stop.Location.WardId equals ward.Id
-                        where car.Id == carId
                         select new StopPointModel(
                             stop.Id,
                             city.Name,

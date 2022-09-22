@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FU.Service.Models.CarsManager
+namespace FU.Service.Models
 {
-    public class CarsManagerInfoModel
+    public class CreateManagerModel
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
-        public string? LogoPath { get; set; }
+        public IFormFile? LogoPath { get; set; }
     }
 }

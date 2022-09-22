@@ -12,6 +12,24 @@ namespace FU.Infras.Utils
     {
         public static TResult Map<T, TResult>(this T @this, Func<T, TResult> f) => f(@this);
 
+        public static bool HasImageExtension(this string? source)
+        {
+            if (source == null)
+                return false;
+            return (source.EndsWith(".png")
+                || source.EndsWith(".jpg")
+                || source.EndsWith(".jpeg")
+                || source.EndsWith(".gif")
+                || source.EndsWith(".webp")
+                || source.EndsWith(".tiff")
+                || source.EndsWith(".jpeg 2000")
+                || source.EndsWith(".raw")
+                || source.EndsWith(".psd")
+                || source.EndsWith(".bmp")
+                || source.EndsWith(".heif")
+                || source.EndsWith(".indd"));
+        }
+
         public static IQueryable<T> QueryExt<T>(this IQueryable<T> @this, Func<IQueryable<T>, IQueryable<T>> func) => func(@this);
 
         public static Expression<Func<T, bool>> AndAlso<T>(

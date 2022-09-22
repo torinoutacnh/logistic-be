@@ -78,6 +78,7 @@ C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\SignalRSwaggerGen.dl
 C:\Users\torin\OneDrive\Desktop\FU\Api\API\bin\Debug\net6.0\Serilog.Sinks.Console.dll
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\appsettings.json
+C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\code_secret_client_14674229197-dfpa4k7pkkr01hca1h6v96o5ljln42pt.apps.googleusercontent.com.json
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\API.exe
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\API.deps.json
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\API.runtimeconfig.json
@@ -85,6 +86,8 @@ C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\API.dll
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\API.pdb
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\Autofac.dll
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\Autofac.Extensions.DependencyInjection.dll
+C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\Humanizer.dll
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
@@ -154,6 +157,4 @@ C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\refint\API.
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\API.pdb
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\obj\Debug\net6.0\ref\API.dll
-C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\AutoMapper.dll
-C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\code_secret_client_14674229197-dfpa4k7pkkr01hca1h6v96o5ljln42pt.apps.googleusercontent.com.json
+C:\Users\torin\OneDrive\Desktop\logistic-be\Api\API\bin\Debug\net6.0\API.staticwebassets.runtime.json

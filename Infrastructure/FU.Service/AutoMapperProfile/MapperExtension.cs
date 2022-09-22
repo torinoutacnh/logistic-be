@@ -13,7 +13,6 @@ namespace FU.Service.AutoMapperProfile
         {
             @this.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile<CarsManagerProfile>();
             });
 
             return @this;

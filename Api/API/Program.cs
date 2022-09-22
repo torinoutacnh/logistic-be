@@ -113,6 +113,7 @@ app.UseExceptionHandler((request) =>
     });
 });
 
+app.UseStaticFiles();
 app.UseSystemSetting();
 app.UseCors("MyPolicy");
 app.UseHttpsRedirection();
