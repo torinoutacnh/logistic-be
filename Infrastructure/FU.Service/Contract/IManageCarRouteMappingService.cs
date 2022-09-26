@@ -14,5 +14,6 @@ namespace FU.Service.Contract
         Task<List<CarRouteMappingInfoModel>> GetCarRouteMappingDetailsAsync();
         Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingStarttimeModel model);
         Task<Guid> CreateCarRouteMappingDetailAsync(CreateCarRouteMappingStarttimeModel model);
+        Task DeleteCarRouteMappingAsync(Guid id);
     }
 }

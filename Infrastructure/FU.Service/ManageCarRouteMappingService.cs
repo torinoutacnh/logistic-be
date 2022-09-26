@@ -122,5 +122,25 @@ namespace FU.Service
                 _logger.Information("Finish create Start time");
             }
         }
+
+        public async Task DeleteCarRouteMappingAsync(Guid id)
+        {
+            try
+            {
+                _logger.Information("Delete carRouteMapping");
+                var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
+
+                await service.DeleteCarRouteMapping(id);
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error update car price");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish update car price");
+            }
+        }
     }
 }

@@ -82,5 +82,17 @@ namespace FU.Domain.Entities.CarRouteMapping
             await _unitOfWork.SaveChangeAsync();
             return carRouteMapping.Id;
         }
+
+        /// <summary>
+        /// Delete Car
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task DeleteCarRouteMapping(Guid id)
+        {
+            await _carRouteMappingRepository.DeleteAsync(id,true);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
     }
 }
