@@ -11,7 +11,8 @@ namespace FU.Service.Contract
     public interface IManageCarRouteMappingService
     {
         Task<CarRouteMappingInfoModel> GetCarRouteMappingDetailAsync(Guid id);
-        Task<List<CarRouteMappingInfoModel>> GetCarrouteMappingDetailsAsync();
+        Task<List<CarRouteMappingInfoModel>> GetCarRouteMappingDetailsAsync();
         Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingWithFileModel model);
+        Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingStarttimeModel model);
     }
 }

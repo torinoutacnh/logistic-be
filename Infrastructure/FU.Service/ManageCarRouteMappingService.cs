@@ -1,9 +1,14 @@
-﻿using FU.Domain.Entities.CarRouteMapping.SubModel;
+﻿using AutoMapper;
+using FU.Domain.Constant;
+using FU.Domain.Entities.CarRouteMapping;
+using FU.Domain.Entities.CarRouteMapping.SubModel;
 using FU.Infras.CustomAttribute;
 using FU.Service.Contract;
 using FU.Service.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +18,8 @@ using System.Threading.Tasks;
 namespace FU.Service
 {
     [RegisterTransient]
+
+
     public class ManageCarRouteMappingService : IManageCarRouteMappingService
     {
         private readonly IServiceProvider _serviceProvider;
@@ -23,19 +30,71 @@ namespace FU.Service
             _serviceProvider = serviceProvider;
             _logger = serviceProvider.GetRequiredService<ILogger>();
         }
-        public Task<CarRouteMappingInfoModel> GetCarRouteMappingDetailAsync(Guid id)
+
+        public async Task<CarRouteMappingInfoModel> GetCarRouteMappingDetailAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.Information("Start new CarRoutMapping");
+                var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
+                
+                var carRouteMapping = await service.GetCarRouteMappingDetail(id);
+                return carRouteMapping;
+            }
+            catch (Exception ex)
+            {
+                _logger.Information($"Error get CarRouteMapping : {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get CarRouteMapping");
+            }
         }
 
-        public Task<List<CarRouteMappingInfoModel>> GetCarrouteMappingDetailsAsync()
+        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteMappingDetailsAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.Information("Start get CarRouteMappings");
+                var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
+
+                var managers = await service.GetCarRouteMappingDetails();
+                return managers.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.Information($"Error get CarRouteMapping: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get CarRouteMapping");
+            }
         }
 
-        public Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingWithFileModel model)
+
+        public async Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingStarttimeModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.Information("Start update carRouteMapping");
+                var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
+                var update = new UpdateCarRouteMappingStarttimeModel(model.CarId,
+                    model.RouteId,
+                    model.Starttime);
+                var starttime = await service.UpdateCarRouteMappingStarttime(update);
+                return starttime;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error update Start time");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("finish update Start time");
+            }
         }
     }
 }
