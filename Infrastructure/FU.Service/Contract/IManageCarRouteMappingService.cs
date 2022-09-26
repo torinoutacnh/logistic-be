@@ -12,7 +12,6 @@ namespace FU.Service.Contract
     {
         Task<CarRouteMappingInfoModel> GetCarRouteMappingDetailAsync(Guid id);
         Task<List<CarRouteMappingInfoModel>> GetCarRouteMappingDetailsAsync();
-        Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingWithFileModel model);
         Task<Guid> UpdateCarRouteMappingDetailAsync(UpdateCarRouteMappingStarttimeModel model);
     }
 }

@@ -28,69 +28,68 @@ namespace FU.Repository.Repositories
 
         public Task<List<CarInfoModel>> GetCarInfos()
         {
-            var query = from car in _store.Cars
-                        where car.IsDeleted == false
-                        join mapping in _store.CarRouteMappings
-                        on car.Id equals mapping.CarId
-                        select new CarInfoModel(car,
-                        car.Seats.Select(x => new SeatModel(x)),
-                        from route in _store.Routes
-                        where route.Id == mapping.RouteId
-                        select new RouteModel(route.Id,
-                        route.CarId,
-                        (from city in _store.Cities
-                         where city.Id == route.From.CityId
-                         join district in _store.Districts
-                            on route.From.DistrictId equals district.Id
-                         join ward in _store.Wards
-                            on route.From.WardId equals ward.Id
-                         select new LocationInfo(city.Name, district.Name, ward.Name)).First(),
-                         (from city in _store.Cities
-                          where city.Id == route.To.CityId
-                          join district in _store.Districts
-                             on route.To.DistrictId equals district.Id
-                          join ward in _store.Wards
-                             on route.To.WardId equals ward.Id
-                          select new LocationInfo(city.Name, district.Name, ward.Name)).First(),
-                         route.DistanceByKm,
-                         route.Day,
-                         route.Hour,
-                         route.Minute));
+            var query = _store.Cars.Where(x => x.IsDeleted == false)
+                .Include(x => x.CarRouteMappings).ThenInclude(x => x.Route)
+                .Include(x => x.Seats)
+                .Select(x => new CarInfoModel(x,
+                    x.Seats
+                        .Where(y => y.IsDeleted == false)
+                        .Select(y => new SeatModel(y)),
+                    x.CarRouteMappings
+                        .Where(y => y.IsDeleted == false)
+                        .Select(x => new RouteModel(x.Id
+                            , x.CarId
+                            , new LocationInfo(
+                                _store.Cities.First(y => y.Id == x.Route.From.CityId).Name
+                                , _store.Districts.First(y => y.Id == x.Route.From.DistrictId).Name
+                                , _store.Wards.First(y => y.Id == x.Route.From.WardId).Name
+                                )
+                            , new LocationInfo(
+                                _store.Cities.First(y => y.Id == x.Route.To.CityId).Name
+                                , _store.Districts.First(y => y.Id == x.Route.To.DistrictId).Name
+                                , _store.Wards.First(y => y.Id == x.Route.To.WardId).Name
+                                )
+                            , x.Route.DistanceByKm
+                            , x.Route.Day
+                            , x.Route.Hour
+                            , x.Route.Minute
+                            )
+                        )));
 
             return query.ToListAsync();
         }
 
         public Task<CarInfoModel?> GetCarInfo(Guid id)
         {
-            var query = (from car in _store.Cars
-                        where car.IsDeleted == false && car.Id == id
-                        join mapping in _store.CarRouteMappings
-                        on car.Id equals mapping.CarId
-                        select new CarInfoModel(car,
-                        car.Seats.Select(x => new SeatModel(x)),
-                        from route in _store.Routes
-                        where route.Id == mapping.RouteId
-                        select new RouteModel(route.Id,
-                        route.CarId,
-                        (from city in _store.Cities
-                            where city.Id == route.From.CityId
-                            join district in _store.Districts
-                            on route.From.DistrictId equals district.Id
-                            join ward in _store.Wards
-                            on route.From.WardId equals ward.Id
-                            select new LocationInfo(city.Name, district.Name, ward.Name)).First(),
-                            (from city in _store.Cities
-                            where city.Id == route.To.CityId
-                            join district in _store.Districts
-                                on route.To.DistrictId equals district.Id
-                            join ward in _store.Wards
-                                on route.To.WardId equals ward.Id
-                            select new LocationInfo(city.Name, district.Name, ward.Name)).First(),
-                            route.DistanceByKm,
-                            route.Day,
-                            route.Hour,
-                            route.Minute))).FirstOrDefaultAsync();
-            return query;
+            var query = _store.Cars.Where(x => x.Id == id && x.IsDeleted == false)
+                .Include(x => x.CarRouteMappings).ThenInclude(x => x.Route)
+                .Include(x => x.Seats)
+                .Select(x => new CarInfoModel(x,
+                    x.Seats
+                        .Where(y=>y.IsDeleted==false)
+                        .Select(y => new SeatModel(y)),
+                    x.CarRouteMappings
+                        .Where(y => y.IsDeleted == false)
+                        .Select(x => new RouteModel(x.Id
+                            , x.CarId
+                            , new LocationInfo(
+                                _store.Cities.First(y => y.Id == x.Route.From.CityId).Name
+                                , _store.Districts.First(y => y.Id == x.Route.From.DistrictId).Name
+                                , _store.Wards.First(y => y.Id == x.Route.From.WardId).Name
+                                )
+                            , new LocationInfo(
+                                _store.Cities.First(y => y.Id == x.Route.To.CityId).Name
+                                , _store.Districts.First(y => y.Id == x.Route.To.DistrictId).Name
+                                , _store.Wards.First(y => y.Id == x.Route.To.WardId).Name
+                                )
+                            , x.Route.DistanceByKm
+                            , x.Route.Day
+                            , x.Route.Hour
+                            , x.Route.Minute
+                            )
+                        )));
+            
+            return query.FirstOrDefaultAsync();
         }
     }
 }
