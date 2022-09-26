@@ -27,7 +27,7 @@ namespace FU.Domain.Entities.Car
 
         public virtual CarsManagerEntity? CarsManager { get; }
         public virtual ICollection<SeatEntity>? Seats { get; }
-        public virtual ICollection<CarRouteMappingEntity>? CarRouteMappings { get; }
+        public virtual ICollection<Mapping.CarRouteMappingEntity>? CarRouteMappings { get; }
         
         private CarEntity() { }
 

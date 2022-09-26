@@ -28,7 +28,7 @@ namespace FU.Domain.Entities.CarRouteMapping
         /// <param name="isIncludeDeleted"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        public async Task<List<CarRouteMappingEntity>> GetCarRouteMapping(Expression<Func<CarRouteMappingEntity, bool>> expression, bool isIncludeDeleted = false, params Expression<Func<CarRouteMappingEntity, object>>[] includeProperties)
+        public async Task<List<Mapping.CarRouteMappingEntity>> GetCarRouteMapping(Expression<Func<Mapping.CarRouteMappingEntity, bool>> expression, bool isIncludeDeleted = false, params Expression<Func<Mapping.CarRouteMappingEntity, object>>[] includeProperties)
         {
             var carRouteMapping = await _carRouteMappingRepository.GetAllAsync(expression, isIncludeDeleted, includeProperties);
             return carRouteMapping;
@@ -68,6 +68,19 @@ namespace FU.Domain.Entities.CarRouteMapping
             await _unitOfWork.SaveChangeAsync();
 
             return carRouteMappping.CarId;
+        }
+        /// <summary>
+        /// Create CarRouteMapping
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        /// <exception cref="DomainException"></exception>
+        public async Task<Guid> CreateCarRouteMappingStarttime(CreateCarRouteMappingStarttimeModel model)
+        {
+            var carRouteMapping = new CarRouteMappingEntity(model.CarId, model.RouteId, model.Starttime);
+            await _carRouteMappingRepository.CreateAsync(carRouteMapping);
+            await _unitOfWork.SaveChangeAsync();
+            return carRouteMapping.Id;
         }
     }
 }

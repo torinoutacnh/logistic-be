@@ -13,11 +13,16 @@ namespace FU.Domain.Entities.CarRouteMapping.SubModel
         public Guid RouteId { get; private set; }
         public DateTimeOffset Starttime { get; private set; }
 
-        public CarRouteMappingInfoModel(CarRouteMappingEntity carRouteMappingEntity)
+        public CarRouteMappingInfoModel(Mapping.CarRouteMappingEntity carRouteMappingEntity)
         {
             CarId = carRouteMappingEntity.CarId;
             RouteId = carRouteMappingEntity.RouteId;
             Starttime = carRouteMappingEntity.Starttime;
         }
+        public CarRouteMappingInfoModel(Guid CarId, Guid RouteId, DateTimeOffset Starttime)
+        {
+            this.CarId = CarId;
+            this.RouteId = RouteId;
+            this.Starttime = Starttime;
+        }
     }
-}

@@ -27,7 +27,7 @@ namespace API.Controllers
 
         #region Car
         [HttpGet]
-        [Route(CarEndpoints.GetAll)]
+        [Route(CarRouteMappingEndpoints.GetAll)]
         public async Task<IActionResult> GetCars()
         {
             var cars = await _manageCarService.GetCarListAsync();
@@ -36,7 +36,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route(CarEndpoints.GetSingle)]
+        [Route(CarRouteMappingEndpoints.GetSingle)]
         public async Task<IActionResult> GetCar(Guid id)
         {
             var car = await _manageCarService.GetCarDetailAsync(id);
@@ -45,7 +45,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route(CarEndpoints.GetByManager)]
+        [Route(CarRouteMappingEndpoints.GetByManager)]
         public async Task<IActionResult> GetCarByManager(Guid id)
         {
             var car = await _manageCarService.GetCarByManagerAsync(id);
@@ -54,7 +54,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route(CarEndpoints.CreateCar)]
+        [Route(CarRouteMappingEndpoints.CreateCar)]
         public async Task<IActionResult> CreateCar([FromForm]CreateCarWithFileModel model)
         {
             var car = await _manageCarService.CreateCarAsync(model);
@@ -63,7 +63,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route(CarEndpoints.UpdateCarDetail)]
+        [Route(CarRouteMappingEndpoints.UpdateCarDetail)]
         public async Task<IActionResult> UpdateCarDetail([FromForm] UpdateCarDetailWithFileModel model)
         {
             var car = await _manageCarService.UpdateCarDetailAsync(model);
@@ -72,7 +72,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route(CarEndpoints.UpdateCarPrice)]
+        [Route(CarRouteMappingEndpoints.UpdateCarPrice)]
         public async Task<IActionResult> UpdateCarPrice([FromBody] UpdateCarPriceModel model)
         {
             var car = await _manageCarService.UpdateCarPriceAsync(model);
@@ -81,7 +81,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route(CarEndpoints.DeleteCar)]
+        [Route(CarRouteMappingEndpoints.DeleteCar)]
         public async Task<IActionResult> DeleteCar(Guid id)
         {
             await _manageCarService.DeleteCarAsync(id);
