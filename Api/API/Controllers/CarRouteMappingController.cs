@@ -55,5 +55,13 @@ namespace API.Controllers
             var res = new ResponseModel<Guid>(starttime);
             return Ok(res);
         }
+        [HttpGet]
+        [Route(CarRouteMappingEndPoints.DeleteStarttime)]
+        public async Task<IActionResult> DeleteCar(Guid id)
+        {
+            await _manageCarRouteMappingService.DeleteCarRouteMappingAsync(id);
+            var res = new ResponseModel<string>(MessageConstant.Success);
+            return Ok(res);
+        }
     }
 }
