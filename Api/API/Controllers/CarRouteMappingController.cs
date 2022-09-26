@@ -47,5 +47,13 @@ namespace API.Controllers
             var res = new ResponseModel<Guid>(starttime);
             return Ok(res);
         }
+        [HttpPost]
+        [Route(CarRouteMappingEndPoints.CreateStarttime)]
+        public async Task<IActionResult> CreateCarMapping([FromForm] CreateCarRouteMappingStarttimeModel model)
+        {
+            var starttime = await _manageCarRouteMappingService.CreateCarRouteMappingDetailAsync(model);
+            var res = new ResponseModel<Guid>(starttime);
+            return Ok(res);
+        }
     }
 }

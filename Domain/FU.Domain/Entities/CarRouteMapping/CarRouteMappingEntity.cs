@@ -19,6 +19,13 @@ namespace FU.Domain.Entities.Mapping
 
         private CarRouteMappingEntity() { }
 
+        public CarRouteMappingEntity(Guid carId, Guid routeId, DateTimeOffset starttime)
+        {
+            CarId = carId;
+            RouteId = routeId;
+            Starttime = starttime;
+        }
+
         public void UpdateStartTime(DateTimeOffset Starttime)
         {
             this.Starttime = Starttime; 

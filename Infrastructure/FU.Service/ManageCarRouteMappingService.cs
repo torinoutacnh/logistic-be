@@ -31,6 +31,7 @@ namespace FU.Service
             _logger = serviceProvider.GetRequiredService<ILogger>();
         }
 
+
         public async Task<CarRouteMappingInfoModel> GetCarRouteMappingDetailAsync(Guid id)
         {
             try
@@ -94,6 +95,31 @@ namespace FU.Service
             finally
             {
                 _logger.Information("finish update Start time");
+            }
+        }
+        public async Task<Guid> CreateCarRouteMappingDetailAsync(CreateCarRouteMappingStarttimeModel model)
+        {
+            try
+            {
+                _logger.Information("Start create Start time");
+                var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
+                var cre = new CreateCarRouteMappingStarttimeModel()
+                {
+                    CarId = model.CarId,
+                    RouteId = model.RouteId,
+                    Starttime = model.Starttime,
+                };
+                var id = await service.CreateCarRouteMappingStarttime(cre);
+                return id;
+            }
+            catch (Exception ex)
+            {
+                _logger.Information($"Error create Start time : {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish create Start time");
             }
         }
     }

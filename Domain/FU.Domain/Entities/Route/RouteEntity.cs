@@ -21,7 +21,7 @@ namespace FU.Domain.Entities.Route
         public decimal Minute { get; private set; }
 
         public virtual CarEntity? Car { get; }
-        public virtual ICollection<CarRouteMappingEntity>? CarRouteMappings { get; }
+        public virtual ICollection<Mapping.CarRouteMappingEntity>? CarRouteMappings { get; }
         private RouteEntity() { }
 
         public RouteEntity(Guid carId, Location from, Location to, decimal distanceByKm, decimal day,decimal hour, decimal minute)
