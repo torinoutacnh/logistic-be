@@ -35,6 +35,11 @@ namespace FU.Repository.DbStore.Config
                             .HasForeignKey(x => x.SeatId)
                             .IsRequired()
                             .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.CarRouteMapping)
+                            .WithMany(x => x.Tickets)
+                            .HasForeignKey(x => x.CarRouteMappingId)
+                            .IsRequired()
+                            .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

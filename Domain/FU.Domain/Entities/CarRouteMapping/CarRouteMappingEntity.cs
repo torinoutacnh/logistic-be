@@ -14,8 +14,10 @@ namespace FU.Domain.Entities.Mapping
         public Guid CarId { get; private set; }
         public Guid RouteId { get; private set; }
         public DateTimeOffset Starttime { get; private set; }
+        public decimal Price { get; private set; }
         public virtual CarEntity? Car { get; private set; }
         public virtual RouteEntity? Route { get; private set; }
+        public virtual ICollection<Ticket.TicketEntity>? Tickets { get; }
 
         private CarRouteMappingEntity() { }
 

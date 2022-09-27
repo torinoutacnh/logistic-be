@@ -1,4 +1,5 @@
 ﻿using FU.Domain.Base;
+using FU.Domain.Entities.Mapping;
 using FU.Domain.Entities.Seat;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace FU.Domain.Entities.Ticket
         public Guid CarId { get; private set; }
         public Guid RouteId { get; private set; }
         public Guid SeatId { get; private set; }
+        public Guid CarRouteMappingId { get; private set; }
         public decimal Price { get; private set; }
         public ItemDetail? ItemDetail { get; private set; }
         public TicketServiceType TicketService { get; private set; }
         public virtual SeatEntity Seat { get; private set; }
+        public virtual CarRouteMappingEntity CarRouteMapping { get; private set; }
 
 
         private TicketEntity() { }
