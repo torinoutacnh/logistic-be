@@ -16,9 +16,9 @@ namespace FU.Service.Contract
         Task<List<DistrictViewModel>> GetDistrictsByCityAsync(Guid id);
         Task<List<WardViewModel>> GetWardsByDistrictAsync(Guid id);
 
-        Task<Guid> CreateRoute(Guid carid, CreateCarRouteModel model);
-        Task<List<Guid>> CreateRoutes(Guid carid, params CreateCarRouteModel[] models);
-        Task<Guid> UpdateRoute(Guid carid, UpdateCarRouteModel model);
+        Task<Guid> CreateRoute(CreateCarRouteModel model);
+        Task<List<Guid>> CreateRoutes(params CreateCarRouteModel[] models);
+        Task<Guid> UpdateRoute(Guid id, UpdateCarRouteModel model);
         Task DeleteRoute(Guid id);
 
         Task<Guid> CreateSeat(Guid carid, CreateCarSeatModel model);

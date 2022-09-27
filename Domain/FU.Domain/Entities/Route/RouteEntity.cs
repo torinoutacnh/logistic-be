@@ -11,7 +11,6 @@ namespace FU.Domain.Entities.Route
 {
     public class RouteEntity:Entity
     {
-        public Guid CarId { get; private set; }
         public Location From { get; private set; }
         public Location To { get; private set; }
 
@@ -20,13 +19,11 @@ namespace FU.Domain.Entities.Route
         public decimal Hour { get; private set; }
         public decimal Minute { get; private set; }
 
-        public virtual CarEntity? Car { get; }
-        public virtual ICollection<Mapping.CarRouteMappingEntity>? CarRouteMappings { get; }
+        public virtual ICollection<CarRouteMappingEntity>? CarRouteMappings { get; }
         private RouteEntity() { }
 
-        public RouteEntity(Guid carId, Location from, Location to, decimal distanceByKm, decimal day,decimal hour, decimal minute)
+        public RouteEntity(Location from, Location to, decimal distanceByKm, decimal day,decimal hour, decimal minute)
         {
-            CarId = carId;
             From = from ?? throw new ArgumentNullException(nameof(from));
             To = to ?? throw new ArgumentNullException(nameof(to));
             DistanceByKm = distanceByKm;

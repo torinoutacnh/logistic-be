@@ -10,7 +10,6 @@ namespace FU.Domain.Entities.Route
 {
     public interface IRouteRepository:IRepository<RouteEntity>
     {
-        Task<RouteModel?> GetRouteDetailAsync(Guid id);
         bool ValidateLocation(Location model);
         bool ValidateLocations(params Location[] models);
 

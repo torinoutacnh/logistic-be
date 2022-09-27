@@ -37,8 +37,9 @@ namespace FU.Repository.Repositories
                         .Select(y => new SeatModel(y)),
                     x.CarRouteMappings
                         .Where(y => y.IsDeleted == false)
-                        .Select(x => new RouteModel(x.Id
-                            , x.CarId
+                        .Select(x => new RouteModel(
+                            x.RouteId,
+                            x.Id
                             , new LocationInfo(
                                 _store.Cities.First(y => y.Id == x.Route.From.CityId).Name
                                 , _store.Districts.First(y => y.Id == x.Route.From.DistrictId).Name
@@ -70,8 +71,9 @@ namespace FU.Repository.Repositories
                         .Select(y => new SeatModel(y)),
                     x.CarRouteMappings
                         .Where(y => y.IsDeleted == false)
-                        .Select(x => new RouteModel(x.Id
-                            , x.CarId
+                        .Select(x => new RouteModel(
+                            x.RouteId,
+                            x.Id
                             , new LocationInfo(
                                 _store.Cities.First(y => y.Id == x.Route.From.CityId).Name
                                 , _store.Districts.First(y => y.Id == x.Route.From.DistrictId).Name

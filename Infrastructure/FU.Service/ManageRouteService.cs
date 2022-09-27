@@ -115,14 +115,14 @@ namespace FU.Service
         /// <param name="carid"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Guid> CreateRoute(Guid carid, CreateCarRouteModel model)
+        public async Task<Guid> CreateRoute(CreateCarRouteModel model)
         {
             try
             {
                 _logger.Information("Start create stop point");
                 var service = _serviceProvider.GetRequiredService<ManageCarRouteDomainService>();
 
-                var routeid = await service.CreateCarRoute(carid, model);
+                var routeid = await service.CreateCarRoute(model);
                 return routeid;
             }
             catch (Exception)
@@ -142,14 +142,14 @@ namespace FU.Service
         /// <param name="carid"></param>
         /// <param name="models"></param>
         /// <returns></returns>
-        public async Task<List<Guid>> CreateRoutes(Guid carid, params CreateCarRouteModel[] models)
+        public async Task<List<Guid>> CreateRoutes(params CreateCarRouteModel[] models)
         {
             try
             {
                 _logger.Information("Start create stop point");
                 var service = _serviceProvider.GetRequiredService<ManageCarRouteDomainService>();
 
-                var routeid = await service.CreateCarRoutes(carid, models);
+                var routeid = await service.CreateCarRoutes(models);
                 return routeid;
             }
             catch (Exception)
@@ -169,14 +169,14 @@ namespace FU.Service
         /// <param name="carid"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Guid> UpdateRoute(Guid carid, UpdateCarRouteModel model)
+        public async Task<Guid> UpdateRoute(Guid id, UpdateCarRouteModel model)
         {
             try
             {
                 _logger.Information("Start create stop point");
                 var service = _serviceProvider.GetRequiredService<ManageCarRouteDomainService>();
 
-                var routeid = await service.UpdateCarRoute(carid, model);
+                var routeid = await service.UpdateCarRoute(id, model);
                 return routeid;
             }
             catch (Exception)

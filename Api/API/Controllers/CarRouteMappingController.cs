@@ -28,7 +28,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetCarRouteMappings()
         {
             var carRouteMappings = await _manageCarRouteMappingService.GetCarRouteMappingDetailsAsync();
-            var res = new ResponseModel<List<CarRouteMappingViewModel>>(carRouteMappings);
+            var res = new ResponseModel<List<CarRouteMappingInfoModel>>(carRouteMappings);
             return Ok(res);
         }
         [HttpGet]
@@ -41,7 +41,7 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route(CarRouteMappingEndPoints.UpdateStarttime)]
-        public async Task<IActionResult> UpdateCarRouteMapping([FromForm] UpdateCarRouteMappingStarttimeModel model)
+        public async Task<IActionResult> UpdateCarRouteMapping([FromBody] UpdateCarRouteMappingStarttimeModel model)
         {
             var starttime = await _manageCarRouteMappingService.UpdateCarRouteMappingDetailAsync(model);
             var res = new ResponseModel<Guid>(starttime);
@@ -49,7 +49,7 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route(CarRouteMappingEndPoints.CreateStarttime)]
-        public async Task<IActionResult> CreateCarMapping([FromForm] CreateCarRouteMappingStarttimeModel model)
+        public async Task<IActionResult> CreateCarMapping([FromBody] CreateCarRouteMappingStarttimeModel model)
         {
             var starttime = await _manageCarRouteMappingService.CreateCarRouteMappingDetailAsync(model);
             var res = new ResponseModel<Guid>(starttime);

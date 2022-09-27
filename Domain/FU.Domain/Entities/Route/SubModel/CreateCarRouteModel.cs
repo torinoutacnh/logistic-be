@@ -8,8 +8,8 @@ namespace FU.Domain.Entities.Route.SubModel
 {
     public class CreateCarRouteModel
     {
-        public Location From { get; set; }
-        public Location To { get; set; }
+        public Location From { get; private set; }
+        public Location To { get; private set; }
 
         public decimal DistanceByKm { get; private set; }
         public decimal Day { get; private set; }

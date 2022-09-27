@@ -15,32 +15,30 @@ namespace API.Controllers
     public class CarRouteController : BaseController
     {
         private readonly IManageRouteService _manageRouteService;
-        private readonly ILogger _logger;
 
         public CarRouteController(IManageRouteService manageRouteService, ILogger logger)
         {
             _manageRouteService = manageRouteService;
-            _logger = logger;
         }
 
         #region route
         [HttpPost]
         [Route(RouteEndpoints.CreateRoute)]
-        public async Task<IActionResult> CreateRoute(Guid id, [FromBody]CreateCarRouteModel model)
+        public async Task<IActionResult> CreateRoute([FromBody]CreateCarRouteModel model)
         {
-            var route = await _manageRouteService.CreateRoute(id, model);
+            var route = await _manageRouteService.CreateRoute(model);
             var res = new ResponseModel<Guid>(route);
             return Ok(res);
         }
 
-        [HttpPost]
-        [Route(RouteEndpoints.CreateRoutes)]
-        public async Task<IActionResult> CreateRoutes(Guid id, [FromBody] CreateCarRouteModel[] models)
-        {
-            var routes = await _manageRouteService.CreateRoutes(id, models);
-            var res = new ResponseModel<List<Guid>>(routes);
-            return Ok(res);
-        }
+        //[HttpPost]
+        //[Route(RouteEndpoints.CreateRoutes)]
+        //public async Task<IActionResult> CreateRoutes([FromBody] CreateCarRouteModel[] models)
+        //{
+        //    var routes = await _manageRouteService.CreateRoutes(models);
+        //    var res = new ResponseModel<List<Guid>>(routes);
+        //    return Ok(res);
+        //}
 
         [HttpPost]
         [Route(RouteEndpoints.UpdateRoute)]

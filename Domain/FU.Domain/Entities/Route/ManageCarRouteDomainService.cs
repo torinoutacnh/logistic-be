@@ -82,9 +82,8 @@ namespace FU.Domain.Entities.Route
         /// <param name="models"></param>
         /// <returns></returns>
         /// <exception cref="DomainException"></exception>
-        public async Task<List<Guid>> CreateCarRoutes(Guid carid, params CreateCarRouteModel[] models)
+        public async Task<List<Guid>> CreateCarRoutes(params CreateCarRouteModel[] models)
         {
-            var check = await _carRepository.GetAsync(carid) ?? throw new DomainException(ShareConstant.NotFound, 404);
             if (!_routeRepository.ValidateLocations(models
                 .Select(x=>x.From)
                 .Concat(models.Select(x => x.To))
@@ -92,7 +91,7 @@ namespace FU.Domain.Entities.Route
                 .ToArray()))
                 throw new DomainException(CarConstant.InvalidLocation, 400);
 
-            var routes = models.Select(x => new RouteEntity(carid, x.From, x.To, x.DistanceByKm, x.Day, x.Hour, x.Minute)).DistinctBy(x => new { from = x.From, to = x.To }).ToArray();
+            var routes = models.Select(x => new RouteEntity(x.From, x.To, x.DistanceByKm, x.Day, x.Hour, x.Minute)).DistinctBy(x => new { from = x.From, to = x.To }).ToArray();
             await _routeRepository.CreateRangeAsync(routes);
             await _unitOfWork.SaveChangeAsync();
             return routes.Select(x => x.Id).ToList();
@@ -105,13 +104,12 @@ namespace FU.Domain.Entities.Route
         /// <param name="model"></param>
         /// <returns></returns>
         /// <exception cref="DomainException"></exception>
-        public async Task<Guid> CreateCarRoute(Guid carid, CreateCarRouteModel model)
+        public async Task<Guid> CreateCarRoute(CreateCarRouteModel model)
         {
-            var check = await _carRepository.GetAsync(carid) ?? throw new DomainException(ShareConstant.NotFound, 404);
-            if(!_routeRepository.ValidateLocations(model.From, model.To)) 
+            if (!_routeRepository.ValidateLocations(model.From, model.To)) 
                 throw new DomainException(CarConstant.InvalidLocation, 400);
 
-            var route = new RouteEntity(carid, model.From, model.To, model.DistanceByKm, model.Day, model.Hour, model.Minute);
+            var route = new RouteEntity(model.From, model.To, model.DistanceByKm, model.Day, model.Hour, model.Minute);
             await _routeRepository.CreateAsync(route);
             await _unitOfWork.SaveChangeAsync();
             return route.Id;
