@@ -25,6 +25,6 @@ namespace FU.Service.Contract
         Task<Guid> UpdateCarDetailAsync(UpdateCarDetailWithFileModel model);
         Task<Guid> UpdateCarPriceAsync(UpdateCarPriceModel model);
         Task DeleteCarAsync(Guid id);
-        Task<List<CarViewModel>> GetCarByRouteAsync(Guid routeId);
+        Task<List<CarInfoModel>> GetCarByLocationStarttimeAsync(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime);
     }
 }

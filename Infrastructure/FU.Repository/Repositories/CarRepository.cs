@@ -1,5 +1,6 @@
 ﻿using FU.Domain.Entities.Car;
 using FU.Domain.Entities.Car.SubModel;
+using FU.Domain.Entities.CarRouteMapping.SubModel;
 using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Route.SubModel;
 using FU.Domain.Entities.Seat.SubModel;
@@ -91,6 +92,11 @@ namespace FU.Repository.Repositories
                             route.Hour,
                             route.Minute))).FirstOrDefaultAsync();
             return query;
+        }
+
+        public Task<List<CarInfoModel>> GetCarByLocationStartTime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

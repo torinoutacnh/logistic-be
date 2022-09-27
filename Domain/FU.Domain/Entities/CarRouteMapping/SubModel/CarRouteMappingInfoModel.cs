@@ -26,3 +26,4 @@ namespace FU.Domain.Entities.CarRouteMapping.SubModel
             this.Starttime = Starttime;
         }
     }
+}

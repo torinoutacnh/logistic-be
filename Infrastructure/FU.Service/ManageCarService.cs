@@ -476,26 +476,25 @@ namespace FU.Service
             }
         }
 
-        public async Task<List<CarViewModel>> GetCarByRouteAsync(Guid routeId)
+        public async Task<List<CarInfoModel>> GetCarByLocationStarttimeAsync(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
         {
             try
             {
-                _logger.Information("Start get car by route");
+                _logger.Information("Start get cars");
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
 
-                var car = (await service.GetCars(x => x.RouteId == routeId, false, x => x.CarRouteMappings))
-                    .Select(x => new CarViewModel(x))
-                    .ToList();
-                return car;
+                var cars = await service.GetCarsByLocationStarttime(FromCityId, ToCityId, Starttime);
+                return cars;
             }
             catch (Exception)
             {
-                _logger.Information("Error get car by route");
+                _logger.Information("Error get cars");
                 throw;
+
             }
             finally
             {
-                _logger.Information("Finish get car by route");
+                _logger.Information("Finish get cars");
             }
         }
         #endregion

@@ -68,7 +68,15 @@ namespace FU.Domain.Entities.Car
             var car = await _carRepository.GetCarInfos();
             return car;
         }
-
+        /// <summary>
+        /// Get Car By LocationStarttime
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<CarInfoModel>> GetCarsByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        {
+            var car = await _carRepository.GetCarByLocationStartTime(FromCityId, ToCityId, Starttime);
+            return car;
+        }
         /// <summary>
         /// Get Cars To
         /// </summary>
@@ -94,7 +102,6 @@ namespace FU.Domain.Entities.Car
         {
             return await _carRepository.GetAsync(id,false,x=>x.Seats);
         } 
-
         /// <summary>
         /// Create Car
         /// </summary>

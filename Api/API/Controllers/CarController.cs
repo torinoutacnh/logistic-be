@@ -89,14 +89,13 @@ namespace API.Controllers
             return Ok(res);
         }
         [HttpGet]
-        [Route(CarEndpoints.GetByRoute)]
-        public async Task<IActionResult> GetCarByRoute(Guid id)
+        [Route(CarEndpoints.GetByLocationStarttime)]
+        public async Task<IActionResult> GetCarByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
         {
-            var car = await _manageCarService.GetCarByRouteAsync(id);
-            var res = new ResponseModel<List<CarViewModel>>(car);
+            var cars = await _manageCarService.GetCarByLocationStarttimeAsync(FromCityId, ToCityId, Starttime);
+            var res = new ResponseModel<List<CarInfoModel>>(cars);
             return Ok(res);
         }
-
         #endregion
 
         #region Car seat
