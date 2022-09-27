@@ -27,7 +27,7 @@ namespace API.Controllers
 
         #region Car
         [HttpGet]
-        [Route(CarRouteMappingEndpoints.GetAll)]
+        [Route(CarEndpoints.GetAll)]
         public async Task<IActionResult> GetCars()
         {
             var cars = await _manageCarService.GetCarListAsync();
@@ -36,7 +36,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route(CarRouteMappingEndpoints.GetSingle)]
+        [Route(CarEndpoints.GetSingle)]
         public async Task<IActionResult> GetCar(Guid id)
         {
             var car = await _manageCarService.GetCarDetailAsync(id);
@@ -45,7 +45,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route(CarRouteMappingEndpoints.GetByManager)]
+        [Route(CarEndpoints.GetByManager)]
         public async Task<IActionResult> GetCarByManager(Guid id)
         {
             var car = await _manageCarService.GetCarByManagerAsync(id);
@@ -54,7 +54,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route(CarRouteMappingEndpoints.CreateCar)]
+        [Route(CarEndpoints.CreateCar)]
         public async Task<IActionResult> CreateCar([FromForm]CreateCarWithFileModel model)
         {
             var car = await _manageCarService.CreateCarAsync(model);
@@ -63,7 +63,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route(CarRouteMappingEndpoints.UpdateCarDetail)]
+        [Route(CarEndpoints.UpdateCarDetail)]
         public async Task<IActionResult> UpdateCarDetail([FromForm] UpdateCarDetailWithFileModel model)
         {
             var car = await _manageCarService.UpdateCarDetailAsync(model);
@@ -72,7 +72,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route(CarRouteMappingEndpoints.UpdateCarPrice)]
+        [Route(CarEndpoints.UpdateCarPrice)]
         public async Task<IActionResult> UpdateCarPrice([FromBody] UpdateCarPriceModel model)
         {
             var car = await _manageCarService.UpdateCarPriceAsync(model);
@@ -81,13 +81,22 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route(CarRouteMappingEndpoints.DeleteCar)]
+        [Route(CarEndpoints.DeleteCar)]
         public async Task<IActionResult> DeleteCar(Guid id)
         {
             await _manageCarService.DeleteCarAsync(id);
             var res = new ResponseModel<string>(MessageConstant.Success);
             return Ok(res);
         }
+        [HttpGet]
+        [Route(CarEndpoints.GetByRoute)]
+        public async Task<IActionResult> GetCarByRoute(Guid id)
+        {
+            var car = await _manageCarService.GetCarByRouteAsync(id);
+            var res = new ResponseModel<List<CarViewModel>>(car);
+            return Ok(res);
+        }
+
         #endregion
 
         #region Car seat

@@ -475,6 +475,29 @@ namespace FU.Service
                 _logger.Information("Finish update car price");
             }
         }
+
+        public async Task<List<CarViewModel>> GetCarByRouteAsync(Guid routeId)
+        {
+            try
+            {
+                _logger.Information("Start get car by route");
+                var service = _serviceProvider.GetRequiredService<CarDomainService>();
+
+                var car = (await service.GetCars(x => x.RouteId == routeId, false, x => x.CarRouteMappings))
+                    .Select(x => new CarViewModel(x))
+                    .ToList();
+                return car;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error get car by route");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get car by route");
+            }
+        }
         #endregion
     }
 }
