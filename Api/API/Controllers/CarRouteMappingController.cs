@@ -63,5 +63,14 @@ namespace API.Controllers
             var res = new ResponseModel<string>(MessageConstant.Success);
             return Ok(res);
         }
+        [HttpGet]
+        [Route(CarRouteMappingEndPoints.GetCarRouteByLocationStarttime)]
+        public async Task<IActionResult> GetCarRouteByLocationStarttime(Guid FromCity, Guid ToCity, DateTimeOffset Starttime)
+        {
+            var carRoutebyLocationStarttime = await _manageCarRouteMappingService.GetCarRouteByLocationStarttime(FromCity, ToCity, Starttime);
+            var res = new ResponseModel<List<CarRouteMappingInfoModel>>(carRoutebyLocationStarttime);
+            return Ok(res);
+
+        }
     }
 }

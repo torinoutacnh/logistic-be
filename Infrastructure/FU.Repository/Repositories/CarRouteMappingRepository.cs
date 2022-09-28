@@ -20,6 +20,17 @@ namespace FU.Repository.Repositories
         {         
         }
 
+        public Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        {
+            var query = from route in _store.Routes
+                        where route.From.CityId == FromCityId && route.To.CityId == ToCityId
+                        join mapping in _store.CarRouteMappings
+                        on route.Id equals mapping.RouteId
+                        where mapping.Starttime == Starttime
+                        select new CarRouteMappingInfoModel(mapping.CarId, route.Id, mapping.Starttime);
+            return query.ToListAsync();
+        }
+
         public Task<CarRouteMappingInfoModel?> GetCarRouteMappingInfo(Guid id)
         {
             var query =  from mapping in _store.CarRouteMappings

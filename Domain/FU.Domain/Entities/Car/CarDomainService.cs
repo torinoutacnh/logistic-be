@@ -68,7 +68,6 @@ namespace FU.Domain.Entities.Car
             var car = await _carRepository.GetCarInfos();
             return car;
         }
-
         /// <summary>
         /// Get Cars To
         /// </summary>
@@ -94,7 +93,6 @@ namespace FU.Domain.Entities.Car
         {
             return await _carRepository.GetAsync(id,false,x=>x.Seats);
         } 
-
         /// <summary>
         /// Create Car
         /// </summary>

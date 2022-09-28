@@ -10,6 +10,7 @@ namespace API.Endpoints
         public const string GetSingle = Base + "/car/{id}";
         public const string UpdateStarttime = Base + "/update-start-time";
         public const string CreateStarttime = Base + "/create-start-time";
-        public const string DeleteStarttime = Base + "/delete-carRouteMpping/{id}";
+        public const string DeleteStarttime = Base + "/delete-carRouteMapping/{id}";
+        public const string GetCarRouteByLocationStarttime = Base + "/get-car-route-by-location-starttime";
     }
 }

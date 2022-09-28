@@ -2,7 +2,7 @@
 
 namespace API.Endpoints
 {
-    public class CarRouteMappingEndpoints
+    public class CarEndpoints
     {
         public const string Area = "";
         public const string Base = Area + "/car";

@@ -1,5 +1,6 @@
 ﻿using FU.Domain.Entities.Car;
 using FU.Domain.Entities.Car.SubModel;
+using FU.Domain.Entities.CarRouteMapping.SubModel;
 using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Route.SubModel;
 using FU.Domain.Entities.Seat.SubModel;

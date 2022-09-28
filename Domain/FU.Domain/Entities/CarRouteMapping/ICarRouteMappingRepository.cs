@@ -13,5 +13,7 @@ namespace FU.Domain.Entities.CarRouteMapping
     {
         Task<CarRouteMappingInfoModel?> GetCarRouteMappingInfo(Guid id);
         Task<List<CarRouteMappingInfoModel>> GetCarRouteMappingInfos();
+
+        Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset dateTimeOffset);
     }
 }

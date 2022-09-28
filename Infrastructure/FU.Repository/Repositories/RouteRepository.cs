@@ -30,7 +30,7 @@ namespace FU.Repository.Repositories
                         join ward in _store.Wards
                             on district.Id equals ward.DistrictId
                         where ward.Id == model.WardId
-                        select (new Location(city.Id, district.Id, ward.Id, "", ""));
+                        select (new Location(city.Id, district.Id, ward.Id));
 
             return query.Any();
         }

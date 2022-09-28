@@ -12,5 +12,6 @@ namespace FU.Domain.Entities.Car
     {
         Task<CarInfoModel?> GetCarInfo(Guid id);
         Task<List<CarInfoModel>> GetCarInfos();
+
     }
 }
