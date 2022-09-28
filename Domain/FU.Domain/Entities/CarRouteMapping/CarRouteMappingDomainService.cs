@@ -97,9 +97,9 @@ namespace FU.Domain.Entities.CarRouteMapping
         /// Get CarRouteByLocationStarttime
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(GetCarRouteByLocationStarttimeModel model)
         {
-            var carRouteByLocationStarttime = await _carRouteMappingRepository.GetCarRouteByLocationStarttime(FromCityId, ToCityId, Starttime);
+            var carRouteByLocationStarttime = await _carRouteMappingRepository.GetCarRouteByLocationStarttime(model.FromCityId, model.ToCityId, model.Starttime);
             return carRouteByLocationStarttime;
         }
     }

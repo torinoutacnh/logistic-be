@@ -18,9 +18,5 @@ namespace FU.Domain.Entities.CarRouteMapping.SubModel
             RouteId = routeId;
             Starttime = starttime;
         }
-
-        public UpdateCarRouteMappingStarttimeModel()
-        {
-        }
     }
 }

@@ -143,15 +143,16 @@ namespace FU.Service
             }
         }
 
-        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(GetCarRouteByLocationStarttimeModel model)
         {
             try
             {
                 _logger.Information("Start get CarRoute by Location and Starttime");
                 var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
 
-                var managers = await service.GetCarRouteByLocationStarttime(FromCityId, ToCityId, Starttime);
-                return managers.ToList();
+                var get = new GetCarRouteByLocationStarttimeModel(model.FromCityId, model.ToCityId, model.Starttime);
+                var carRoute = await service.GetCarRouteByLocationStarttime(get);
+                return carRoute.ToList();
             }
             catch (Exception ex)
             {

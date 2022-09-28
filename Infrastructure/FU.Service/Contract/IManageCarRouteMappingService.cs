@@ -16,6 +16,6 @@ namespace FU.Service.Contract
         Task<Guid> CreateCarRouteMappingDetailAsync(CreateCarRouteMappingStarttimeModel model);
         Task DeleteCarRouteMappingAsync(Guid id);
 
-        Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime);
+        Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(GetCarRouteByLocationStarttimeModel model);
     }
 }

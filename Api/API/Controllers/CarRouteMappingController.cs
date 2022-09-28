@@ -65,9 +65,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route(CarRouteMappingEndPoints.GetCarRouteByLocationStarttime)]
-        public async Task<IActionResult> GetCarRouteByLocationStarttime(Guid FromCity, Guid ToCity, DateTimeOffset Starttime)
+        public async Task<IActionResult> GetCarRouteByLocationStarttime(GetCarRouteByLocationStarttimeModel model)
         {
-            var carRoutebyLocationStarttime = await _manageCarRouteMappingService.GetCarRouteByLocationStarttime(FromCity, ToCity, Starttime);
+            var carRoutebyLocationStarttime = await _manageCarRouteMappingService.GetCarRouteByLocationStarttime(model);
             var res = new ResponseModel<List<CarRouteMappingInfoModel>>(carRoutebyLocationStarttime);
             return Ok(res);
 
