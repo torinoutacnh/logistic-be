@@ -16,10 +16,5 @@ namespace API.Models.Response
             AdditionalData = additionalData;
             Message = message;
         }
-
-        public ResponseModel(List<CarRouteMappingInfoModel> carRouteMappings)
-        {
-            this.carRouteMappings = carRouteMappings;
-        }
     }
 }

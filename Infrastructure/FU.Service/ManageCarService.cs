@@ -371,9 +371,10 @@ namespace FU.Service
                 var service = _serviceProvider.GetRequiredService<CarDomainService>();
                 var filepath = await SaveCarFileAsync(model.ImagePath);
                 var cre = new CreateCarModel(model.ShipPrice, 
-                    model.TravelPrice, 
+                    model.TravelPrice,
+                    model.CarModel,
                     model.CarColor, 
-                    model.Tel, filepath, 
+                    filepath, 
                     model.Tel, 
                     model.CarNumber, 
                     model.ServiceType, 

@@ -20,34 +20,6 @@ namespace FU.Repository.Repositories
         {
         }
 
-        public Task<RouteModel?> GetRouteDetailAsync(Guid id)
-        {
-            var query = from route in _store.Routes
-                        where route.Id == id
-                        select new RouteModel(route.Id,
-                        route.CarId,
-                        (from city in _store.Cities
-                         where city.Id == route.From.CityId
-                         join district in _store.Districts
-                            on route.From.DistrictId equals district.Id
-                         join ward in _store.Wards
-                            on route.From.WardId equals ward.Id
-                         select new LocationInfo(city.Name, district.Name, ward.Name)).First(),
-                         (from city in _store.Cities
-                          where city.Id == route.To.CityId
-                          join district in _store.Districts
-                             on route.To.DistrictId equals district.Id
-                          join ward in _store.Wards
-                             on route.To.WardId equals ward.Id
-                          select new LocationInfo(city.Name, district.Name, ward.Name)).First(),
-                         route.DistanceByKm,
-                         route.Day,
-                         route.Hour,
-                         route.Minute);
-
-            return query.FirstOrDefaultAsync();
-        }
-
         public bool ValidateLocation(Location model)
         {
             var query = from city in _store.Cities

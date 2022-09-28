@@ -50,7 +50,7 @@ namespace FU.Repository.Repositories
                         join car in _store.Cars
                         on mapping.CarId equals car.Id
                         join route in _store.Routes
-                        on mapping.CarId equals route.Id
+                        on mapping.RouteId equals route.Id
                         select new CarRouteMappingInfoModel(car.Id, route.Id, mapping.Starttime);
             return query.ToListAsync();
         }

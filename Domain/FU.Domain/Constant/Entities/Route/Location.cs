@@ -13,18 +13,14 @@ namespace FU.Domain.Entities.Route
         public Guid DistrictId { get; private set; }
         public Guid WardId { get; private set; }
 
-        public string? Street { get; private set; }
-        public string? HouseNumber { get; private set; }
 
         private Location() { }
 
-        public Location(Guid cityId, Guid districtId, Guid wardId, string? street = null, string? houseNumber = null)
+        public Location(Guid cityId, Guid districtId, Guid wardId)
         {
             CityId = cityId;
             DistrictId = districtId;
             WardId = wardId;
-            Street = street;
-            HouseNumber = houseNumber;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

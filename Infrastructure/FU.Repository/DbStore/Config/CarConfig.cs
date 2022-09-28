@@ -16,8 +16,6 @@ namespace FU.Repository.DbStore.Config
             builder.ToTable("Cars");
             builder.HasKey(o => o.Id);
 
-            builder.HasIndex(x => x.CarNumber).IsUnique();
-
             builder.HasOne(o=>o.CarsManager)
                 .WithMany(o=>o.Cars)
                 .HasForeignKey(o=>o.CarsManagerId)
