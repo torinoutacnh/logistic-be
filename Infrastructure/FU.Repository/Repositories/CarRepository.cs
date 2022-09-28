@@ -93,10 +93,5 @@ namespace FU.Repository.Repositories
                             route.Minute))).FirstOrDefaultAsync();
             return query;
         }
-
-        public Task<List<CarInfoModel>> GetCarByLocationStartTime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

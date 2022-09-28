@@ -13,6 +13,5 @@ namespace FU.Domain.Entities.Car
         Task<CarInfoModel?> GetCarInfo(Guid id);
         Task<List<CarInfoModel>> GetCarInfos();
 
-        Task<List<CarInfoModel>> GetCarByLocationStartTime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime);
     }
 }

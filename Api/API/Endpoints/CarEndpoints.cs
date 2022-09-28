@@ -13,6 +13,5 @@ namespace API.Endpoints
         public const string UpdateCarDetail = Base + "/update-car-detail";
         public const string UpdateCarPrice = Base + "/update-car-price";
         public const string DeleteCar = Base + "/delete-car/{id}";
-        public const string GetByLocationStarttime = Base + "/Location-and-Starttime";
     }
 }

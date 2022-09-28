@@ -142,5 +142,26 @@ namespace FU.Service
                 _logger.Information("Finish update car price");
             }
         }
+
+        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        {
+            try
+            {
+                _logger.Information("Start get CarRoute by Location and Starttime");
+                var service = _serviceProvider.GetRequiredService<CarRouteMappingDomainService>();
+
+                var managers = await service.GetCarRouteByLocationStarttime(FromCityId, ToCityId, Starttime);
+                return managers.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.Information($"Error get CarRoute by Location and Starttime: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get CarRoute by Location and Starttime");
+            }
+        }
     }
 }

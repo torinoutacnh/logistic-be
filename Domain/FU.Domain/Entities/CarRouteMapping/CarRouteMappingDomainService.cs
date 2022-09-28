@@ -93,6 +93,14 @@ namespace FU.Domain.Entities.CarRouteMapping
             await _carRouteMappingRepository.DeleteAsync(id,true);
             await _unitOfWork.SaveChangeAsync();
         }
-
+        /// <summary>
+        /// Get CarRouteByLocationStarttime
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<CarRouteMappingInfoModel>> GetCarRouteByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
+        {
+            var carRouteByLocationStarttime = await _carRouteMappingRepository.GetCarRouteByLocationStarttime(FromCityId, ToCityId, Starttime);
+            return carRouteByLocationStarttime;
+        }
     }
 }

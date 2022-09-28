@@ -88,14 +88,6 @@ namespace API.Controllers
             var res = new ResponseModel<string>(MessageConstant.Success);
             return Ok(res);
         }
-        [HttpGet]
-        [Route(CarEndpoints.GetByLocationStarttime)]
-        public async Task<IActionResult> GetCarByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
-        {
-            var cars = await _manageCarService.GetCarByLocationStarttimeAsync(FromCityId, ToCityId, Starttime);
-            var res = new ResponseModel<List<CarInfoModel>>(cars);
-            return Ok(res);
-        }
         #endregion
 
         #region Car seat

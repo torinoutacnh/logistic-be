@@ -475,28 +475,6 @@ namespace FU.Service
                 _logger.Information("Finish update car price");
             }
         }
-
-        public async Task<List<CarInfoModel>> GetCarByLocationStarttimeAsync(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
-        {
-            try
-            {
-                _logger.Information("Start get cars");
-                var service = _serviceProvider.GetRequiredService<CarDomainService>();
-
-                var cars = await service.GetCarsByLocationStarttime(FromCityId, ToCityId, Starttime);
-                return cars;
-            }
-            catch (Exception)
-            {
-                _logger.Information("Error get cars");
-                throw;
-
-            }
-            finally
-            {
-                _logger.Information("Finish get cars");
-            }
-        }
         #endregion
     }
 }

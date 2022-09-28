@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FU.Domain.Entities.Car.SubModel
 {
     public class CarInfoModel
-    {
+    { 
         public decimal ShipPrice { get; private set; }
         public decimal TravelPrice { get; private set; }
 

@@ -69,15 +69,6 @@ namespace FU.Domain.Entities.Car
             return car;
         }
         /// <summary>
-        /// Get Car By LocationStarttime
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<CarInfoModel>> GetCarsByLocationStarttime(Guid FromCityId, Guid ToCityId, DateTimeOffset Starttime)
-        {
-            var car = await _carRepository.GetCarByLocationStartTime(FromCityId, ToCityId, Starttime);
-            return car;
-        }
-        /// <summary>
         /// Get Cars To
         /// </summary>
         /// <typeparam name="T"></typeparam>
