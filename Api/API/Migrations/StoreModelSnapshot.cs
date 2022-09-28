@@ -56,6 +56,9 @@ namespace API.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("RouteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("ServiceType")
                         .HasColumnType("int");
 
@@ -301,6 +304,9 @@ namespace API.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -417,6 +423,9 @@ namespace API.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CarRouteMappingId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("CreateBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -445,6 +454,8 @@ namespace API.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarRouteMappingId");
 
                     b.HasIndex("SeatId");
 
@@ -580,6 +591,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("FU.Domain.Entities.Ticket.TicketEntity", b =>
                 {
+                    b.HasOne("FU.Domain.Entities.Mapping.CarRouteMappingEntity", "CarRouteMapping")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CarRouteMappingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FU.Domain.Entities.Seat.SeatEntity", "Seat")
                         .WithMany("Tickets")
                         .HasForeignKey("SeatId")
@@ -624,6 +641,8 @@ namespace API.Migrations
                                 .HasForeignKey("TicketEntityId");
                         });
 
+                    b.Navigation("CarRouteMapping");
+
                     b.Navigation("ItemDetail");
 
                     b.Navigation("Seat");
@@ -649,6 +668,11 @@ namespace API.Migrations
             modelBuilder.Entity("FU.Domain.Entities.LocalLocation.DistrictEntity", b =>
                 {
                     b.Navigation("Wards");
+                });
+
+            modelBuilder.Entity("FU.Domain.Entities.Mapping.CarRouteMappingEntity", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("FU.Domain.Entities.Route.RouteEntity", b =>
