@@ -22,6 +22,14 @@ namespace API.Controllers
         }
 
         #region route
+        [HttpGet]
+        [Route(RouteEndpoints.GetAll)]
+        public async Task<IActionResult> GetRoutes()
+        {
+            var routes = await _manageRouteService.GetRoutesAsync();
+            var res = new ResponseModel<List<RouteEntity>>(routes);
+            return Ok(res);
+        }
         [HttpPost]
         [Route(RouteEndpoints.CreateRoute)]
         public async Task<IActionResult> CreateRoute([FromBody]CreateCarRouteModel model)
