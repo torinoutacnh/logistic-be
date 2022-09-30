@@ -109,6 +109,27 @@ namespace FU.Service
         #endregion
 
         #region route
+        public async Task<List<RouteEntity>> GetRoutesAsync()
+        {
+            try
+            {
+                _logger.Information("Start get routes list");
+                var service = _serviceProvider.GetRequiredService<ManageCarRouteDomainService>();
+
+                var routes = (await service.GetRoutes(x => true, false, x => x.From))
+                    .ToList();
+                return routes;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error get car list");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish get car list");
+            }
+        }
         /// <summary>
         /// Create Route
         /// </summary>

@@ -76,6 +76,18 @@ namespace FU.Domain.Entities.Route
 
         #region Car routes
         /// <summary>
+        /// Get all routes
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="isIncludeDeleted"></param>
+        /// <param name="includeProperties"></param>
+        /// <returns></returns>
+        public async Task<List<RouteEntity>> GetRoutes(Expression<Func<RouteEntity, bool>> expression, bool isIncludeDeleted = false, params Expression<Func<RouteEntity, object>>[] includeProperties)
+        {
+            var cars = await _routeRepository.GetAllAsync(expression, isIncludeDeleted, includeProperties);
+            return cars;
+        }
+        /// <summary>
         /// Create Car Routes
         /// </summary>
         /// <param name="carid"></param>
