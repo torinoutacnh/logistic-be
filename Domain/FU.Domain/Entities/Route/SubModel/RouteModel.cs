@@ -30,5 +30,15 @@ namespace FU.Domain.Entities.Route.SubModel
             Hour = hour;
             Minute = minute;
         }
+        public RouteModel(Guid id, LocationInfo from, LocationInfo to, decimal distanceByKm, decimal day, decimal hour, decimal minute)
+        {
+            Id = id;
+            From = from;
+            To = to;
+            DistanceByKm = distanceByKm;
+            Day = day;
+            Hour = hour;
+            Minute = minute;
+        }
     }
 }

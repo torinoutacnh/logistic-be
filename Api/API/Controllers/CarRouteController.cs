@@ -27,7 +27,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetRoutes()
         {
             var routes = await _manageRouteService.GetRoutesAsync();
-            var res = new ResponseModel<List<RouteEntity>>(routes);
+            var res = new ResponseModel<List<RouteModel>>(routes);
             return Ok(res);
         }
         [HttpPost]

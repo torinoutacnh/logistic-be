@@ -12,6 +12,7 @@ namespace FU.Domain.Entities.Route
     {
         bool ValidateLocation(Location model);
         bool ValidateLocations(params Location[] models);
+        Task<List<RouteModel>> GetAllRoutes();
 
     }
 }
