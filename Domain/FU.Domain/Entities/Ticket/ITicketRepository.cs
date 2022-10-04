@@ -9,6 +9,7 @@ namespace FU.Domain.Entities.Ticket
 {
     public interface ITicketRepository:IRepository<TicketEntity>
     {
-        //public string MyProperty { get; set; }
+        public Task<List<TicketViewModel>> GetAllTickets();
+        public Task<TicketViewModel> GetTicketById(Guid id);
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FU.Domain.Entities.Ticket
 {
-    public class TicketEntity:Entity
+    public class TicketEntity : Entity
     {
         public Guid CarId { get; private set; }
         public Guid RouteId { get; private set; }
@@ -33,6 +33,30 @@ namespace FU.Domain.Entities.Ticket
             Price = price;
             ItemDetail = itemDetail;
             TicketService = ticketService;
+        }
+
+        public TicketEntity(Guid carId, Guid routeId, Guid carRouteMappingId, Guid seatId, decimal price, ItemDetail? itemDetail = null, TicketServiceType ticketServiceType = TicketServiceType.Travel)
+        {
+            if (ticketServiceType == TicketServiceType.Carry && itemDetail == null)
+                throw new ArgumentException("Required item detail for shipping");
+            CarId = carId;
+            RouteId = routeId;
+            CarRouteMappingId = carRouteMappingId;
+            SeatId = seatId;
+            Price = price;
+            ItemDetail = itemDetail;
+            TicketService = ticketServiceType;
+        }
+
+        public void UpdateTicketEntity(UpdateTicketModel model)
+        {
+            CarId = model.CarId;
+            RouteId = model.RouteId;
+            CarRouteMappingId = model.CarRouteMappingId;
+            SeatId = model.SeatId;
+            Price = model.Price;
+            ItemDetail = model.ItemDetail;
+            TicketService = model.TicketServiceType;
         }
     }
 }

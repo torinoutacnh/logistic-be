@@ -18,7 +18,7 @@ namespace FU.Domain.Entities.Ticket
         public string Receiver { get; set; }
         public string? Note { get; set; }
 
-        private ItemDetail() { }
+        public ItemDetail() { }
 
         public ItemDetail(decimal deep, decimal height, decimal width, decimal weightInKg, string receiver,string? note)
         {
