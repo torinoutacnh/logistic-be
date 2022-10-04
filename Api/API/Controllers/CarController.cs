@@ -4,6 +4,7 @@ using API.Models.Response;
 using API.Utils.Constant;
 using FU.Domain.Entities.Car.SubModel;
 using FU.Domain.Entities.Seat.SubModel;
+using FU.Domain.Entities.Ticket;
 using FU.Service.Contract;
 using FU.Service.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace API.Controllers
     {
         private readonly IManageCarService _manageCarService;
         private readonly IManageRouteService _manageRouteService;
+        private readonly IManageTicketService _manageTicketService;
         private readonly ILogger _logger;
 
-        public CarController(IManageCarService manageCarService, IManageRouteService manageRouteService, ILogger logger)
+        public CarController(IManageCarService manageCarService, IManageRouteService manageRouteService, IManageTicketService manageTicketService, ILogger logger)
         {
             _manageCarService = manageCarService;
             _manageRouteService = manageRouteService;
+            _manageTicketService = manageTicketService;
             _logger = logger;
         }
 
@@ -136,5 +139,55 @@ namespace API.Controllers
             return Ok(res);
         }
         #endregion
+
+        #region Ticket
+        [HttpGet]
+        [Route(TicketEndpoints.GetAll)]
+        public async Task<IActionResult> GetAllTicket()
+        {
+            var tickets = await _manageTicketService.GetTicketListAsync();
+            var res = new ResponseModel<List<TicketViewModel>>(tickets);
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route(TicketEndpoints.GetSingle)]
+        public async Task<IActionResult> GetTicket(Guid id)
+        {
+            var ticket = await _manageTicketService.GetTicketAsync(id);
+            var res = new ResponseModel<TicketViewModel>(ticket);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(TicketEndpoints.CreateTicket)]
+        public async Task<IActionResult> CreateTicket([FromBody]CreateTicketModel model)
+        {
+            var ticket = await _manageTicketService.CreateTicketAsync(model);
+            var res = new ResponseModel<Guid>(ticket);
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route(TicketEndpoints.UpdateTicketInfo)]
+        public async Task<IActionResult> UpdateTicketInfo([FromBody]UpdateTicketModel model)
+        {
+            var ticket = await _manageTicketService.UpdateTicketAsync(model);
+            var res = new ResponseModel<Guid>(ticket);
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route(TicketEndpoints.DeleteTicket)]
+        public async Task<IActionResult> DeleteTicket(Guid id)
+        {
+            await _manageTicketService.DeleteTicketAsync(id);
+            var res = new ResponseModel<string>(MessageConstant.Success);
+            return Ok(res);
+        }
+
+
+
+        #endregion Ticket
     }
 }

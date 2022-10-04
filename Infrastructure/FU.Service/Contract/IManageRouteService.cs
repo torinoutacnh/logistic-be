@@ -12,7 +12,7 @@ namespace FU.Service.Contract
 {
     public interface IManageRouteService
     {
-        Task<List<RouteEntity>> GetRoutesAsync();
+        Task<List<RouteModel>> GetRoutesAsync();
         Task<List<CityViewModel>> GetCitiesAsync();
         Task<List<DistrictViewModel>> GetDistrictsByCityAsync(Guid id);
         Task<List<WardViewModel>> GetWardsByDistrictAsync(Guid id);

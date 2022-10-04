@@ -47,5 +47,28 @@ namespace FU.Repository.Repositories
             }
             return true;
         }
+
+        public Task<List<RouteModel>> GetAllRoutes()
+        {
+            var query = _store.Routes.Where(x => x.IsDeleted == false)
+                .Select(x => new RouteModel(
+                            x.Id
+                            , new LocationInfo(
+                                _store.Cities.First(y => y.Id == x.From.CityId).Name
+                                , _store.Districts.First(y => y.Id == x.From.DistrictId).Name
+                                , _store.Wards.First(y => y.Id == x.From.WardId).Name
+                                )
+                            , new LocationInfo(
+                                _store.Cities.First(y => y.Id == x.To.CityId).Name
+                                , _store.Districts.First(y => y.Id == x.To.DistrictId).Name
+                                , _store.Wards.First(y => y.Id == x.To.WardId).Name
+                                )
+                            , x.DistanceByKm
+                            , x.Day
+                            , x.Hour
+                            , x.Minute
+                            ));
+            return query.ToListAsync();
+        }
     }
 }
