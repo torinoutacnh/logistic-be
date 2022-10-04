@@ -1,4 +1,5 @@
-﻿using FU.Domain.Entities.Ticket;
+﻿using FU.Domain.Entities.Route.SubModel;
+using FU.Domain.Entities.Ticket;
 using FU.Infras.CustomAttribute;
 using FU.Repository.Base;
 using FU.Repository.DbStore;
@@ -22,7 +23,32 @@ namespace FU.Repository.Repositories
         {
             var query = from ticket in _store.Tickets
                         where ticket.IsDeleted == false
-                        select new TicketViewModel(ticket);
+                        join car in _store.Cars
+                        on ticket.CarRouteMapping.CarId equals car.Id
+                        where car.IsDeleted == false
+                        join route in _store.Routes
+                        on ticket.CarRouteMapping.RouteId equals route.Id
+                        where route.IsDeleted == false
+                        select new TicketViewModel(ticket, car, ticket.Seat,
+                            new RouteModel(
+                                    route.Id
+                                    ,ticket.CarRouteMappingId
+                                    , new LocationInfo(
+                                        _store.Cities.First(y => y.Id == route.From.CityId).Name
+                                        , _store.Districts.First(y => y.Id == route.From.DistrictId).Name
+                                        , _store.Wards.First(y => y.Id == route.From.WardId).Name
+                                        )
+                                    , new LocationInfo(
+                                        _store.Cities.First(y => y.Id == route.To.CityId).Name
+                                        , _store.Districts.First(y => y.Id == route.To.DistrictId).Name
+                                        , _store.Wards.First(y => y.Id == route.To.WardId).Name
+                                        )
+                                    , route.DistanceByKm
+                                    , route.Day
+                                    , route.Hour
+                                    , route.Minute
+                                    )
+                        );
             return query.ToListAsync();
         }
 
@@ -30,7 +56,32 @@ namespace FU.Repository.Repositories
         {
             var query = from ticket in _store.Tickets
                         where ticket.IsDeleted == false && ticket.Id == id
-                        select new TicketViewModel(ticket);
+                        join car in _store.Cars
+                        on ticket.CarRouteMapping.CarId equals car.Id
+                        where car.IsDeleted == false
+                        join route in _store.Routes
+                        on ticket.CarRouteMapping.RouteId equals route.Id
+                        where route.IsDeleted == false
+                        select new TicketViewModel(ticket, car, ticket.Seat,
+                            new RouteModel(
+                                    route.Id
+                                    , ticket.CarRouteMappingId
+                                    , new LocationInfo(
+                                        _store.Cities.First(y => y.Id == route.From.CityId).Name
+                                        , _store.Districts.First(y => y.Id == route.From.DistrictId).Name
+                                        , _store.Wards.First(y => y.Id == route.From.WardId).Name
+                                        )
+                                    , new LocationInfo(
+                                        _store.Cities.First(y => y.Id == route.To.CityId).Name
+                                        , _store.Districts.First(y => y.Id == route.To.DistrictId).Name
+                                        , _store.Wards.First(y => y.Id == route.To.WardId).Name
+                                        )
+                                    , route.DistanceByKm
+                                    , route.Day
+                                    , route.Hour
+                                    , route.Minute
+                                    )
+                        );
             return query.FirstOrDefaultAsync();
         }
     }
