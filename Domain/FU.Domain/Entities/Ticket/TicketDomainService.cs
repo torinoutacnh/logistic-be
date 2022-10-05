@@ -3,6 +3,7 @@ using FU.Domain.Constant;
 using FU.Domain.Entities.Car;
 using FU.Domain.Entities.CarRouteMapping;
 using FU.Domain.Entities.CarsManager;
+using FU.Domain.Entities.Route;
 using FU.Domain.Entities.Seat;
 using FU.Domain.Models;
 using System;
@@ -17,6 +18,7 @@ namespace FU.Domain.Entities.Ticket
     {
         private readonly ICarRepository _carRepository;
         private readonly ICarsManagerRepository _carsManagerRepository;
+        private readonly IRouteRepository _routeRepository;
         private readonly ICarRouteMappingRepository _carRouteMappingRepository;
         private readonly ISeatRepository _seatRepository;
         private readonly ITicketRepository _ticketRepository;
@@ -24,12 +26,14 @@ namespace FU.Domain.Entities.Ticket
         public TicketDomainService(IUnitOfWork unitOfWork,
             ICarRepository carRepository,
             ICarsManagerRepository carsManagerRepository,
+            IRouteRepository routeRepository,
             ICarRouteMappingRepository carRouteMappingRepository,
             ISeatRepository seatRepository,
             ITicketRepository ticketRepository) : base(unitOfWork)
         {
             _carRepository = carRepository;
             _carsManagerRepository = carsManagerRepository;
+            _routeRepository = routeRepository;
             _carRouteMappingRepository = carRouteMappingRepository;
             _seatRepository = seatRepository;
             _ticketRepository = ticketRepository;
@@ -53,6 +57,12 @@ namespace FU.Domain.Entities.Ticket
             var ticketCheck = await _ticketRepository.GetAsync(x => x.SeatId == model.SeatId && x.CarRouteMappingId == model.CarRouteMappingId);
             if (ticketCheck != null) throw new DomainException("Seat is not available.");
 
+            var mapping = await _carRouteMappingRepository.GetAsync(model.CarRouteMappingId) ?? throw new DomainException("Mapping not found");
+            var car = await _carRepository.GetAsync(model.CarId) ?? throw new DomainException("Car not found");
+            var route = await _routeRepository.GetAsync(model.RouteId) ?? throw new DomainException("Route not found");
+
+            if (mapping.CarId != model.CarId || mapping.RouteId != model.RouteId)
+                throw new DomainException("Mapping doesn't match carid and routeid.");
 
             var ticket = new TicketEntity(model.CarId, model.RouteId, model.CarRouteMappingId, model.SeatId,model.Price, model.ItemDetail, model.TicketServiceType);
 
