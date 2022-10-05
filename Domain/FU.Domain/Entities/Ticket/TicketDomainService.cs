@@ -24,11 +24,13 @@ namespace FU.Domain.Entities.Ticket
         public TicketDomainService(IUnitOfWork unitOfWork,
             ICarRepository carRepository,
             ICarsManagerRepository carsManagerRepository,
+            ICarRouteMappingRepository carRouteMappingRepository,
             ISeatRepository seatRepository,
             ITicketRepository ticketRepository) : base(unitOfWork)
         {
             _carRepository = carRepository;
             _carsManagerRepository = carsManagerRepository;
+            _carRouteMappingRepository = carRouteMappingRepository;
             _seatRepository = seatRepository;
             _ticketRepository = ticketRepository;
         }
@@ -46,6 +48,12 @@ namespace FU.Domain.Entities.Ticket
 
         public async Task<Guid> CreateTicket(CreateTicketModel model)
         {
+            // validate
+            var seat = await _seatRepository.GetAsync(x => x.Id == model.SeatId && x.CarId == model.CarId) ?? throw new DomainException(ShareConstant.NotFound, 404);
+            var ticketCheck = await _ticketRepository.GetAsync(x => x.SeatId == model.SeatId && x.CarRouteMappingId == model.CarRouteMappingId);
+            if (ticketCheck != null) throw new DomainException("Seat is not available.");
+
+
             var ticket = new TicketEntity(model.CarId, model.RouteId, model.CarRouteMappingId, model.SeatId,model.Price, model.ItemDetail, model.TicketServiceType);
 
             await _ticketRepository.CreateAsync(ticket);
@@ -53,21 +61,33 @@ namespace FU.Domain.Entities.Ticket
             return ticket.Id;
         }
 
-        public async Task<Guid> UpdateTicket(UpdateTicketModel model)
+        public async Task<Guid> UpdateTicketSeat(UpdateTicketSeatModel model)
         {
             var ticket = await _ticketRepository.GetAsync(model.Id) ?? throw new DomainException(ShareConstant.NotFound, 404);
-            //var routemapping = await _carRouteMappingRepository.GetAsync(model.CarRouteMappingId) ?? throw new DomainException(ShareConstant.NotFound, 404);
-            //if (routemapping.CarId != model.CarId || routemapping.RouteId != model.RouteId) {
-            //    throw new DomainException("Car and route have not been mapped."); }
-            if(ticket.SeatId != model.SeatId || ticket.CarRouteMappingId != model.CarRouteMappingId)
+
+            var seat = await _seatRepository.GetAsync(x=> x.Id == model.SeatId && x.CarId == ticket.CarId) ?? throw new DomainException("Seat is not found in the car.",404);
+
+            if (ticket.SeatId != model.SeatId)
             {
-                var checkTicketExist = await _ticketRepository.GetAllAsync(x => x.SeatId == model.SeatId 
-                                            && x.CarRouteMappingId == model.CarRouteMappingId) 
-                                            ?? throw new DomainException("Seat is not available.");
+                var checkTicketExist = await _ticketRepository.GetAsync(x => x.SeatId == model.SeatId && x.CarRouteMappingId == ticket.CarRouteMappingId);
+                if (checkTicketExist != null) throw new DomainException("Seat or mapping are not available.");
             }
-            var seat = await _seatRepository.GetAsync(model.SeatId) ?? throw new DomainException(ShareConstant.NotFound,404);
             
-            ticket.UpdateTicketEntity(model);
+            ticket.UpdateTicketSeat(model);
+            await _ticketRepository.UpdateAsync(ticket);
+            await _unitOfWork.SaveChangeAsync();
+            return ticket.Id;
+        }
+        public async Task<Guid> UpdateTicketMapping(UpdateTicketMappingModel model)
+        {
+            var ticket = await _ticketRepository.GetAsync(model.Id) ?? throw new DomainException(ShareConstant.NotFound, 404);
+            var mapping = await _carRouteMappingRepository.GetAsync(model.CarRouteMappingId) ?? throw new DomainException("Mapping not found", 404);
+            var seat = await _seatRepository.GetAsync(x => x.Id == ticket.SeatId && x.CarId == mapping.CarId) ?? throw new DomainException("Seat is not found in the car.", 404);
+
+            var checkSeat = await _ticketRepository.GetAsync(x => x.SeatId == ticket.SeatId && x.CarRouteMappingId == model.CarRouteMappingId);
+            if (checkSeat != null) throw new DomainException("Seat are not available.");
+
+            ticket.UpdateTicketMapping(mapping);
             await _ticketRepository.UpdateAsync(ticket);
             await _unitOfWork.SaveChangeAsync();
             return ticket.Id;

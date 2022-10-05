@@ -48,15 +48,19 @@ namespace FU.Domain.Entities.Ticket
             TicketService = ticketServiceType;
         }
 
-        public void UpdateTicketEntity(UpdateTicketModel model)
+        public void UpdateTicketSeat(UpdateTicketSeatModel model)
         {
-            CarId = model.CarId;
-            RouteId = model.RouteId;
-            CarRouteMappingId = model.CarRouteMappingId;
             SeatId = model.SeatId;
             Price = model.Price;
             ItemDetail = model.ItemDetail;
             TicketService = model.TicketServiceType;
+        }
+
+        public void UpdateTicketMapping(CarRouteMappingEntity model)
+        {
+            CarRouteMappingId = model.Id;
+            CarId = model.CarId;
+            RouteId = model.RouteId;
         }
     }
 }

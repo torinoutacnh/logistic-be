@@ -84,24 +84,44 @@ namespace FU.Service
             }
         }
 
-        public async Task<Guid> UpdateTicketAsync(UpdateTicketModel model)
+        public async Task<Guid> UpdateTicketAsync(UpdateTicketSeatModel model)
         {
             try
             {
-                _logger.Information("Start update ticket");
+                _logger.Information("Start update ticket seat and item");
                 var service = _serviceProvider.GetRequiredService<TicketDomainService>();
 
-                var ticket = await service.UpdateTicket(model);
+                var ticket = await service.UpdateTicketSeat(model);
                 return ticket;
             }
             catch (Exception)
             {
-                _logger.Information("Error on update ticket");
+                _logger.Information("Error on update ticket seat and item");
                 throw;
             }
             finally
             {
-                _logger.Information("Finish update ticket");
+                _logger.Information("Finish update ticket seat and item");
+            }
+        }
+        public async Task<Guid> UpdateTicketMappingAsync(UpdateTicketMappingModel model)
+        {
+            try
+            {
+                _logger.Information("Start update ticket mapping");
+                var service = _serviceProvider.GetRequiredService<TicketDomainService>();
+
+                var ticket = await service.UpdateTicketMapping(model);
+                return ticket;
+            }
+            catch (Exception)
+            {
+                _logger.Information("Error on update ticket mapping");
+                throw;
+            }
+            finally
+            {
+                _logger.Information("Finish update ticket mapping");
             }
         }
 

@@ -12,7 +12,8 @@ namespace FU.Service.Contract
         Task<List<TicketViewModel>> GetTicketListAsync();
         Task<TicketViewModel> GetTicketAsync(Guid id);
         Task<Guid> CreateTicketAsync(CreateTicketModel model);
-        Task<Guid> UpdateTicketAsync(UpdateTicketModel model);
+        Task<Guid> UpdateTicketAsync(UpdateTicketSeatModel model);
+        Task<Guid> UpdateTicketMappingAsync(UpdateTicketMappingModel model);
         Task DeleteTicketAsync(Guid id);
     }
 }
