@@ -8,6 +8,7 @@
         public const string GetSingle = Base + "/{id}";
         public const string CreateTicket = Base + "/create-ticket";
         public const string UpdateTicketInfo = Base + "/update-ticket-info";
+        public const string UpdateTicketMapping = Base + "/update-ticket-mapping";
         public const string DeleteTicket = Base + "/delete-ticket/{id}";
     }
 }

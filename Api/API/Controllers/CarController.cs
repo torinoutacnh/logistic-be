@@ -170,9 +170,17 @@ namespace API.Controllers
 
         [HttpPost]
         [Route(TicketEndpoints.UpdateTicketInfo)]
-        public async Task<IActionResult> UpdateTicketInfo([FromBody]UpdateTicketModel model)
+        public async Task<IActionResult> UpdateTicketInfo([FromBody]UpdateTicketSeatModel model)
         {
             var ticket = await _manageTicketService.UpdateTicketAsync(model);
+            var res = new ResponseModel<Guid>(ticket);
+            return Ok(res);
+        }
+        [HttpPost]
+        [Route(TicketEndpoints.UpdateTicketMapping)]
+        public async Task<IActionResult> UpdateTicketMapping([FromBody]UpdateTicketMappingModel model)
+        {
+            var ticket = await _manageTicketService.UpdateTicketMappingAsync(model);
             var res = new ResponseModel<Guid>(ticket);
             return Ok(res);
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FU.Domain.Entities.CarRouteMapping
 {
-    public interface ICarRouteMappingRepository:IRepository<Mapping.CarRouteMappingEntity>
+    public interface ICarRouteMappingRepository:IRepository<CarRouteMappingEntity>
     {
         Task<CarRouteMappingInfoModel?> GetCarRouteMappingInfo(Guid id);
         Task<List<CarRouteMappingInfoModel>> GetCarRouteMappingInfos();
