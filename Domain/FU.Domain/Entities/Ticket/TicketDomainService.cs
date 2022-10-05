@@ -59,7 +59,12 @@ namespace FU.Domain.Entities.Ticket
             //var routemapping = await _carRouteMappingRepository.GetAsync(model.CarRouteMappingId) ?? throw new DomainException(ShareConstant.NotFound, 404);
             //if (routemapping.CarId != model.CarId || routemapping.RouteId != model.RouteId) {
             //    throw new DomainException("Car and route have not been mapped."); }
-
+            if(ticket.SeatId != model.SeatId || ticket.CarRouteMappingId != model.CarRouteMappingId)
+            {
+                var checkTicketExist = await _ticketRepository.GetAllAsync(x => x.SeatId == model.SeatId 
+                                            && x.CarRouteMappingId == model.CarRouteMappingId) 
+                                            ?? throw new DomainException("Seat is not available.");
+            }
             var seat = await _seatRepository.GetAsync(model.SeatId) ?? throw new DomainException(ShareConstant.NotFound,404);
             
             ticket.UpdateTicketEntity(model);
